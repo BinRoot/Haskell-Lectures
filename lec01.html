@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Introduction to Haskell</title>
+
+    <meta name="description" content="A course on the world's fastest growing functional programming language">
+    <meta name="author" content="Nishant Shukla">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+  </head>
+
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Slides begin here! -->
+      <div class="slides">
+	<section>
+
+
+          <section>
+            <h1>Introduction To Haskell</h1>
+            <p>Lecture 1</p>
+            <p>
+              <br>
+            </p>
+            <p>An Unexpected Journey™</p>
+	  </section>
+
+<!-- thank estud and prof davidson.  -->
+          <section>
+	    <h3>Instructor</h3>
+	    <p>Nishant Shukla</p>
+	    <p><small>ns4av@virginia.edu</small></p>
+	    <br>
+	    <h3>Watchful Guardian</h3>
+	    <p>Professor Jack Davidson</p>
+	    <p><small>jwd@virginia.edu</small></p>
+	  </section>
+
+	  <section>
+	    <h2>Sponsored by...</h2>
+	    <img src="L01_files/estud.png">
+	  </section>
+
+	  <section data-state="soothe">
+	    <h4>Quite a Turnout</h4>
+	    <img src="L01_files/overflow.png">
+	    <img src="L01_files/overflow2.png">
+	  </section>
+
+	  <section>
+            <img width="800" src="L01_files/ranking.png">
+	  </section>
+
+	  <section>
+	    <h3>Syllabus</h3>
+
+	    <p>
+	      <a href="http://people.virginia.edu/~ns4av/syllabus">Find it on the class website</a>
+	      <small>(Slides, homework, and announcements)</small></p>
+	    <small><p>Meet once a week, Tuesday 5:30pm</p>
+	    <div style="text-align: left; margin-left:30%;">
+	    <p>Attendance: 40pts (5pts/day)</p>
+	    <p>Homework: 30pts</p>
+	    <p>Project: 30pts</p></small>
+	    </div>
+	    <br>
+	    
+	    <div class="fragment roll-in">
+	    <h3>Reference Text</h3>
+	    <p><a href="http://book.realworldhaskell.org/">Real World Haskell</a></p>
+	    <p><small>by Bryan O’Sullivan, Don Stewart, and John Goerzen</small></p>
+	    <p><a href="http://learnyouahaskell.com/">Learn You a Haskell</a></p>
+	    <p><small>by Miran Lipovača</small></p>
+	    </div>
+	  </section>
+
+	  <section>
+            <h2>More Than a Language</h2>
+	    <blockquote>I know why you're here. ...why you hardly sleep, why night after night, you sit by your computer.</blockquote>
+	    <p>
+	      <img width="200" src="L01_files/neo.jpg">
+	      <br>
+	    </p>
+	  </section>
+
+	  <section>
+	    <h2>The Origin</h2>
+	    <p>Haskell was made by a <strong>committee</strong> of really smart people to define an open standard<a href="http://www.haskell.org/onlinereport/preface-jfp.html">*</a></p>
+	    <small>More than 20 years old</small>
+
+	    <ul>
+	      <li>MIT</li>
+	      <li>Chalmers University</li>
+	      <li>Mitre Corp</li>
+	      <li>Victoria University of Wellington</li>
+	      <li>Simon Fraser University</li>
+	      <li>University of Cambridge</li>
+	      <li>Yale University</li>
+	      <li>Uniiversity of Glasgow</li>
+	      <li>Microsoft Research Ltd</li>
+	    </ul>
+	  </section>
+
+          <section>
+            <h2>Features</h2>
+            <div>
+              <br>
+            </div>
+            <div>
+              <ol>
+                <li>Purely functional</li>
+                <li>Statically typed</li>
+                <li>Lazy</li>
+              </ol>
+            </div>
+          </section>
+
+	  <section>
+	    <h3>1. Purely functional</h3>
+	    <div>
+	      <ul>
+		<li><strong>Every</strong> input has a corresponding output</li>
+		<li>
+		  <p>
+		    f(x) = x² + 1
+		  </p>
+		</li>
+		<li>
+		  <p>Powerful <strong>function compositions</strong></p>
+		  <p>
+		    g(x) = x - 1
+		  </p>
+		  <p>
+		    g(f(x)) = x²
+		  </p>
+		</li>
+		<li>
+		  <p><strong>PURE</strong></p>
+		  <p>That means <i>no side effects</i></p>
+		  <p>A function will never modify a <i>global variable</i></p>
+		  <p> 
+		  <p>Order doesn't matter!</p>
+		  <p>Easy concurrency</p>
+		</li>
+	      </ul>
+	    </div>
+	  </section>
+	  
+	  <section data-state="soothe">
+	    <h4>Let's be a little formal</h4>
+	    <p>f is function from a set A to a set B.</p>
+	    <p>f :: A → B</p>
+	    <strong>What's the domain, codomain, and range?</strong>
+	    <pre><code contenteditable>
+domain(f)   = 
+codomain(f) = 
+range(f)    ⊆ 
+	    </code></pre>
+<div class="fragment roll-in">
+Answer:
+	    <pre><code>
+domain(f)   = A
+codomain(f) = B
+range(f)    ⊆ B
+	    </code></pre>
+</div>
+
+	  </section>
+
+	  <section>
+	    <p>Functional:</p>
+	    <small>Haskell, Lisp, ML, Scheme, Erlang</small>
+	    <p><small>Focuses on the high-level <i>"what"</i></small></p>
+	    <p>Imperative:</p>
+	    <small>C++, Java, Python, Pascal</small>
+	    <p><small>Focuses on the low-level <i>"how"</i></small></p>
+	  </section>
+
+	  <section data-state="soothe">
+	    <h4>What does this code do?</h4>
+	    <pre><code>
+<small>
+void f(int a[], int lo, int hi) 
+{
+  int h, l, p, t;
+
+  if (lo < hi) {
+    l = lo;
+    h = hi;
+    p = a[hi];
+
+    do {
+      while ((l < h) && (a[l] <= p)) 
+          l = l+1;
+      while ((h > l) && (a[h] >= p))
+          h = h-1;
+      if (l < h) {
+          t = a[l];
+          a[l] = a[h];
+          a[h] = t;
+      }
+    } while (l < h);
+
+    a[hi] = a[l];
+    a[l] = p;
+
+    f( a, lo, l-1 );
+    f( a, l+1, hi );
+  }
+}
+</small>
+	    </code></pre>
+	    <small><a href="http://www.haskell.org/haskellwiki/Introduction">*</a></small>
+	  </section> 
+
+	  <section>
+	    <h3>Sort in Haskell</h3>
+	    <div class="fragment">
+	      <pre><code>
+<b>sort</b> :: Ord a =&gt; [a] -&gt; [a]
+	      </code></pre>
+	    </div>
+
+	    <pre><code contenteditable>
+<b>sort</b> []     = []
+
+<b>sort</b> (p:xs) = (<b>sort</b> lesser) ++ [p] ++ (<b>sort</b> greater)
+    where
+        lesser  = filter (&lt; p) xs
+        greater = filter (&gt;= p) xs</pre>
+</code></pre>
+            <div class="fragment">
+              <p>No variable assignements, </p>
+	      <p>No array indices, </p>
+	      <p>No memory management!</p>
+	    </div>
+          </section>
+
+<!-- If code compiles, then you're 99% done. -->
+	  <section>
+	    <h3>2. Statically Typed</h3>
+	    <ul>
+	      <li>f x = x² + 1</li>
+	      <li>f :: Int → Int</li>
+	      <li>There is never confusion about types 
+		<p>(Bool, Int, Char, etc)</p>
+	      </li>
+	      <li>Strong formalism. The proof is the code.</li>
+	      <li>If your code compiles, you're 99% done</li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h3>3. Lazy</h3>
+	    <img src="L01_files/lazy.jpg">
+	  </section>
+
+	  <section>
+	    <h4>Lazy?</h4>
+	    <ul>
+	      <li>Nothing is evaluated unless necessary</li>
+	      <pre><code contenteditable>
+head (sort ls)
+	      </code></pre>
+
+	      <li>Allows infinite data structures</li>
+	      <pre><code>
+[1..]
+	      </code></pre>
+
+	    </ul>
+	  </section>
+
+	  <section>
+	    <blockquote>
+Language shapes the way we think, and determines what we
+can think about.
+	    </blockquote>
+	    <small>- Benjamin Lee Whorf</small>
+
+	    <blockquote>
+The limits of my language mean the limits of my world.
+	    </blockquote>
+	    <small>- Ludwig Wittgenstein</small>
+
+	    <blockquote>
+A language that doesn’t affect the way you think about programming, is not worth knowing.
+	    </blockquote>
+	    <small>- Alan Perlis</small>
+	    <p><small><a href="http://www.inf.ed.ac.uk/teaching/courses/inf1/fp/lectures/2012/lect01.pdf">*</a></small></p>
+	  </section>
+
+	</section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+      });
+
+    </script>
+
+  </body>
+</html>
