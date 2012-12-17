@@ -248,14 +248,14 @@ void f(int a[], int lo, int hi)
 	    <h3>The Same Sort in Haskell</h3>
 	    <div class="fragment">
 	      <pre><code>
-<b>sort</b> :: Ord a =&gt; [a] -&gt; [a]
+<b>qsort</b> :: Ord a =&gt; [a] -&gt; [a]
 	      </code></pre>
 	    </div>
 
 	    <pre><code contenteditable>
-<b>sort</b> []     = []
+<b>qsort</b> []     = []
 
-<b>sort</b> (p:xs) = (<b>sort</b> lesser) ++ [p] ++ (<b>sort</b> greater)
+<b>qsort</b> (p:xs) = (<b>qsort</b> lesser) ++ [p] ++ (<b>qsort</b> greater)
     where
         lesser  = filter (&lt; p) xs
         greater = filter (&gt;= p) xs</pre>
