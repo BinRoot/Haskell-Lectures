@@ -320,6 +320,11 @@ Ok, modules loaded: Main.
 	    <br>
 	    <p><small>Haskell allows a similar notation</small><p>
 	    <p><code>[ x | x ← S, p x ]</code></p>
+	    <br>
+	    <div class="fragment roll-in">
+	      <p><small>← is pronounced <b>"drawn from"</b></small></p>
+	      <p><small><code>p x</code> is called a <b>guard</b></small></p>
+	    </div>
 
 	  </section>
 
@@ -405,13 +410,17 @@ Prelude> snd (1,2)
 
 <!-- [f arg | f<-fs, arg<-args] -->
           <section>
-	    <p>Print all ordered pairs that differ by more than 6</p>
-	    <small>Assume each element is within 1..10</small>
+	    <h3>Tuple Examples</h3>
 	    <pre><code>
-Prelude> [(a, b) | a<-[1..10], b<-[1..10], abs (a-b) > 6, a&lt;b]
-
-[(1,8),(1,9),(1,10),(2,9),(2,10),(3,10)]
+Prelude> [ (n, even n) | n <- [1..4] ]
+[(1,False),(2,True),(3,False),(4,True)]
 	    </code></pre>
+	    <pre><code>
+Prelude> [(a,b,c) | c<-[1..10], b<-[1..c], a<-[1..b]
+					 , a^2 + b^2 == c^2]
+[(3,4,5),(6,8,10)]
+	    </code></pre>
+
 	  </section>
 
           <section>
