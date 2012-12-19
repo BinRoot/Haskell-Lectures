@@ -8,7 +8,7 @@ View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
 
 ### L03 - Data Types and Typeclasses
 
-### L04 -
+### L04 - Pattern matching, Guards, and Syntax
 
 ### L05 -
 
