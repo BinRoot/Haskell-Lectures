@@ -189,6 +189,12 @@ Prelude> :type (:)
 	  </section>
 
 	  <section>
+	    <h2>Google Tech Talk</h2>
+	    <p><small>(8:00 to 9:22)</small></p>
+<iframe width="672" height="504" src="http://www.youtube.com/embed/b9FagOVqxmI?start=480&end=562" frameborder="0" allowfullscreen></iframe>
+	  </section>
+
+	  <section>
 	    <h2>Typeclasses</h2>
 	    <p>A typeclass lets you generalize a function.</p>
 	    <ul>
@@ -341,6 +347,7 @@ Prelude> :load myfile.hs
 	    <p>Create <code>mycode.hs</code> and write a function called <code>zipTogether</code></p>
 	    <pre id="j"><code contenteditable>
 -- mycode.hs
+-- comments begin with a '--'
 
 -- |The 'zipTogether' function binds together two lists.
 
@@ -349,6 +356,7 @@ zipTogether :: [a] -> [b] -> [(a,b)]
 	    </code></pre>
 	    <pre id="k" style="display:none;"><code contenteditable>
 -- mycode.hs
+-- comments begin with a '--'
 
 -- |The 'zipTogether' function binds together two lists.
 
@@ -363,6 +371,7 @@ zipTogether xs ys = (head xs, head ys):
 -- mycode.hs
 
 -- |The 'zipTogether' function binds together two lists.
+-- comments begin with a '--'
 
 zipTogether :: [a] -> [b] -> [(a,b)]
 zipTogether [] [] = []
