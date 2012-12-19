@@ -1,3 +1,32 @@
+# Introduction to Haskell
+
+View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
+
+### L01 - Intro and theory
+
+### L02 - Lists, Tuples
+
+### L03 - Data Types and Typeclasses
+
+### L04 -
+
+### L05 -
+
+### L06 -
+
+### L07 -
+
+### L08 -
+
+### L09 -
+
+### L10 -
+
+### L11 -
+
+### L12 -
+
+
 # reveal.js
 
 A framework for easily creating beautiful presentations using HTML. [Check out the live demo](http://lab.hakim.se/reveal-js/).
