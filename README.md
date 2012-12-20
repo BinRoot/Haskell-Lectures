@@ -12,19 +12,19 @@ View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
 
 ### L05 - Constructing a Type
 
-### L06 -
+### L06 - Cabal
 
-### L07 -
+### L07 - Monads (http://twit.tv/show/floss-weekly/236 18:00)
 
 ### L08 -
 
 ### L09 -
 
-### L10 -
+### L10 - 
 
-### L11 -
+### L11 - Yesod / Haskell Web Frameworks?
 
-### L12 -
+### L12 - Category Theory?
 
 
 ## License
