@@ -27,6 +27,13 @@ View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
 ### L12 -
 
 
+## License
+
+MIT licensed
+
+Copyright (C) 2012-2013 Nishant Shukla, http://shuklan.com
+
+
 
 # reveal.js
 
