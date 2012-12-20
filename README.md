@@ -10,7 +10,7 @@ View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
 
 ### L04 - Pattern matching, Guards, and Syntax
 
-### L05 -
+### L05 - Constructing a Type
 
 ### L06 -
 
@@ -25,6 +25,7 @@ View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
 ### L11 -
 
 ### L12 -
+
 
 
 # reveal.js
