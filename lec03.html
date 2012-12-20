@@ -295,6 +295,23 @@ take :: Int -> [a] -> [a]
 	  </section>
 
 	  <section>
+	    <h3>A Closer Look</h3>
+	    <p>at the <code>take</code> function:</p>
+	    <pre><code>
+take :: Int -> [a] -> [a]
+	    </code></pre>
+	    <br>
+	    <div class="fragment roll-in">
+	      <p>The <code>-></code> operator is <i>right-associative</i></p>
+	      <pre><code>
+take :: Int -> ([a] -> [a])
+	      </code></pre>
+	      <p><code>take</code> has type of <i>Int to a function</i></p>
+	    </div>
+
+	  </section>
+
+	  <section>
 	    <h3>Partial Applications</h3>
 	    <p>Every function technically has one argument.</p>
 	    <p>Actually, this is really cool!</p>

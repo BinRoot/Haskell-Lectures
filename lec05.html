@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Introduction to Haskell - Lecture 5</title>
+
+    <meta name="description" content="A course on the world's fastest growing functional programming language">
+    <meta name="author" content="Nishant Shukla">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+  </head>
+
+
+  <body>
+
+    <script>
+      function toggleElements(one, two) {
+          document.getElementById(one).style.display = 'none';
+          document.getElementById(two).style.display = 'block';
+      }
+    </script>
+
+
+    <div class="reveal">
+
+      <!-- Slides begin here! -->
+      <div class="slides">
+	<section>
+
+
+          <section>
+            <h1>Introduction To Haskell</h1>
+            <p>Lecture 5</p>
+            <p>
+              <br>
+            </p>
+            <p>Make Your Own Data Type</p>
+	  </section>
+
+	  <section>
+	    <h3>Some Existing Data Types</h3>
+	    <ul>
+	      <li><p>Bool  =  False | True</p></li>
+	      <li><p>Int  =  -2<sup>31</sup> ... -1 | 0 | 1 ... 2<sup>31</sup>-1</p></li>
+	      <li><p>[Char]  =  [] | Char : [Char]</p></li>
+	      <li><p>Double</p></li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h3>Making Data Types</h3>
+	    <ul>	    
+	      <li>gives us better structured code</li>
+	      <li>makes programs more readable</li>
+	      <li>improves type safety of code</li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h3><code>data</code> keyword</h3>
+	    <p>Create a file <code>MyData.hs</code></p>
+	    <p>Start a line with <code>data</code> and name the type <code>MetricUnits</code></p>
+	    <pre><code>
+data MetricUnit = Meter | Liter | KiloGram
+	    </code></pre>
+
+	    <p><i>MetricUnit</i> is called the <b>type constructor</b></p>
+	    <p>Everything after the equal sign is called the <b>value constructor</b></p>
+
+	  </section>
+
+	  <section>
+	    <h3>What Exactly is a Type?</h3>
+	    <p>Let's look at <i>Meter</i>, <i>Liter</i>, and <i>KiloGram</i></p>
+	    <pre><code>
+Prelude> :type True
+Bool :: True
+
+Prelude> :load MyData.hs
+
+Prelude> :type Meter
+Meter :: MetricUnit
+
+Prelude> :type Liter
+Liter :: MetricUnit
+
+Prelude> :type KiloGram
+KiloGram :: MetricUnit
+	    </code></pre>
+	    <p>They are each of type <i>MetricUnit</i></p>
+	  </section>
+
+	  <section data-state="soothe">
+	    <h3>Remember <i>Show</i>?</h3>
+	    <small><code>Show</code> is a Typeclass that enables data to be shown as a String</small>
+	    <div class="fragment roll-in">
+	      <pre><code>
+Prelude> True
+True
+
+Prelude> Meter
+ No instance for (Show MetricUnit) arising from a use of `print'
+ Possible fix: add an instance declaration for (Show MetricUnit)
+	      </code></pre>
+	      <p>Why did we get this error?</p>
+	    </div>
+	  </section>
+
+	  <section>
+	    <h3><code>deriving (Show)</code></h3>
+	    <ul>
+	    <li><p>GHCi is trying to call the print function</p></li>
+	    <li><p><code>print</code> only works for things that derive Show</p></li>
+	    <li><p>but a MetricUnit doesn't derive Show</p></li>
+	    </ul>
+	    <br>
+	    <br>
+	    <div class="fragment roll-in">
+	    <pre><code>
+data MetricUnit = Meter | Liter | KiloGram  deriving (Show)
+	    </code></pre>
+	    <small><i>FTFY</i></small>
+	    </div>
+	  </section>
+
+	  <section>
+	    <h3>Type Safety</h3>
+	    <ul>
+	      <li><p>Haskell programs are type safe.</p></li>
+	      <li><p>We can't use our MetricUnit type unless a function accepts it</p></li>
+	    </ul>
+	    <br>
+	    <br>
+	    <p>So let's make our own function</p>
+	  </section>
+
+	  <section data-state="soothe">
+	    <h3>Function for MetricUnit</h3>
+	    <p>Write a simple function that takes in a MetricUnit, and returns its symbol</p>
+	    <ul>
+	      <li>Meter → "m"</li>
+	      <li>Liter → "L"</li>
+	      <li>KiloGram → "kg"</li>
+	    </ul>
+	    <pre id="a"><code contenteditable>
+symbol :: MetricUnit -> String
+
+
+
+	    </code></pre>
+	    <pre id="b" style="display:none;"><code>
+symbol :: MetricUnit -> String
+symbol Meter = "m"
+symbol Liter = "L"
+symbol KiloGram = "kg"
+	    </code></pre>
+
+	    <span style="font-size:12px;">
+	      <a onclick="toggleElements('b', 'a');">(clear answer)</a>
+	      <a onclick="toggleElements('a', 'b');">(show answer)</a>
+	    </span>
+	  </section>
+
+	  <section data-state="soothe">
+	    <h3>Same Function With Guards</h3>
+	    <p>Rewrite <code>symbol</code> using guards</p>
+	    <pre id="c"><code contenteditable>
+symbol :: MetricUnit -> String
+
+
+
+
+	    </code></pre>
+	    <pre id="d" style="display:none;"><code>
+symbol :: MetricUnit -> String
+symbol x
+    | x==Meter    = "m"
+    | x==Liter    = "L"
+    | x==KiloGram = "kg"
+	    </code></pre>
+
+	    <span style="font-size:12px;">
+	      <a onclick="toggleElements('d', 'c');">(clear answer)</a>
+	      <a onclick="toggleElements('c', 'd');">(show answer)</a>
+	    </span>
+	    <p>Try compiling it. What happens?</p>
+	  </section>
+	  
+	  <section>
+	    <h3><code>deriving (Eq)</code></h3>
+	    <p>GHCi is yelling at us because we used '=='</p>
+	    <pre><code>
+    No instance for (Eq MetricUnit) arising from a use of `=='
+    Possible fix: add an instance declaration for (Eq MetricUnit)
+    In the expression: x == Meter
+	    </code></pre>
+	    <br>
+	    <p>So MetricUnit should also derive Eq if we want to use '=='</p>
+	    <pre><code>
+data MetricUnit = Meter | Liter | KiloGram  deriving (Show, Eq)
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>Metric to Imperial</h2>
+	    <p>Let's write a <code>convert</code> function with our types.</p>
+	    <p>We will convert from Metric to Imperial.</p>
+	    <p>Just like last week's homework</p>
+	    <br>
+	    <p class="fragment roll-in">But this time it will be elegant!</p>
+	  </section>
+
+	  <section>
+	    <p>1. Define <i>MetricUnit</i> and <i>ImperialUnit</i></p>
+	    <pre><code contenteditable>
+data MetricUnit = Meter
+                | Liter
+                | KiloGram
+                  deriving (Show, Eq)
+
+data ImperialUnit = Yard
+                  | Gallon
+                  | Pound
+                    deriving (Show)
+	    </code></pre>
+	    <br>
+	    
+	    
+	  </section>
+
+	  <section>
+	    <p>2. Define Measurement</p>
+	    <pre><code>
+data Measurement = MetricMeasurement Double MetricUnit 
+                 | ImperialMeasurement Double ImperialUnit 
+                   deriving (Show)
+	    </code></pre>
+	    <br>
+	    <p>This is new!</p>
+	    <br>
+	    <small><code>(MetricMeasurement 3.1 Liter) :: Measurement</code></small>
+	    <small><code>(ImperialMeasurement 200 Pound) :: Measurement</code></small>
+	  </section>
+
+	  <section>
+	    <p>3. Create the <code>convert</code> function</p>
+	    <pre><code>
+convert :: Measurement -> Measurement
+	    </code></pre>
+	    <br>
+	    <p>Implement it with pattern matching and guards</p>
+	    <pre class="fragment roll-in"><code>
+convert (MetricMeasurement x u)
+    | u==Meter    = ImperialMeasurement (1.0936*x) Yard
+    | u==Liter    = ImperialMeasurement (0.2642*x) Gallon
+    | u==KiloGram = ImperialMeasurement (2.2046*x) Pound
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+convert (ImperialMeasurement x u)
+    | u==Yard   = MetricMeasurement (0.9144*x) Meter
+    | u==Gallon = MetricMeasurement (3.7854*x) Liter
+    | u==Pound  = MetricMeasurement (0.4536*x) KiloGram
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <p>4. Compile and Test</p>
+	    <pre><code>
+Prelude> let m = MetricMeasurement 2 Meter
+
+Prelude> convert m
+ImperialMeasurement 2.18722 Yard
+
+Prelude> convert (convert m)
+MetricMeasurement 2 Meter
+	    </pre></code>
+	    <img class="fragment roll-in" src="L05_files/awwyea.jpg">
+	  </section>
+
+	  <section>
+	    <h2>Record Syntax</h2>
+	    <p>Remember, Haskell is lazy, and so are we.</p>
+	    <p>Creating getter functions is monotonous!</p>
+	    <pre><code>
+data Point = Point Double Double
+
+xval :: Point -> Double
+xval (Point x _) = x
+
+yval :: Point -> Double
+yval (Point _ y) = y
+	    </code></pre>
+	    <br>
+	    <div class="fragment roll-in">
+	      <p>Haskell provides a shortcut called record syntax</p>
+	      <pre><code>
+data Point = Point { xval::Double, yval::Double }
+	      </code></pre>
+	    </div>
+	  </section>
+
+	  <section>
+	    <h3>Record Syntax Looks Nice</h3>
+	    <p>It makes code more readable</p>
+	    <pre><code>
+let a = Point 2 3
+
+let b = Point {xval = 2, yval = 3}
+	    </code></pre>
+	    <small><p>There's more to write, but anyone can easily figure out what's going on.</p></small>
+	    <small><p>Especially for large data types!</p></small>
+	  </section>
+
+	  <section>
+	    <h2>Type Parameters</h2>
+	    <p>Oh yea, even types can have arguments.</p>
+	    <pre><code>
+data ThreeThings a = ThreeThings a a a  deriving (Show)
+	    </code></pre>
+	    <br>
+	    <small><code>ThreeThings</code> is bundle of three identical types</small>
+	    <pre><code>
+Prelude> ThreeThings 1 2 3
+ThreeThings 1 2 3
+
+Prelude> ThreeThings "hello" "there" "lad"
+ThreeThings "hello" "there" "lad"
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>Modules</h2>
+	    <p>We can export useful code to a module</p>
+	    <p>so that other projects can reuse them.</p>
+	    <br>
+	    <small>Let's make a module out of our measurement conversion code.</small>
+	    <p>Step 1</p>
+	    <pre><code>
+module MyData
+    (MetricUnit(..),
+     ImperialUnit(..),
+     Measurement(..),
+     convert)
+where
+	    </code></pre>
+	    <div class="fragment roll-in">
+	    <p>Done. No step 2. That was easy!</p>
+	    <small>Note: your file name should be the same as your module name!</small>
+	    </div>
+	  </section>
+	  
+	  <section>
+	    <h2>Importing Code</h2>
+	    <p>Use <code>convert</code> from anywhere!</p>
+	    <pre class="fragment roll-in"><code>
+-- OtherFile.hs
+
+import MyData
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+reportMeasurement :: Measurement -> String
+	    </code></pre>
+
+	    <pre class="fragment roll-in"><code>
+-- if metric, print out the measurement
+
+reportMeasurement (MyData.MetricMeasurement x u) 
+    = (show x) ++ " " ++ (show u)
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+-- otherwise if imperial, convert the measurement and try again
+
+reportMeasurement m 
+    = reportMeasurement (convert m)
+	    </code></pre>
+	  </section>
+
+          <section>
+	    <h1>Homework</h1>
+	    <h2>Trees in Haskell</h2>
+	    <ol>
+	      <li>Fill out this form!</li>
+	      <li>Create a binary tree data type of Int nodes</li>
+	      <pre><code>data Tree = ... </code></pre>
+	      <li>Write a function to sum all nodes in the tree</li>
+	      <pre><code>add :: Tree -> Int</code></pre>
+	    </ol>
+	  </section>
+
+	</section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+      });
+
+    </script>
+
+  </body>
+</html>
