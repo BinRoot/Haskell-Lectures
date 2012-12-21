@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Introduction to Haskell - Lecture 6</title>
+
+    <meta name="description" content="A course on the world's fastest growing functional programming language">
+    <meta name="author" content="Nishant Shukla">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+  </head>
+
+
+  <body>
+
+    <script>
+      function toggleElements(one, two) {
+          document.getElementById(one).style.display = 'none';
+          document.getElementById(two).style.display = 'block';
+      }
+    </script>
+
+
+    <div class="reveal">
+
+      <!-- Slides begin here! -->
+      <div class="slides">
+	<section>
+
+
+          <section>
+            <h1>Introduction To Haskell</h1>
+            <p>Lecture 6</p>
+            <p>
+              <br>
+            </p>
+            <p>Maps, Folds, and Beyond</p>
+	  </section>
+
+	  <section>
+	    <h3>High Order Functions</h3>
+	    <p>Functions can take functions as arguments</p>
+	    <img src="L06_files/inception.png">
+	  </section>
+	  
+	  <section>
+	    <h2>Maps</h2>
+	    <p>A map applies a function to each element of a list</p>
+	    <pre><code>
+Prelude> map even [1..10]
+[False,True,False,True,False,True,False,True,False,True]
+
+Prelude> map (+5) [1..10]
+[6,7,8,9,10,11,12,13,14,15]
+            </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>Defining <code>Map</code></h3>
+	    <p class="fragment roll-in">Type signature:</p>
+	    <pre class="fragment roll-in"><code>
+map :: (a -> b) -> [a] -> [b]
+	    </code></pre>
+	    <br>
+	    <p class="fragment roll-in">Possible Implementation:</p>
+	    <pre class="fragment roll-in"><code>
+map f [] = []
+map f (x:xs) = (f x):(map f xs)
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>Filters</h2>
+	    <p>A filter refines a list using a predicate</p>
+	    <pre><code>
+Prelude> filter even [1..10]
+[2,4,6,8,10]
+
+Prelude> filter (>5) [1..10]
+[6,7,8,9,10]
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>Defining <code>Filter</code></h3>
+	    <p class="fragment roll-in">Type signature:</p>
+	    <pre class="fragment roll-in"><code>
+filter :: (a -> Bool) -> [a] -> [a]
+	    </code></pre>
+	    <br>
+	    <p class="fragment roll-in">Possible Implementation:</p>
+	    <pre class="fragment roll-in"><code>
+filter p []                 = []
+filter p (x:xs) | p x       = x : filter p xs
+                | otherwise = filter p xs
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>Anonymous Function</h2>
+	    <p>We can use λ-calculus to define a function</p>
+	    <pre><code>
+Prelude> map (\x -> x*x) [1..10]
+[1,4,9,16,25,36,49,64,81,100]
+	    </code></pre>
+	    <br>
+	    <div class="fragment roll-in">
+	      <p>This notation is inspired from <a href="http://en.wikipedia.org/wiki/Lambda_calculus">lambda calculus</a></p>
+	      <p>λx.(x*x)</p>
+	    </div>
+	  </section>
+
+	  <section>
+	    <h3>These Are Very Powerful</h3>
+	    <pre><code>
+Prelude> data Gender = Male | Female deriving (Show, Eq)
+
+Prelude> let people = [(Male, "Mal"),   (Female, "Zoe"), 
+                       (Male, "Wash"),  (Female, "Inara"), 
+                       (Male, "Jayne"), (Female, "Kaylee")
+                       (Male, "Simon"), (Female, "River")]
+
+Prelude> filter (\(a,b) -> a==Female) people
+[ (Female,"Zoe"), (Female,"Inara"), 
+  (Female,"Kaylee"), (Female,"River") ]
+
+Prelude> map snd it
+["Zoe", "Inara", "Kaylee", "River"]
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>Folds</h2>
+	    <p>A fold scans an entire list to return a result</p>
+	    <pre><code>
+-- sum up all elements of a list
+
+Prelude> foldl (+) 0 [1, 2, 3]
+6
+
+
+-- count the number of vowels in a String
+
+Prelude> foldl (\acc x -> if x `elem` "aeiou" 
+                          then acc+1 
+                          else acc)  0 "hello world"
+2
+
+	    </code></pre>
+	    <img src="L06_files/fold.jpg">
+	  </section>
+
+	  <section>
+	    <h2>Scans</h2>
+	    <p>A scan shows the intermediate values of a fold</p>
+	    <pre><code>
+-- sum up all elements of a list
+
+Prelude> scanl (+) 0 [1, 2, 3]
+[0,1,3,6]
+
+
+-- count the number of vowels in a String
+
+Prelude> scanl (\acc x -> if x `elem` "aeiou"
+                          then acc+1
+                          else acc)  0 "hello world"
+[0,0,1,1,1,2,2,2,3,3,3,3]
+
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>Function Application</h2>
+	    <p>The <code>($)</code> function is called a function application.</p>
+	    <p>It makes functions right associative</p>
+	    <pre class="fragment roll-in"><code>
+Prelude> not odd 4
+ERROR!
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude> not (odd 4)
+True
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude> not $ odd 4
+True
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>The <code>(.)</code> Function</h2>
+	    <p>It composes functions in a readable manner</p>
+	    <br>
+	    <p><code>f(g(h(k(x))))</code> is ugly</p>
+	    <p><code>(f.g.h.k)(x)</code> is pretty</p>
+	    <br>
+	    <pre><code>
+Prelude> (not.odd) 4
+True
+
+Prelude> (length.head.words) "University of Virginia"
+10
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>Plethora of Functions</h3>
+	    <p>These are only <b>some</b> of the functions in <i>Prelude</i></p>
+	    <br>
+	    <p>Haskell comes with a bunch more:</p>
+	    <ul>
+	      <li>Data.List</li>
+	      <li>Data.Char</li>
+	      <li>Data.Map</li>
+	      <li>Data.Set</li>
+	    </ul>
+	    <br>
+	    <br>
+	    <p>...and more than 350 others!</p>
+	  </section>
+
+	  <section>
+	    <h2>Data.List</h2>
+	    <pre class="fragment roll-in"><code>
+Prelude> import Data.List
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.List> concat ["under","stand","able"]
+"understandable"
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.List> any (==0) [1,1,1,1,1,0,1]
+True
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.List> sort "hello"
+"ehllo"
+	    </code></pre>
+	    <small class="fragment roll-in">...and over 200 more!</small>
+	  </section>
+
+	  <section>
+	    <h2>Data.Char</h2>
+	    <pre class="fragment roll-in"><code>
+Prelude> import Data.Char
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Char> isNumber 'h'
+False
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Char> toUpper 't'
+'T'
+	    </code></pre>
+
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Char> map ord ['A'..'F']
+[65,66,67,68,69,70]
+	    </code></pre>
+	    <small class="fragment roll-in">...and over 100 more!</small>
+	  </section>
+
+	  <section>
+	    <h2>Data.Map</h2>
+	    <pre class="fragment roll-in"><code>
+Prelude> import Data.Map
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Map> let m = fromList [("CS", "Computer Science"), 
+                                        ("PHIL", "Philisophy")
+                                        ("ASTR", "Astronomy")]
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Map> keys m
+["CS","PHIL","ASTR"]
+	    </code></pre>
+
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Map> Data.Map.lookup "CS" m
+Just "Computer Science"
+	    </code></pre>
+	    <small class="fragment roll-in">...and over 200 more!</small>
+	  </section>
+
+	  <section>
+	    <h2>Data.Set</h2>
+	    <pre class="fragment roll-in"><code>
+Prelude> import Data.Set
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Set> let a = fromList [1..58]
+Prelude Data.Set> let b = fromList [53..100]
+	    </code></pre>
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Set> intersection a b
+fromList [53,54,55,56,57,58]
+	    </code></pre>
+
+	    <pre class="fragment roll-in"><code>
+Prelude Data.Set> findMax $ union a b
+100
+	    </code></pre>
+	    <small class="fragment roll-in">...and around 100 more!</small>
+	  </section>
+
+          <section>
+	    <h1>Homework</h1>
+	    <ol>
+	      <li>Fill out this form!</li>
+	      <li>Create a password strength checker</li>
+	      <small>
+		<br>
+		<p>A strong password has</p>
+		<ul>
+		  <li>at least 15 characters</li>
+		  <li>uppercase letters</li>
+		  <li>lowercase letters</li>
+		  <li>numbers</li>
+		</ul>
+	      </small>
+	    </ol>
+	      <pre><code>
+Prelude> :t strong
+strong :: String -> Bool
+
+Prelude> strong "sup3rL33Tpassw0rd"
+True
+	      </code></pre>
+	  <small>Hint: Use Data.Char</small>
+	  </section>
+	</section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+      });
+
+    </script>
+
+  </body>
+</html>
