@@ -12,15 +12,15 @@ View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
 
 ### L05 - Constructing a Type
 
-### L06 - Cabal
+### L06 - Maps, Folds, and Beyond
 
-### L07 - Monads (http://twit.tv/show/floss-weekly/236 18:00)
+### L07 - 
 
-### L08 -
+### L08 - 
 
 ### L09 -
 
-### L10 - 
+### L10 - Monads (http://twit.tv/show/floss-weekly/236 18:00)
 
 ### L11 - Yesod / Haskell Web Frameworks?
 
