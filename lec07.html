@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Introduction to Haskell - Lecture 7</title>
+
+    <meta name="description" content="A course on the world's fastest growing functional programming language">
+    <meta name="author" content="Nishant Shukla">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+  </head>
+
+
+  <body>
+
+    <script>
+      function toggleElements(one, two) {
+          document.getElementById(one).style.display = 'none';
+          document.getElementById(two).style.display = 'block';
+      }
+    </script>
+
+
+    <div class="reveal">
+
+      <!-- Slides begin here! -->
+      <div class="slides">
+	<section>
+
+
+          <section>
+            <h1>Introduction To Haskell</h1>
+            <p>Lecture 7</p>
+            <p>
+              <br>
+            </p>
+            <p>The Prolific Haskell Community</p>
+	  </section>
+
+	  <section>
+	    <h2><a href="http://www.haskell.org/haskellwiki/Category:Haskell">Haskell Wiki</a></h2>
+	    <p>Find everything you need to know about Haskell directly from the official Wiki.</p>
+	    <ul>
+	      <li><a href="http://www.haskell.org/haskellwiki/Category:Tutorials">129 tutorials</a></li>
+	      <li><a href="http://www.haskell.org/haskellwiki/Category:Mathematics">46 articles on mathematics</a></li>
+	      <li><a href="http://www.haskell.org/haskellwiki/Category:FAQ">46 FAQ topics</a></li>
+	      <li><a href="http://www.haskell.org/haskellwiki/Category:Community">186 articles on other Haskell communities</a></li>
+	    </ul>
+	  </section>
+
+          <section>
+	    <h2><a href="http://stackoverflow.com/questions/tagged?tagnames=haskell">StackOverflow</a></h2>
+	    <p>More than 9,427 questions tagged</p>
+	  </section>
+
+	  <section>
+	    <h2><a href="http://www.haskell.org/haskellwiki/IRC_channel">IRC</a></h2>
+	    <p>Server: irc.freenode.net</p>
+	    <p>Channel: #haskell</p>
+	    <a href="http://irc.netsplit.de/channels/details.php?room=%23haskell&net=freenode"><img src="L07_files/irc.png"></a>
+	    <p>#haskell is one of the <a href="http://irc.netsplit.de/channels/?net=freenode">top 10 most popular channels</a> on freenode</p>
+	  </section>
+	  
+	  <section>
+	    <h2><a href="http://www.reddit.com/r/haskell/">Reddit /r/Haskell</a></h2>
+	    <p>More than 10,000 subscribers</p>
+	  </section>
+
+	  <section>
+	    <h1><a href="http://hackage.haskell.org/packages/archive/pkg-list.html">Hackage</a></h1>
+	    <p>The <b>ultimate</b> collection of Haskell packages</p>
+	  </section>
+
+	  <section>
+	    <h3>Hackage + Cabal</h3>
+	    <ul>
+	      <p><li>You should use a tool called <a href="http://www.haskell.org/haskellwiki/Cabal/How_to_install_a_Cabal_package">Cabal</a></li></p>
+	      <p><li>Cabal is a command-line tool that installs packages and their dependencies</li></p>
+	      <p><li><p>For example, try installing the HTTP library</p> <pre><code>cabal install HTTP</code></pre></li></p>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h3>Cabal</h3>
+	    <p><small><b>C</b>ommon <b>A</b>rchitecture for <b>B</b>uilding <b>A</b>pplications and <b>L</b>ibraries</small></p>
+	    <p>
+	      <ul>
+		<li>fetches</li>
+		<li>configures</li>
+		<li>compiles</li>
+		<li>installs</li>
+	      </ul>
+	    </p>
+	    <p><a href="http://www.haskell.org/haskellwiki/Cabal-Install">*</a></p>
+	  </section>
+
+	  <section>
+	    <h3>Cabal Walkthrough</h3>
+	    <p>Let's install and use the HTTP package</p>
+	    <ol>
+	      <li>Refresh the list of packages</li>
+	      <li>Install the HTTP package</li>
+	      <li>Use it!</li>
+	    </ol>
+	  </section>
+
+	  <section>
+	    <h3>1. Refresh the list</h3>
+	    <p>Download the most recent list of packages</p>
+	    <pre><code>
+cabal update
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>2. Install the package</h3>
+	    <p>Find any package from <a href="http://hackage.haskell.org/packages/archive/pkg-list.html">Hackage</a></p>
+	    <pre><code>
+cabal install HTTP
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>3. Use</h3>
+	    <p>Cabal takes care of installing the package.</p>
+	    <p>The library can now be imported.</p>
+	    <pre><code>
+import Network.HTTP
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>Using Network.HTTP</h3>
+	    <p>All packages come with <a href="http://hackage.haskell.org/package/HTTP">documentation on Hackage</a></p>
+	    <img src="L07_files/modules.png">
+	  </section>
+
+	  <section>
+	    <p>Let's take a look at one of the functions in Network.HTTP</p>
+	    <p><img src="L07_files/simpleHTTP.png"></p>
+	    <p><code>simpleHTTP</code> takes in a <code>Request</code> object, and returns an IO Monad</p>
+	  </section>
+
+	  <section>
+	    <h3>Try it out</h3>
+	    <pre><code>
+Prelude> import Network.HTTP
+
+Prelude Network.HTTP> :t simpleHTTP
+simpleHTTP
+  :: HStream ty =>
+     Request ty -> IO (Network.Stream.Result (Response ty))
+	    </code></pre>
+	    <pre><code>
+Prelude Network.HTTP> let myRequest 
+                      = getRequest "http://duckduckgo.com"
+
+Prelude Network.HTTP> simpleHTTP myRequest >>= getResponseBody
+&quot;&lt;!DOCTYPE&nbsp;html&gt...&quot;
+	    </code></pre>
+	  </section>
+
+	  <section data-state="soothe">
+	    <h2>>>=</h2>
+	    <p>
+	      <pre><code>
+Prelude Network.HTTP> simpleHTTP myRequest >>= getResponseBody
+	      </code></pre>
+	    </p>
+	    <p>Huh... What's that?</p>
+	    <br>
+	    <div class="fragment roll-in">
+	      <pre><code>
+Prelude Network.HTTP> :t (>>=)
+(>>=) :: Monad m => m a -> (a -> m b) -> m b
+	      </code></pre>
+	      
+	      <p class="fragment roll-in"><code>>>=</code> is called the <i>bind</i> operator</p>
+	    </div>
+	  </section>
+
+	  <section>
+	    <h1>MONADS!</h1>
+	    <a href="http://www.chrisscalf.com/Sci%20Fi%20Portfolio/SciFi%20Html/Dragon%20Fire.html"><img src="L07_files/dragon.png"/></a>
+	  </section>
+
+	  <section>
+	    <h2>Monad</h2>
+	    <a href="http://swizec.com/blog/monads-monads-monads-monads/swizec/5206"><img src="L07_files/monads.png"/></a>
+	    <p>Stay tuned till next time for a peek into Monads</p>
+	  </section>
+	  
+          <section>
+	    <h1>Homework</h1>
+	    <ol>
+	      <li>Fill out this form!</li>
+	      <li>Find the point of intersect of two lines using a package from Hackage</li>
+	      <li>If you need help, address the Haskell community (Wiki, IRC, etc)</li>
+	    </ol>
+	  </section>
+	</section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+      });
+
+    </script>
+
+  </body>
+</html>
