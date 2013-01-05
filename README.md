@@ -14,15 +14,15 @@ View the [syllabus](http://people.virginia.edu/~ns4av/syllabus/).
 
 ### L06 - Maps, Folds, and Beyond
 
-### L07 - 
+### L07 - The Prolific Haskell Community
 
-### L08 - 
+### L08 - Input/Output
 
-### L09 -
+### L09 - Monads (http://twit.tv/show/floss-weekly/236 18:00)
 
-### L10 - Monads (http://twit.tv/show/floss-weekly/236 18:00)
+### L10 - 
 
-### L11 - Yesod / Haskell Web Frameworks?
+### L11 - Yesod / Haskell Web Frameworks / C++, Java integration?
 
 ### L12 - Category Theory?
 
