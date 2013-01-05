@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Introduction to Haskell - Lecture 8</title>
+
+    <meta name="description" content="A course on the world's fastest growing functional programming language">
+    <meta name="author" content="Nishant Shukla">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+  </head>
+
+
+  <body>
+
+    <script>
+      function toggleElements(one, two) {
+          document.getElementById(one).style.display = 'none';
+          document.getElementById(two).style.display = 'block';
+      }
+    </script>
+
+
+    <div class="reveal">
+
+      <!-- Slides begin here! -->
+      <div class="slides">
+	<section>
+
+
+          <section>
+            <h1>Introduction To Haskell</h1>
+            <p>Lecture 8</p>
+            <p>
+              <br>
+            </p>
+            <p>Input/Output</p>
+	  </section>
+
+	  <section>
+	    <h3>Pure</h3>
+	    <p>Remember, Haskell is pure.</p>
+	    <ul>
+	      <li>You can't have side-effects</li>
+	      <li>Functions take in inputs and compute outputs</li>
+	      <li>Nothing else happens inbetween <p>(no modification of global variables)</p></li>
+	    </ul>
+	    <br>
+	    <br>
+	    <small class="fragment roll-in">However, input/output is not at all pure. There is a side effect! By displaying output pixels on your monitor, you are changing the global state of your computer.</small>
+	  </section>
+	  
+	  <section>
+	    <h2>Output</h2>
+	    <p>Let's print out some output!</p>
+	    <p>Create a file <code>Main.hs</code> and write the following code</p>
+	    <pre><code>
+module Main where
+
+main = do
+  putStrLn "Hello world!"
+  putStrLn "main is a function"
+  putStrLn "of type IO ()"
+	    </code></pre>
+
+	    <br>
+
+	    <p>Run the code</p>
+	    <small>
+	      <table border="1">
+		<tr>
+		  <td width="33%" class="fragment roll-in">
+		    <p>Use GHCi</p>
+		    <pre><code>
+$ ghci
+Prelude> :load Main.hs 
+*Main> main
+		    </code></pre>
+		  </td>
+		  <td width="33%" class="fragment roll-in">
+		    <p>Or just use <code>runhaskell</code></p>
+		    <pre><code>
+$ runhaskell Main.hs
+		    </code></pre>
+		  </td>
+		  <td width="33%" class="fragment roll-in">
+		    <p>Or compile the code!</p>
+		    <pre><code>
+$ ghc --make Main.hs
+$ ./Main
+		    </code></pre>
+		  </td>
+
+		</tr>
+	      </table>
+
+	    </small>
+	  </section>
+
+	  <section>
+	    <h3><code>main</code></h3>
+	    <p><code>main</code> is the "entry point of a Haskell program" <a href="http://www.haskell.org/tutorial/io.html">*</a></p>
+	    <p>It must be an IO type.</p>
+	    <pre><code>
+$ ghci Main.hs
+*Main> :t main
+main :: IO ()
+	    </code></pre>
+	    <p>It's like the <code>main</code> from Java or C++. When you compile Haskell code, the <code>main</code> function runs.</p>
+	  </section>
+
+	  <section>
+	    <h3><code>do</code></h3>
+	    <p>glues together multiple IO actions</p>
+	    <p><code>do</code> is a keyword in Haskell, like <code>let</code> or <code>where</code>.</p>
+	    <pre><code>
+main = do
+  putStrLn "this line is the first IO action"
+  putStrLn "putStrLn has type String -> IO ()"
+  putStrLn "we are glueing together multiple IO ()"
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>Input</h2>
+	    <p>Input is just as straight forward.</p>
+	    <p>The <code>getLine</code> function binds input to a variable.</p>
+	    <pre><code>
+module Main where
+
+main = do
+  putStrLn "Why did the banker leave his job?"
+  answer <- getLine
+  putStrLn (if answer=="he lost interest"
+            then "Correct!"
+            else "Nope, he lost interest")
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3><code>&lt;-</code></h3>
+	    <p>We have seen the <code>&lt;-</code> symbol before</p>
+	    <pre><code>
+[ x | x<-[1..10], even x ]
+	    </code></pre>
+	    <p>The symbol is pronounced "drawn from"</p>
+	    <br>
+	    <pre><code>
+main = do
+  input <- getLine
+  putStrLn ("you wrote: " ++ input)
+	    </code></pre>
+	    <p>"input is drawn from getLine"</p>
+	  </section>
+
+	  <section>
+	    <h2>IO</h2>
+	    <p>If you see IO, think side effects.</p>
+	    <p><code>putStrLn</code> displays something to your monitor. That's a side effect!</p>
+
+	    <br>
+
+	    <p>putStrLn returns nothing, ()</p>
+	    <pre><code>
+Prelude> :t putStrLn
+putStrLn :: String -> IO ()
+	    </code></pre>
+	    <br>
+	    <p>getLine returns a String</p>
+	    <pre><code>
+Prelude> :t getLine 
+getLine :: IO String
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>Pure</h3>
+	    <p class="fragment roll-in">Haskell isolates side-effects into I/O actions.</p>
+	    <p class="fragment roll-in">Pure code is separated from impure operations.</p>
+	    <p class="fragment roll-in">I/O actions only exist within other I/O actions.</p>
+	    <div class="fragment roll-in">
+	      <br>
+	      <h3>Brilliant!</h3>
+	      <img src="L08_files/brilliant.gif">
+	    </div>
+	  </section>
+
+	  <section>
+	    <h3><code>return</code></h3>
+	    <p><code>return</code> is a function that "makes an I/O action out of a pure value" <a href="http://learnyouahaskell.com/input-and-output">*</a></p>
+	    <pre><code>
+Prelude> :t return
+return :: Monad m => a -> m a
+	    </code></pre>
+	    <br>
+	    <p><code>return "hello" :: IO String</code></p>
+	    <br>
+	    <p>It's pretty much the opposite of the <code>&lt;-</code> syntax.</p>
+	    <pre><code>
+main = do
+  input <- return "hello"
+  putStrLn input
+	    </code></pre>
+	    <p><small><code>return</code> packs up a value into an IO box. <code>&lt;-</code> extracts the value out of an IO box.</small></p>
+	  </section>
+
+	  <section>
+	    <h3>Using <code>return</code></h3>
+	    <p>In this program, we exit when the input is "y"</p>
+	    <pre><code>
+module Main where
+
+main = do
+  putStrLn "quit the program? y/n"
+  ans <- getLine
+  if ans /= "y" then do
+    putStrLn "not quitting"
+    main
+  else return ()
+	    </code></pre>
+	    <p><b>return ()</b> has the type <b>IO ()</b></p>
+	    <p>We create an IO that doesn't do anything so that the program could exit.</p>
+	  </section>
+
+	  <section>
+	    <h3><code>when</code></h3>
+	    <p>The <b>when</b> function from Control.Monad module looks nicer</p>
+	    <br>
+	    <p><code>when :: Monad m =&gt; Bool -&gt; m () -&gt; m ()</code></p>
+	    <br>
+	    <table width="100%">
+	      <tr>
+		<td><center>Old code</center></td>
+		<td><center>New code</center></td>
+	      </tr>
+	      <tr>
+		<td>
+		  <pre><code>
+module Main where
+
+main = do
+  putStrLn "quit? y/n"
+  ans <- getLine
+  if ans /= "y" then do
+    putStrLn "not quitting"
+    main
+  else return ()
+		  </code></pre>
+		</td>
+		<td>
+	    <pre><code>
+module Main where
+
+import Control.Monad
+
+main = do
+  putStrLn "quit? y/n"
+  ans <- getLine
+  when (ans /= "y") $ do
+    putStrLn "not quitting"
+    main
+	    </code></pre>
+		</td>
+	      </tr>
+	    </table>
+	  </section>
+
+	  <section>
+	    <h3><code>sequence</code></h3>
+	    <p><b>sequence</b> evaluates each IO action from a  list of actions and returns a list of IO outputs</p>
+	    <br>
+	    <p><code>sequence :: Monad m =&gt; [m a] -&gt; m [a]</code></p>
+	    <br>
+	    <pre><code>
+Prelude> sequence [getLine, getLine]
+hello
+world
+["hello","world"]
+	    </code></pre>
+	    <pre><code>
+Prelude> sequence (map print [1,2])
+1
+2
+[(),()]
+	    </code></pre>
+            <p><small><b>print</b> is equivalent to <b>putStrLn.show</b></small></p>
+	  </section>
+
+	  <section>
+	    <h3><code>mapM</code></h3>
+	    <p><b>mapM</b> takes care of the sequencing stuff</p>
+	    <pre><code>
+Prelude> mapM print [1,2,3]
+1
+2
+3
+[(),(),()]
+	    </code></pre>
+	    <div class="fragment roll-in">
+	      <br>
+	      <p>and <b>mapM_</b> is the same but doesn't output anything afterwards</p>
+	      <pre><code>
+Prelude> mapM_ print [1,2,3]
+1
+2
+3
+	      </code></pre>
+	    </div>
+	  </section>
+
+          <section>
+	    <h3><code>interact</code></h3>
+	    <p><b>interact</b> makes I/O really easy.</p>
+	    <p>Just call <code>interact</code> on a <i>String -> String</i> function and you're done!</p>
+	    <br>
+	    <small>This code counts the number of characters per line</small>
+	    <pre><code>
+module Main where
+
+import System.IO
+
+main = interact countChars
+
+countChars :: String -> String
+countChars str =
+    let allLines = lines str
+        lengths  = map (show.length) allLines
+    in unlines lengths
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>File Input</h2>
+	    <small>Let's count the number of lines in a file,</small>
+	    <span style="font-size:20px;">
+	      <a onclick="toggleElements('b', 'a');">(<b>verbose</b>)</a>
+	      <a onclick="toggleElements('a', 'b');">(<b>elegant</b>)</a>
+	    </span>
+	    <div id="a">
+	      <small>It's best to keep the pure code separate from the ugly IO stuff</small>
+	      <pre><code>
+module Main where
+
+import System.IO
+
+main = do
+  theInput <- readFile "input.txt"
+  putStrLn (countLines theInput)
+
+countLines :: String -> String
+countLines str = (show (length (lines))) str
+	      </code></pre>
+	    </div>
+	    <div id="b" style="display:none;">
+	      <small>One line. Checkmate.</small>
+	      <pre><code>
+module Main where
+
+import System.IO
+
+main = readFile "input.txt" >>= print.length.lines
+	      </code></pre>
+	      <p><img src="L08_files/checkmate.gif"></p>
+	    </div>
+	  </section>
+
+	  <section>
+	    <h2>File Output</h2>
+	    <p>Writing to file is done with <b>writeFile</b></p>
+	    <pre><code>
+module Main where
+
+import System.IO
+
+main = do
+  putStrLn "writing to file..."
+  writeFile "output.txt" ['A'..'Z']
+	    </code></pre>
+	    <small><b>writeFile</b> will overwrite the file. Use <b>appendFile</b> if you'd like to append instead</small>
+	  </section>
+
+          <section>
+	    <h1>Homework</h1>
+	    <h2>Wrestling with Haskell</h2>
+	    <ol>
+	      <li>Fill out this form!</li>
+	      <li>Research 5 facts about Monads</li>
+	      <li>
+		<p>Write an IO program that reverses text</p>
+		<small>given a file containing some text, create an output file with everything in reverse</small>
+		<br>
+		<br>
+		<small>
+		  <table>
+		    <tr>
+		      <td>input.txt</td>
+		      <td>output.txt</td>
+		    </tr>
+		    <tr>
+		      <td>
+			<pre><code>
+hello world
+			</code></pre>
+		      </td>
+		      <td>
+			<pre><code>
+dlrow olleh
+			</code></pre>
+		      </td>
+
+		    </tr>
+		  </table>
+		</small>
+	      </li>
+	      
+	    </ol>
+	  </section>
+
+	</section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+      });
+
+    </script>
+
+  </body>
+</html>
