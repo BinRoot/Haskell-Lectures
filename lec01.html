@@ -25,8 +25,9 @@
       }
     </style>
 
-    <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- For syntax highlighting, tomorrow-night-bright pojoaque sunburst-->
+    
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -34,6 +35,8 @@
     </script>
 
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
   </head>
 
 
@@ -46,7 +49,6 @@
       <!-- Slides begin here! -->
       <div class="slides">
 	<section>
-
           <section>
             <h1>Introduction To Haskell</h1>
             <p>Lecture 1</p>
@@ -263,7 +265,7 @@ domain(f)   =
 codomain(f) = 
 range(f)    ⊆ 
 	    </code></pre>
-<div class="fragment roll-in">
+<div class="fragment roll-in">n
 Answer:
 	    <pre><code>
 domain(f)   = A
@@ -376,7 +378,7 @@ int count( List l ) { ... }
 	  <section>
 	    <h3>Types</h3>
 	    <p>Every function in haskell has a Type signature.</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 foo :: Int -> String
 	    </pre></code>
 	    <br>
@@ -506,7 +508,7 @@ A language that doesn’t affect the way you think about programming, is not wor
     </script>
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
