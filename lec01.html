@@ -58,17 +58,21 @@
 
           <section>
 	    <h3>Instructor</h3>
-	    <p>Nishant Shukla</p>
+	    <p><a href="http://shuklan.com">Nishant Shukla</a></p>
 	    <p><small>ns4av@virginia.edu</small></p>
 	    <br>
 	    <h3>Watchful Guardian</h3>
-	    <p>Professor Jack Davidson</p>
+	    <p><a href="http://www.cs.virginia.edu/~jwd/joomla_site/">Professor Jack Davidson</a></p>
 	    <p><small>jwd@virginia.edu</small></p>
+	    
+	    <aside class="notes">Email Nishant for questions on homework, class structure, and general class related things. Email Professor Davidson for anything else.</aside>
 	  </section>
 
 	  <section>
 	    <h2>Sponsored by...</h2>
 	    <img src="L01_files/estud.png">
+
+	    <aside class="notes">The Engineering Student Council at UVa helped setup and advertise this class.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -76,6 +80,8 @@
 	    <img src="L01_files/overflow.png">
 	    <img src="L01_files/overflow2.png" class="fragment roll-in">
 	    <img src="L01_files/overflow3.png" class="fragment roll-in">
+
+	    <aside class="notes">The class started out at just 30 open seats. Enrollment filled up quickly and we didn't expect this level of interest, so we increased enrollment to 45. Two days later the class was full again, so we finally increased enrollment to 60, doubling the original size. This class is at max capacity.</aside>
 	  </section>
 
 	  <section>
@@ -474,6 +480,17 @@ A language that doesn’t affect the way you think about programming, is not wor
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
 
     <script type="text/javascript">
       var _gaq = _gaq || [];
