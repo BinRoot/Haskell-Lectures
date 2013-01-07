@@ -7,12 +7,12 @@ document.write('\
                         <span class="icon-bar"></span>\
                         <span class="icon-bar"></span>\
                     </a>\
-                    <a class="brand" href="lectures.html">CS 1501</a>\
+                    <a class="brand" href="index.html">CS 1501</a>\
                     <div class="nav-collapse collapse">\
                       <ul class="nav">\
 			<li>\
 			  <div class="btn-group">\
-			    <a href="lectures.html" class="btn btn-inverse"><i class="icon-th icon-white"></i> Lectures</a>\
+			    <a href="index.html" class="btn btn-inverse"><i class="icon-th icon-white"></i> Lectures</a>\
 			    <a href="#dropdown-menu" class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">\
 			      <span class="caret"></span>\
 			    </a>\
