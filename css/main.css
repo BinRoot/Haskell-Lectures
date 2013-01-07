@@ -1,0 +1,31 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body,
+input,
+button,
+select,
+textarea,
+.navbar-search .search-query {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.hero-unit {
+    color:#eeeeee
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
