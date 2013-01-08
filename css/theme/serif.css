@@ -53,7 +53,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a:not(.image) {
-  color: #51483d;
+  color: #38ACEC;
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
@@ -63,7 +63,7 @@ body {
 }
 
 .reveal a:not(.image):hover {
-  color: #8b7c69;
+  color: #ed7839;
   text-shadow: none;
   border: none;
 }
