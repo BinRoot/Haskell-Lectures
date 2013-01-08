@@ -27,7 +27,7 @@
     </style>
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -73,7 +73,7 @@
 	    <h2>Pattern Matching</h2>
 	    <p>A function can have multiple patterns</p>
 	    <p>Almost like overloading methods in Java or C++</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 guess :: Int -> [Char]
 guess 42 = "correct!"
 guess x  = "wrong guess!"
@@ -92,7 +92,7 @@ guess x  = "wrong guess!"
 
 	  <section data-state="soothe">
 	    <h3>What's wrong with this code?</h3>
-	    <pre><code>
+	    <pre><code class="haskell">
 fib :: Int -> Int
 fib n = fib(n-1) + fib(n-2)
 fib 0 = 1
@@ -109,13 +109,13 @@ fib 1 = 1
 	  <section data-state="soothe">
 	    <h3>More Pattern Matching</h3>
 	    <p>White a function to detect if a list is a palindrome</p>
-	    <pre id="c"><code>
+	    <pre id="c"><code class="haskell">
 isPal        :: Eq a => [a] -> Bool
 
 
 
 	    </code></pre>
-	    <pre id="d" style="display:none;"><code>
+	    <pre id="d" style="display:none;"><code class="haskell">
 isPal        :: Eq a => [a] -> Bool
 isPal [x]    = True
 isPal [x,y]  = x == y
@@ -130,21 +130,21 @@ isPal (x:xs) = (x == (last xs)) && isPal (init xs)
 
 	  <section data-state="soothe">
 	    <h3>Pattern matching is powerful</h3>
-	    <p>We can define <code>fst</code> with pattern matching</p>
-	    <pre><code>
+	    <p>We can define <code class="haskell">fst</code> with pattern matching</p>
+	    <pre><code class="haskell">
 fst :: (a,b) -> a
 fst (x,y) = x
 	    </code></pre>
 	    <br>
 	    <div class="fragment roll-in">
-	      <p>Try defining <code>head</code> with pattern matching</p>
-	      <pre id="a"><code contenteditable>
+	      <p>Try defining <code class="haskell">head</code> with pattern matching</p>
+	      <pre id="a"><code class="haskell" contenteditable>
 head :: [a] -> a
 
 
 
 	      </pre></code>
-	      <pre id="b" style="display:none;"><code>
+	      <pre id="b" style="display:none;"><code class="haskell">
 head :: [a] -> a
 head (x:xs) = x
 head [x] = x
@@ -164,7 +164,7 @@ head [] = error "empty list"
 	    <li><p>We can specify when a value is unused.</p></li>
 	    <li><p>The "_" symbol is called a wildcard in Haskell.</p></li>
 	    <li><p>This is how it's used:</p></li>
-	    <pre><code>
+	    <pre><code class="haskell">
 head (x:_)  = x
 
 tail (_:xs) = xs
@@ -175,13 +175,13 @@ tail (_:xs) = xs
 
 	  <section>
 	    <h3>Error Handling</h3>
-	    <p>When GHCi is angry, it produces error messages through the <code>error</code> function.</p>
-	    <pre><code>
+	    <p>When GHCi is angry, it produces error messages through the <code class="haskell">error</code> function.</p>
+	    <pre><code class="haskell">
 error :: [Char] -> a
 	    </code></pre>
 	    <br>
-	    <p>The official implementation of <code>head</code> is</p>
-	    <pre><code>
+	    <p>The official implementation of <code class="haskell">head</code> is</p>
+	    <pre><code class="haskell">
 head             :: [a] -> a
 head (x:_)       =  x
 head []          =  error "Prelude.head: empty list"
@@ -193,18 +193,18 @@ head []          =  error "Prelude.head: empty list"
 	  <section>
 	    <h2>Guards</h2>
 	    <ul>
-	      <li><p>Guards are clean <code>if</code> statements.</p></li>
+	      <li><p>Guards are clean <code class="haskell">if</code> statements.</p></li>
 	      <li><p>Just like with pattern matching, order matters.</p></li>
-	      <li><p>A guard is introduced by the <code>|</code> symbol.</p></li>
+	      <li><p>A guard is introduced by the <code class="haskell">|</code> symbol.</p></li>
 	      <li><p>And it's followed by a Bool expression.</p></li>
 	      <li><p>Then followed by the function body</p></li>
-	      <pre><code>
+	      <pre><code class="haskell">
 guessMyNumber x
             | x > 27    = "Too high!"
             | x < 27    = "Too low!"
             | otherwise = "Correct!"
 	      </code></pre>
-	      <small><code>otherwise</code> is just a fancy word for <code>True</code></small>
+	      <small><code class="haskell">otherwise</code> is just a fancy word for <code class="haskell">True</code></small>
 	    </ul>
 	  </section>
 
@@ -212,7 +212,7 @@ guessMyNumber x
 	    <h3>Guards</h3>
 	    <p>Guards are very powerful.</p>
 	    <p>Anything done with pattern matching can be done with guards.</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 head'' :: [a] -> a
 head'' xs
     | null xs   = error "list is empty"
@@ -224,7 +224,7 @@ head'' xs
 	    <h3>Variables</h3>
 	    <p>These are not like your typical Java variables</p>
 	    <p><small>In Java or C++, you can redefine variables:</small></p>
-	    <pre><code>
+	    <pre><code class="haskell">
 x = 1;
 
 ...
@@ -237,7 +237,7 @@ x = 2;
 	  </section>
 
 	  <section>
-	    <h2>It implies <code>1=2</code> Preposterous!</h2>
+	    <h2>It implies <code class="haskell">1=2</code> Preposterous!</h2>
 	    <img src="L04_files/noway.gif">
 	  </section>
 
@@ -246,15 +246,15 @@ x = 2;
 	    <p>Haskell variables are immutable.</p>
 	    <p>Once defined, they can't change.</p>
 	    <br>
-	    <p>They can be used with the <code>let</code> keyword.</p>
-	    <pre><code>
+	    <p>They can be used with the <code class="haskell">let</code> keyword.</p>
+	    <pre><code class="haskell">
 slope (x1,y1) (x2,y2) = let dy = y2-y1
                             dx = x2-x1
                         in dy/dx
 	    </code></pre>
 	    <br>
-	    <p>Or with the <code>where</code> keyword.<p>
-	    <pre><code>
+	    <p>Or with the <code class="haskell">where</code> keyword.<p>
+	    <pre><code class="haskell">
 slope (x1,y1) (x2,y2) = dy/dx
                         where dy = y2-y1
                               dx = x2-x1
@@ -269,7 +269,7 @@ slope (x1,y1) (x2,y2) = dy/dx
 	      <li>The next level starts on the right-hand side.</li>
 	      <li>Equal levels start at the same column.</li>
 	    </ul>
-	    <pre><code>
+	    <pre><code class="haskell">
 Level-1
     Level-2
               Level-3
@@ -285,7 +285,7 @@ Level-1
 
 Level-1
 	    </code></pre>
-	    <small>Don't use tab. Use spaces '<code> </code>'.</small>
+	    <small>Don't use tab. Use spaces '<code class="haskell"> </code>'.</small>
 	  </section>
 
 
@@ -297,7 +297,7 @@ Level-1
 	      <li>Fill out this survey!</li>
 	      <li>
 		<p>Convert between metric and imperial.</p>
-		<p><small><code>convert :: (Double, [Char]) -> (Double, [Char])</code></small></p>
+		<p><small><code class="haskell">convert :: (Double, [Char]) -> (Double, [Char])</code></small></p>
 		<small>
 		<ul>
 		  <li> m ↔ yd</li>
@@ -305,7 +305,7 @@ Level-1
 		  <li> kg  ↔  lb </li>
 		</ul>
 		</small>
-		<pre><code>
+		<pre><code class="haskell">
 Prelude> convert (1, "m")
 (1.09361, "yd")
 Prelude> convert (1, "L")

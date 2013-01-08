@@ -26,7 +26,7 @@
     </style>
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -86,10 +86,10 @@
 	  </section>
 
 	  <section>
-	    <h3><code>data</code> keyword</h3>
-	    <p>Create a file <code>MyData.hs</code></p>
-	    <p>Start a line with <code>data</code> and name the type <code>MetricUnits</code></p>
-	    <pre><code>
+	    <h3><code class="haskell">data</code> keyword</h3>
+	    <p>Create a file <code class="haskell">MyData.hs</code></p>
+	    <p>Start a line with <code class="haskell">data</code> and name the type <code class="haskell">MetricUnits</code></p>
+	    <pre><code class="haskell">
 data MetricUnit = Meter | Liter | KiloGram
 	    </code></pre>
 
@@ -101,7 +101,7 @@ data MetricUnit = Meter | Liter | KiloGram
 	  <section>
 	    <h3>What Exactly is a Type?</h3>
 	    <p>Let's look at <i>Meter</i>, <i>Liter</i>, and <i>KiloGram</i></p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> :type True
 Bool :: True
 
@@ -121,9 +121,9 @@ KiloGram :: MetricUnit
 
 	  <section data-state="soothe">
 	    <h3>Remember <i>Show</i>?</h3>
-	    <small><code>Show</code> is a Typeclass that enables data to be shown as a String</small>
+	    <small><code class="haskell">Show</code> is a Typeclass that enables data to be shown as a String</small>
 	    <div class="fragment roll-in">
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude> True
 True
 
@@ -136,16 +136,16 @@ Prelude> Meter
 	  </section>
 
 	  <section>
-	    <h3><code>deriving (Show)</code></h3>
+	    <h3><code class="haskell">deriving (Show)</code></h3>
 	    <ul>
 	    <li><p>GHCi is trying to call the print function</p></li>
-	    <li><p><code>print</code> only works for things that derive Show</p></li>
+	    <li><p><code class="haskell">print</code> only works for things that derive Show</p></li>
 	    <li><p>but a MetricUnit doesn't derive Show</p></li>
 	    </ul>
 	    <br>
 	    <br>
 	    <div class="fragment roll-in">
-	    <pre><code>
+	    <pre><code class="haskell">
 data MetricUnit = Meter | Liter | KiloGram  deriving (Show)
 	    </code></pre>
 	    <small><i>FTFY</i></small>
@@ -171,13 +171,13 @@ data MetricUnit = Meter | Liter | KiloGram  deriving (Show)
 	      <li>Liter → "L"</li>
 	      <li>KiloGram → "kg"</li>
 	    </ul>
-	    <pre id="a"><code contenteditable>
+	    <pre id="a"><code class="haskell" contenteditable>
 symbol :: MetricUnit -> String
 
 
 
 	    </code></pre>
-	    <pre id="b" style="display:none;"><code>
+	    <pre id="b" style="display:none;"><code class="haskell">
 symbol :: MetricUnit -> String
 symbol Meter = "m"
 symbol Liter = "L"
@@ -192,15 +192,15 @@ symbol KiloGram = "kg"
 
 	  <section data-state="soothe">
 	    <h3>Same Function With Guards</h3>
-	    <p>Rewrite <code>symbol</code> using guards</p>
-	    <pre id="c"><code contenteditable>
+	    <p>Rewrite <code class="haskell">symbol</code> using guards</p>
+	    <pre id="c"><code class="haskell" contenteditable>
 symbol :: MetricUnit -> String
 
 
 
 
 	    </code></pre>
-	    <pre id="d" style="display:none;"><code>
+	    <pre id="d" style="display:none;"><code class="haskell">
 symbol :: MetricUnit -> String
 symbol x
     | x==Meter    = "m"
@@ -216,23 +216,23 @@ symbol x
 	  </section>
 	  
 	  <section>
-	    <h3><code>deriving (Eq)</code></h3>
+	    <h3><code class="haskell">deriving (Eq)</code></h3>
 	    <p>GHCi is yelling at us because we used '=='</p>
-	    <pre><code>
+	    <pre><code class="haskell">
     No instance for (Eq MetricUnit) arising from a use of `=='
     Possible fix: add an instance declaration for (Eq MetricUnit)
     In the expression: x == Meter
 	    </code></pre>
 	    <br>
 	    <p>So MetricUnit should also derive Eq if we want to use '=='</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 data MetricUnit = Meter | Liter | KiloGram  deriving (Show, Eq)
 	    </code></pre>
 	  </section>
 
 	  <section>
 	    <h2>Metric to Imperial</h2>
-	    <p>Let's write a <code>convert</code> function with our types.</p>
+	    <p>Let's write a <code class="haskell">convert</code> function with our types.</p>
 	    <p>We will convert from Metric to Imperial.</p>
 	    <p>Just like last week's homework</p>
 	    <br>
@@ -241,7 +241,7 @@ data MetricUnit = Meter | Liter | KiloGram  deriving (Show, Eq)
 
 	  <section>
 	    <p>1. Define <i>MetricUnit</i> and <i>ImperialUnit</i></p>
-	    <pre><code contenteditable>
+	    <pre><code class="haskell" contenteditable>
 data MetricUnit = Meter
                 | Liter
                 | KiloGram
@@ -259,7 +259,7 @@ data ImperialUnit = Yard
 
 	  <section>
 	    <p>2. Define Measurement</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 data Measurement = MetricMeasurement Double MetricUnit 
                  | ImperialMeasurement Double ImperialUnit 
                    deriving (Show)
@@ -267,24 +267,24 @@ data Measurement = MetricMeasurement Double MetricUnit
 	    <br>
 	    <p>This is new!</p>
 	    <br>
-	    <small><code>(MetricMeasurement 3.1 Liter) :: Measurement</code></small>
-	    <small><code>(ImperialMeasurement 200 Pound) :: Measurement</code></small>
+	    <small><code class="haskell">(MetricMeasurement 3.1 Liter) :: Measurement</code></small>
+	    <small><code class="haskell">(ImperialMeasurement 200 Pound) :: Measurement</code></small>
 	  </section>
 
 	  <section>
-	    <p>3. Create the <code>convert</code> function</p>
-	    <pre><code>
+	    <p>3. Create the <code class="haskell">convert</code> function</p>
+	    <pre><code class="haskell">
 convert :: Measurement -> Measurement
 	    </code></pre>
 	    <br>
 	    <p>Implement it with pattern matching and guards</p>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 convert (MetricMeasurement x u)
     | u==Meter    = ImperialMeasurement (1.0936*x) Yard
     | u==Liter    = ImperialMeasurement (0.2642*x) Gallon
     | u==KiloGram = ImperialMeasurement (2.2046*x) Pound
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 convert (ImperialMeasurement x u)
     | u==Yard   = MetricMeasurement (0.9144*x) Meter
     | u==Gallon = MetricMeasurement (3.7854*x) Liter
@@ -294,7 +294,7 @@ convert (ImperialMeasurement x u)
 
 	  <section>
 	    <p>4. Compile and Test</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> let m = MetricMeasurement 2 Meter
 
 Prelude> convert m
@@ -310,7 +310,7 @@ MetricMeasurement 2 Meter
 	    <h2>Record Syntax</h2>
 	    <p>Remember, Haskell is lazy, and so are we.</p>
 	    <p>Creating getter functions is monotonous!</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 data Point = Point Double Double
 
 xval :: Point -> Double
@@ -322,7 +322,7 @@ yval (Point _ y) = y
 	    <br>
 	    <div class="fragment roll-in">
 	      <p>Haskell provides a shortcut called record syntax</p>
-	      <pre><code>
+	      <pre><code class="haskell">
 data Point = Point { xval::Double, yval::Double }
 	      </code></pre>
 	    </div>
@@ -331,7 +331,7 @@ data Point = Point { xval::Double, yval::Double }
 	  <section>
 	    <h3>Record Syntax Looks Nice</h3>
 	    <p>It makes code more readable</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 let a = Point 2 3
 
 let b = Point {xval = 2, yval = 3}
@@ -343,12 +343,12 @@ let b = Point {xval = 2, yval = 3}
 	  <section>
 	    <h2>Type Parameters</h2>
 	    <p>Oh yea, even types can have arguments.</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 data ThreeThings a = ThreeThings a a a  deriving (Show)
 	    </code></pre>
 	    <br>
-	    <small><code>ThreeThings</code> is bundle of three identical types</small>
-	    <pre><code>
+	    <small><code class="haskell">ThreeThings</code> is bundle of three identical types</small>
+	    <pre><code class="haskell">
 Prelude> ThreeThings 1 2 3
 ThreeThings 1 2 3
 
@@ -364,7 +364,7 @@ ThreeThings "hello" "there" "lad"
 	    <br>
 	    <small>Let's make a module out of our measurement conversion code.</small>
 	    <p>Step 1</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 module MyData
     (MetricUnit(..),
      ImperialUnit(..),
@@ -380,23 +380,23 @@ where
 	  
 	  <section>
 	    <h2>Importing Code</h2>
-	    <p>Use <code>convert</code> from anywhere!</p>
-	    <pre class="fragment roll-in"><code>
+	    <p>Use <code class="haskell">convert</code> from anywhere!</p>
+	    <pre class="fragment roll-in"><code class="haskell">
 -- OtherFile.hs
 
 import MyData
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 reportMeasurement :: Measurement -> String
 	    </code></pre>
 
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 -- if metric, print out the measurement
 
 reportMeasurement (MyData.MetricMeasurement x u) 
     = (show x) ++ " " ++ (show u)
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 -- otherwise if imperial, convert the measurement and try again
 
 reportMeasurement m 
@@ -410,9 +410,9 @@ reportMeasurement m
 	    <ol>
 	      <li>Fill out this form!</li>
 	      <li>Create a binary tree data type of Int nodes</li>
-	      <pre><code>data Tree = ... </code></pre>
+	      <pre><code class="haskell">data Tree = ... </code></pre>
 	      <li>Write a function to sum all nodes in the tree</li>
-	      <pre><code>add :: Tree -> Int</code></pre>
+	      <pre><code class="haskell">add :: Tree -> Int</code></pre>
 	    </ol>
 	  </section>
 

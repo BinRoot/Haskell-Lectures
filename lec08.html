@@ -26,7 +26,7 @@
     </style>
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -70,9 +70,9 @@
 	    <h3>Pure</h3>
 	    <p>Remember, Haskell is pure.</p>
 	    <ul>
-	      <li>You can't have side-effects</li>
+	      <li>Functions can't have side-effects</li>
 	      <li>Functions take in inputs and compute outputs</li>
-	      <li>Nothing else happens inbetween <p>(no modification of global variables)</p></li>
+	      <li>Nothing else happens in-between <p>(no modification of global variables)</p></li>
 	    </ul>
 	    <br>
 	    <br>
@@ -82,8 +82,8 @@
 	  <section>
 	    <h2>Output</h2>
 	    <p>Let's print out some output!</p>
-	    <p>Create a file <code>Main.hs</code> and write the following code</p>
-	    <pre><code>
+	    <p>Create a file <code class="haskell">Main.hs</code> and write the following code</p>
+	    <pre><code class="haskell">
 module Main where
 
 main = do
@@ -100,21 +100,21 @@ main = do
 		<tr>
 		  <td width="33%" class="fragment roll-in">
 		    <p>Use GHCi</p>
-		    <pre><code>
+		    <pre><code class="haskell">
 $ ghci
 Prelude> :load Main.hs 
 *Main> main
 		    </code></pre>
 		  </td>
 		  <td width="33%" class="fragment roll-in">
-		    <p>Or just use <code>runhaskell</code></p>
-		    <pre><code>
+		    <p>Or just use <code class="haskell">runhaskell</code></p>
+		    <pre><code class="haskell">
 $ runhaskell Main.hs
 		    </code></pre>
 		  </td>
 		  <td width="33%" class="fragment roll-in">
 		    <p>Or compile the code!</p>
-		    <pre><code>
+		    <pre><code class="haskell">
 $ ghc --make Main.hs
 $ ./Main
 		    </code></pre>
@@ -127,22 +127,22 @@ $ ./Main
 	  </section>
 
 	  <section>
-	    <h3><code>main</code></h3>
-	    <p><code>main</code> is the "entry point of a Haskell program" <a href="http://www.haskell.org/tutorial/io.html">*</a></p>
+	    <h3><code class="haskell">main</code></h3>
+	    <p><code class="haskell">main</code> is the "entry point of a Haskell program" <a href="http://www.haskell.org/tutorial/io.html">*</a></p>
 	    <p>It must be an IO type.</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 $ ghci Main.hs
 *Main> :t main
 main :: IO ()
 	    </code></pre>
-	    <p>It's like the <code>main</code> from Java or C++. When you compile Haskell code, the <code>main</code> function runs.</p>
+	    <p>It's like the <code class="haskell">main</code> from Java or C++. When you compile Haskell code, the <code class="haskell">main</code> function runs.</p>
 	  </section>
 
 	  <section>
-	    <h3><code>do</code></h3>
+	    <h3><code class="haskell">do</code></h3>
 	    <p>glues together multiple IO actions</p>
-	    <p><code>do</code> is a keyword in Haskell, like <code>let</code> or <code>where</code>.</p>
-	    <pre><code>
+	    <p><code class="haskell">do</code> is a keyword in Haskell, like <code class="haskell">let</code> or <code class="haskell">where</code>.</p>
+	    <pre><code class="haskell">
 main = do
   putStrLn "this line is the first IO action"
   putStrLn "putStrLn has type String -> IO ()"
@@ -153,8 +153,8 @@ main = do
 	  <section>
 	    <h2>Input</h2>
 	    <p>Input is just as straight forward.</p>
-	    <p>The <code>getLine</code> function binds input to a variable.</p>
-	    <pre><code>
+	    <p>The <code class="haskell">getLine</code> function binds input to a variable.</p>
+	    <pre><code class="haskell">
 module Main where
 
 main = do
@@ -167,14 +167,14 @@ main = do
 	  </section>
 
 	  <section>
-	    <h3><code>&lt;-</code></h3>
-	    <p>We have seen the <code>&lt;-</code> symbol before</p>
-	    <pre><code>
+	    <h3><code class="haskell">&lt;-</code></h3>
+	    <p>We have seen the <code class="haskell">&lt;-</code> symbol before</p>
+	    <pre><code class="haskell">
 [ x | x<-[1..10], even x ]
 	    </code></pre>
 	    <p>The symbol is pronounced "drawn from"</p>
 	    <br>
-	    <pre><code>
+	    <pre><code class="haskell">
 main = do
   input <- getLine
   putStrLn ("you wrote: " ++ input)
@@ -185,18 +185,18 @@ main = do
 	  <section>
 	    <h2>IO</h2>
 	    <p>If you see IO, think side effects.</p>
-	    <p><code>putStrLn</code> displays something to your monitor. That's a side effect!</p>
+	    <p><code class="haskell">putStrLn</code> displays something to your monitor. That's a side effect!</p>
 
 	    <br>
 
 	    <p>putStrLn returns nothing, ()</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> :t putStrLn
 putStrLn :: String -> IO ()
 	    </code></pre>
 	    <br>
 	    <p>getLine returns a String</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> :t getLine 
 getLine :: IO String
 	    </code></pre>
@@ -215,28 +215,28 @@ getLine :: IO String
 	  </section>
 
 	  <section>
-	    <h3><code>return</code></h3>
-	    <p><code>return</code> is a function that "makes an I/O action out of a pure value" <a href="http://learnyouahaskell.com/input-and-output">*</a></p>
-	    <pre><code>
+	    <h3><code class="haskell">return</code></h3>
+	    <p><code class="haskell">return</code> is a function that "makes an I/O action out of a pure value" <a href="http://learnyouahaskell.com/input-and-output">*</a></p>
+	    <pre><code class="haskell">
 Prelude> :t return
 return :: Monad m => a -> m a
 	    </code></pre>
 	    <br>
-	    <p><code>return "hello" :: IO String</code></p>
+	    <p><code class="haskell">return "hello" :: IO String</code></p>
 	    <br>
-	    <p>It's pretty much the opposite of the <code>&lt;-</code> syntax.</p>
-	    <pre><code>
+	    <p>It's pretty much the opposite of the <code class="haskell">&lt;-</code> syntax.</p>
+	    <pre><code class="haskell">
 main = do
   input <- return "hello"
   putStrLn input
 	    </code></pre>
-	    <p><small><code>return</code> packs up a value into an IO box. <code>&lt;-</code> extracts the value out of an IO box.</small></p>
+	    <p><small><code class="haskell">return</code> packs up a value into an IO box. <code class="haskell">&lt;-</code> extracts the value out of an IO box.</small></p>
 	  </section>
 
 	  <section>
-	    <h3>Using <code>return</code></h3>
+	    <h3>Using <code class="haskell">return</code></h3>
 	    <p>In this program, we exit when the input is "y"</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 module Main where
 
 main = do
@@ -252,10 +252,10 @@ main = do
 	  </section>
 
 	  <section>
-	    <h3><code>when</code></h3>
+	    <h3><code class="haskell">when</code></h3>
 	    <p>The <b>when</b> function from Control.Monad module looks nicer</p>
 	    <br>
-	    <p><code>when :: Monad m =&gt; Bool -&gt; m () -&gt; m ()</code></p>
+	    <p><code class="haskell">when :: Monad m =&gt; Bool -&gt; m () -&gt; m ()</code></p>
 	    <br>
 	    <table width="100%">
 	      <tr>
@@ -264,7 +264,7 @@ main = do
 	      </tr>
 	      <tr>
 		<td>
-		  <pre><code>
+		  <pre><code class="haskell">
 module Main where
 
 main = do
@@ -277,7 +277,7 @@ main = do
 		  </code></pre>
 		</td>
 		<td>
-	    <pre><code>
+	    <pre><code class="haskell">
 module Main where
 
 import Control.Monad
@@ -295,18 +295,18 @@ main = do
 	  </section>
 
 	  <section>
-	    <h3><code>sequence</code></h3>
+	    <h3><code class="haskell">sequence</code></h3>
 	    <p><b>sequence</b> evaluates each IO action from a  list of actions and returns a list of IO outputs</p>
 	    <br>
-	    <p><code>sequence :: Monad m =&gt; [m a] -&gt; m [a]</code></p>
+	    <p><code class="haskell">sequence :: Monad m =&gt; [m a] -&gt; m [a]</code></p>
 	    <br>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> sequence [getLine, getLine]
 hello
 world
 ["hello","world"]
 	    </code></pre>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> sequence (map print [1,2])
 1
 2
@@ -316,9 +316,9 @@ Prelude> sequence (map print [1,2])
 	  </section>
 
 	  <section>
-	    <h3><code>mapM</code></h3>
+	    <h3><code class="haskell">mapM</code></h3>
 	    <p><b>mapM</b> takes care of the sequencing stuff</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> mapM print [1,2,3]
 1
 2
@@ -328,7 +328,7 @@ Prelude> mapM print [1,2,3]
 	    <div class="fragment roll-in">
 	      <br>
 	      <p>and <b>mapM_</b> is the same but doesn't output anything afterwards</p>
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude> mapM_ print [1,2,3]
 1
 2
@@ -338,12 +338,12 @@ Prelude> mapM_ print [1,2,3]
 	  </section>
 
           <section>
-	    <h3><code>interact</code></h3>
+	    <h3><code class="haskell">interact</code></h3>
 	    <p><b>interact</b> makes I/O really easy.</p>
-	    <p>Just call <code>interact</code> on a <i>String -> String</i> function and you're done!</p>
+	    <p>Just call <code class="haskell">interact</code> on a <i>String -> String</i> function and you're done!</p>
 	    <br>
 	    <small>This code counts the number of characters per line</small>
-	    <pre><code>
+	    <pre><code class="haskell">
 module Main where
 
 import System.IO
@@ -367,7 +367,7 @@ countChars str =
 	    </span>
 	    <div id="a">
 	      <small>It's best to keep the pure code separate from the ugly IO stuff</small>
-	      <pre><code>
+	      <pre><code class="haskell">
 module Main where
 
 import System.IO
@@ -377,12 +377,12 @@ main = do
   putStrLn (countLines theInput)
 
 countLines :: String -> String
-countLines str = (show (length (lines))) str
+countLines str = (show (length (lines str)))
 	      </code></pre>
 	    </div>
 	    <div id="b" style="display:none;">
 	      <small>One line. Checkmate.</small>
-	      <pre><code>
+	      <pre><code class="haskell">
 module Main where
 
 import System.IO
@@ -396,7 +396,7 @@ main = readFile "input.txt" >>= print.length.lines
 	  <section>
 	    <h2>File Output</h2>
 	    <p>Writing to file is done with <b>writeFile</b></p>
-	    <pre><code>
+	    <pre><code class="haskell">
 module Main where
 
 import System.IO
@@ -427,12 +427,12 @@ main = do
 		    </tr>
 		    <tr>
 		      <td>
-			<pre><code>
+			<pre><code class="no-highlight">
 hello world
 			</code></pre>
 		      </td>
 		      <td>
-			<pre><code>
+			<pre><code class="no-highlight">
 dlrow olleh
 			</code></pre>
 		      </td>

@@ -260,14 +260,14 @@
 	    <p>f is function from a set A to a set B.</p>
 	    <p>f :: A → B</p>
 	    <strong>What's the domain, codomain, and range?</strong>
-	    <pre><code contenteditable>
+	    <pre><code contenteditable class="haskell">
 domain(f)   = 
 codomain(f) = 
 range(f)    ⊆ 
 	    </code></pre>
 <div class="fragment roll-in">n
 Answer:
-	    <pre><code>
+	    <pre><code class="haskell">
 domain(f)   = A
 codomain(f) = B
 range(f)    ⊆ B
@@ -336,8 +336,8 @@ void f(int a[], int lo, int hi)
 <b>qsort</b> (p:xs) = (<b>qsort</b> lesser) ++ [p] ++ (<b>qsort</b> greater)
     where
         lesser  = filter (&lt; p) xs
-        greater = filter (&gt;= p) xs</pre>
-</code></pre>
+        greater = filter (&gt;= p) xs
+	    </code></pre>
             <div class="fragment">
               <p>No variable assignements, </p>
 	      <p>No array indices, </p>

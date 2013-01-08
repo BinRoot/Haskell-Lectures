@@ -26,7 +26,7 @@
     </style>
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -75,7 +75,7 @@
 	  <section>
 	    <h2>Maps</h2>
 	    <p>A map applies a function to each element of a list</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> map even [1..10]
 [False,True,False,True,False,True,False,True,False,True]
 
@@ -85,14 +85,14 @@ Prelude> map (+5) [1..10]
 	  </section>
 
 	  <section>
-	    <h3>Defining <code>Map</code></h3>
+	    <h3>Defining <code class="haskell">Map</code></h3>
 	    <p class="fragment roll-in">Type signature:</p>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 map :: (a -> b) -> [a] -> [b]
 	    </code></pre>
 	    <br>
 	    <p class="fragment roll-in">Possible Implementation:</p>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 map f [] = []
 map f (x:xs) = (f x):(map f xs)
 	    </code></pre>
@@ -101,7 +101,7 @@ map f (x:xs) = (f x):(map f xs)
 	  <section>
 	    <h2>Filters</h2>
 	    <p>A filter refines a list using a predicate</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> filter even [1..10]
 [2,4,6,8,10]
 
@@ -111,14 +111,14 @@ Prelude> filter (>5) [1..10]
 	  </section>
 
 	  <section>
-	    <h3>Defining <code>Filter</code></h3>
+	    <h3>Defining <code class="haskell">Filter</code></h3>
 	    <p class="fragment roll-in">Type signature:</p>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 filter :: (a -> Bool) -> [a] -> [a]
 	    </code></pre>
 	    <br>
 	    <p class="fragment roll-in">Possible Implementation:</p>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 filter p []                 = []
 filter p (x:xs) | p x       = x : filter p xs
                 | otherwise = filter p xs
@@ -128,7 +128,7 @@ filter p (x:xs) | p x       = x : filter p xs
 	  <section>
 	    <h2>Anonymous Function</h2>
 	    <p>We can use λ-calculus to define a function</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> map (\x -> x*x) [1..10]
 [1,4,9,16,25,36,49,64,81,100]
 	    </code></pre>
@@ -141,7 +141,7 @@ Prelude> map (\x -> x*x) [1..10]
 
 	  <section>
 	    <h3>These Are Very Powerful</h3>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> data Gender = Male | Female deriving (Show, Eq)
 
 Prelude> let people = [(Male, "Mal"),   (Female, "Zoe"), 
@@ -161,7 +161,7 @@ Prelude> map snd it
 	  <section>
 	    <h2>Folds</h2>
 	    <p>A fold scans an entire list to return a result</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 -- sum up all elements of a list
 
 Prelude> foldl (+) 0 [1, 2, 3]
@@ -182,7 +182,7 @@ Prelude> foldl (\acc x -> if x `elem` "aeiou"
 	  <section>
 	    <h2>Scans</h2>
 	    <p>A scan shows the intermediate values of a fold</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 -- sum up all elements of a list
 
 Prelude> scanl (+) 0 [1, 2, 3]
@@ -201,30 +201,30 @@ Prelude> scanl (\acc x -> if x `elem` "aeiou"
 
 	  <section>
 	    <h2>Function Application</h2>
-	    <p>The <code>($)</code> function is called a function application.</p>
+	    <p>The <code class="haskell">($)</code> function is called a function application.</p>
 	    <p>It makes functions right associative</p>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> not odd 4
 ERROR!
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> not (odd 4)
 True
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> not $ odd 4
 True
 	    </code></pre>
 	  </section>
 
 	  <section>
-	    <h2>The <code>(.)</code> Function</h2>
+	    <h2>The <code class="haskell">(.)</code> Function</h2>
 	    <p>It composes functions in a readable manner</p>
 	    <br>
-	    <p><code>f(g(h(k(x))))</code> is ugly</p>
-	    <p><code>(f.g.h.k)(x)</code> is pretty</p>
+	    <p><code class="haskell">f(g(h(k(x))))</code> is ugly</p>
+	    <p><code class="haskell">(f.g.h.k)(x)</code> is pretty</p>
 	    <br>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> (not.odd) 4
 True
 
@@ -251,18 +251,18 @@ Prelude> (length.head.words) "University of Virginia"
 
 	  <section>
 	    <h2>Data.List</h2>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> import Data.List
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.List> concat ["under","stand","able"]
 "understandable"
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.List> any (==0) [1,1,1,1,1,0,1]
 True
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.List> sort "hello"
 "ehllo"
 	    </code></pre>
@@ -271,19 +271,19 @@ Prelude Data.List> sort "hello"
 
 	  <section>
 	    <h2>Data.Char</h2>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> import Data.Char
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Char> isNumber 'h'
 False
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Char> toUpper 't'
 'T'
 	    </code></pre>
 
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Char> map ord ['A'..'F']
 [65,66,67,68,69,70]
 	    </code></pre>
@@ -292,20 +292,20 @@ Prelude Data.Char> map ord ['A'..'F']
 
 	  <section>
 	    <h2>Data.Map</h2>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> import Data.Map
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Map> let m = fromList [("CS", "Computer Science"), 
                                         ("PHIL", "Philisophy")
                                         ("ASTR", "Astronomy")]
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Map> keys m
 ["CS","PHIL","ASTR"]
 	    </code></pre>
 
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Map> Data.Map.lookup "CS" m
 Just "Computer Science"
 	    </code></pre>
@@ -314,19 +314,19 @@ Just "Computer Science"
 
 	  <section>
 	    <h2>Data.Set</h2>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> import Data.Set
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Set> let a = fromList [1..58]
 Prelude Data.Set> let b = fromList [53..100]
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Set> intersection a b
 fromList [53,54,55,56,57,58]
 	    </code></pre>
 
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Set> findMax $ union a b
 100
 	    </code></pre>
@@ -349,7 +349,7 @@ Prelude Data.Set> findMax $ union a b
 		</ul>
 	      </small>
 	    </ol>
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude> :t strong
 strong :: String -> Bool
 

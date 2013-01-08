@@ -26,7 +26,7 @@
     </style>
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -105,7 +105,7 @@
 	    <ul>
 	      <p><li>You should use a tool called <a href="http://www.haskell.org/haskellwiki/Cabal/How_to_install_a_Cabal_package">Cabal</a></li></p>
 	      <p><li>Cabal is a command-line tool that installs packages and their dependencies</li></p>
-	      <p><li><p>For example, try installing the HTTP library</p> <pre><code>cabal install HTTP</code></pre></li></p>
+	      <p><li><p>For example, try installing the HTTP library</p> <pre><code class="haskell">cabal install HTTP</code></pre></li></p>
 	    </ul>
 	  </section>
 
@@ -136,7 +136,7 @@
 	  <section>
 	    <h3>1. Refresh the list</h3>
 	    <p>Download the most recent list of packages</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 cabal update
 	    </code></pre>
 	  </section>
@@ -144,7 +144,7 @@ cabal update
 	  <section>
 	    <h3>2. Install the package</h3>
 	    <p>Find any package from <a href="http://hackage.haskell.org/packages/archive/pkg-list.html">Hackage</a></p>
-	    <pre><code>
+	    <pre><code class="haskell">
 cabal install HTTP
 	    </code></pre>
 	  </section>
@@ -153,7 +153,7 @@ cabal install HTTP
 	    <h3>3. Use</h3>
 	    <p>Cabal takes care of installing the package.</p>
 	    <p>The library can now be imported.</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 import Network.HTTP
 	    </code></pre>
 	  </section>
@@ -167,12 +167,12 @@ import Network.HTTP
 	  <section>
 	    <p>Let's take a look at one of the functions in Network.HTTP</p>
 	    <p><img src="L07_files/simpleHTTP.png"></p>
-	    <p><code>simpleHTTP</code> takes in a <code>Request</code> object, and returns an IO Monad</p>
+	    <p><code class="haskell">simpleHTTP</code> takes in a <code class="haskell">Request</code> object, and returns an IO Monad</p>
 	  </section>
 
 	  <section>
 	    <h3>Try it out</h3>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> import Network.HTTP
 
 Prelude Network.HTTP> :t simpleHTTP
@@ -180,7 +180,7 @@ simpleHTTP
   :: HStream ty =>
      Request ty -> IO (Network.Stream.Result (Response ty))
 	    </code></pre>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude Network.HTTP> let myRequest 
                       = getRequest "http://duckduckgo.com"
 
@@ -192,19 +192,19 @@ Prelude Network.HTTP> simpleHTTP myRequest >>= getResponseBody
 	  <section data-state="soothe">
 	    <h2>>>=</h2>
 	    <p>
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude Network.HTTP> simpleHTTP myRequest >>= getResponseBody
 	      </code></pre>
 	    </p>
 	    <p>Huh... What's that?</p>
 	    <br>
 	    <div class="fragment roll-in">
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude Network.HTTP> :t (>>=)
 (>>=) :: Monad m => m a -> (a -> m b) -> m b
 	      </code></pre>
 	      
-	      <p class="fragment roll-in"><code>>>=</code> is called the <i>bind</i> operator</p>
+	      <p class="fragment roll-in"><code class="haskell">>>=</code> is called the <i>bind</i> operator</p>
 	    </div>
 	  </section>
 

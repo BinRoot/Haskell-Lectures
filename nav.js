@@ -10,7 +10,7 @@ document.write('\
                     <a class="brand" href="index.html">CS 1501</a>\
                     <div class="nav-collapse collapse">\
                       <ul class="nav">\
-			<li>\
+			<li class="active">\
 			  <div class="btn-group">\
 			    <a href="index.html" class="btn btn-inverse"><i class="icon-th icon-white"></i> Lectures</a>\
 			    <a href="#dropdown-menu" class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">\

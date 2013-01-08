@@ -18,16 +18,19 @@
     <link rel="stylesheet" href="css/theme/serif.css" id="theme">
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
+
     <style>
       body {
       padding-top: 30px;
       padding-bottom: 40px;
       }
+      code {
+      margin-left:50%;
+      }
     </style>
 
-
-    <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -54,8 +57,6 @@
       <!-- Slides begin here! -->
       <div class="slides">
 	<section>
-
-
           <section>
             <h1>Introduction To Haskell</h1>
             <p>Lecture 2</p>
@@ -69,17 +70,17 @@
 	  <section>
 	    <h3>Jumping into GHCi</h3>
 	    <small>Make Haskell your calculator for the next few months</small>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in haskell"><code>
 Prelude> 4317 * 103
 444651
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in haskell"><code>
 Prelude> let x = 3.0
 Prelude> let y = 4.0
 Prelude> sqrt( x^2 + y^2 )
 5.0
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in haskell"><code>
 Prelude> 2^1000
 10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376
 	    </code></pre>
@@ -89,14 +90,14 @@ Prelude> 2^1000
 	  <section>
 	    <h2>Everything is a function</h2>
 	    <div>
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude> (+) 2 3
 5
 	      </pre></code>
 	      <p><small>f(2, 3) = 2 + 3 = 5</small></p>
 	    </div>
 	    <div>
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude> (^) 3 4
 81
 	      </pre></code>
@@ -106,20 +107,20 @@ Prelude> (^) 3 4
 
 	  <section data-state="soothe">
 	    <h3>Bool</h3>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> (True && False) || False
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 False
 	    </code></pre>
 
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> True && 1
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 ERROR!
 	    </code></pre>
-	    <pre class="fragment roll-in"><code>
+	    <pre class="fragment roll-in"><code class="haskell">
 Prelude> 30 < 31
 True
 	    </code></pre>
@@ -135,13 +136,13 @@ Do live example of using /= instead of !=
 	  <section>
 	    <h3>if ... then ... else ...</h3>
 	    <p>Lets define a function <i>isHaxxor</i></p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> let isHaxxor p = if p>9000 then True else False
 Prelude> isHaxxor 9001
 True
 	    </code></pre>
 	    <p>Lets also define a related function <i>isNoob</i></p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> let isNoob p = not (isHaxxor p)
 Prelude> isNoob 9001
 False
@@ -161,16 +162,16 @@ False
 
 	  <section>
 	    <h3>Try it out</h3>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> [3,1,5,3]
 [3,1,5,3]
 	    </code></pre>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> ["list","of","strings"]
 ["list","of","strings"]
 	    </code></pre>
 	    <p>The elements must be of the same type</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> [1,2,3,"a","bb","ccc"]
 ERROR!
 	    </code></pre>
@@ -180,12 +181,12 @@ ERROR!
 	  <section>
 	    <h3>Enumeration</h3>
 	    <p>Start at 1, end at 10</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> [1..10]
 [1,2,3,4,5,6,7,8,9,10]
 	    </code></pre>
 	    <p>Start at 1, count up by 0.25, end at 4</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> [1, 1.25 .. 4.0]
 [1.0,1.25,1.5,1.75,2.0,2.25,2.5,2.75,3.0,3.25,3.5,3.75,4.0]
 	    </code></pre>
@@ -194,14 +195,14 @@ Prelude> [1, 1.25 .. 4.0]
 	  <section>
 	    <h3>List Operators</h3>
 	    <h4>Concatenation (++)</h4>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> let l1 = [1,2,3]
 Prelude> let l2 = [4,5,6]
 Prelude> l1 ++ l2
 [1,2,3,4,5,6]
 	    </code></pre>
 	    <h4>Construct (:)</h4>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> 0 : [1,2,3]
 [0,1,2,3]
 	    </code></pre>
@@ -209,19 +210,19 @@ Prelude> 0 : [1,2,3]
 
 	  <section>
 	    <h3><i>Everything</i> is a function</h3>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> let l1 = [1,2,3]
 Prelude> let l2 = [4,5,6]
 Prelude> (++) l1 l2
 [1,2,3,4,5,6]
 	    </code></pre>
 
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> (:) 0 [1,2,3]
 [0,1,2,3]
 	    </code></pre>
 	    <p>In fact, a list is formally defined like this</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> [1,2,3] == (:) 1 ((:) 2 ((:) 3 []))
 True
 	    </code></pre>
@@ -231,7 +232,7 @@ True
 	  <section>
 	    <h3>String</h3>
 	    <p>A string is just a list of characters.</p>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> "wahoo" == ['w', 'a', 'h', 'o', 'o']
 True
 	    </code></pre>
@@ -240,24 +241,24 @@ True
 
 	  <section data-state="soothe">
 	    <h3>True or False?</h3>
-	    <pre class="fragment roll-in"><code contenteditable>
+	    <pre class="fragment roll-in"><code contenteditable class="haskell">
 Prelude> "" == []
 	    </code></pre>
-	    <pre class="fragment roll-in"><code contenteditable>
+	    <pre class="fragment roll-in"><code contenteditable class="haskell">
 True
 	    </code></pre>
 
-	    <pre class="fragment roll-in"><code contenteditable>
+	    <pre class="fragment roll-in"><code contenteditable class="haskell">
 Prelude> 'a':"bc" == ['a', 'b', 'c']
 	    </code></pre>
-	    <pre class="fragment roll-in"><code contenteditable>
+	    <pre class="fragment roll-in"><code contenteditable class="haskell">
 True
 	    </code></pre>
 
-	    <pre class="fragment roll-in"><code contenteditable>
+	    <pre class="fragment roll-in"><code contenteditable class="haskell">
 Prelude> 6:"789" == "6789"
 	    </code></pre>
-	    <pre class="fragment roll-in"><code contenteditable>
+	    <pre class="fragment roll-in"><code contenteditable class="haskell">
 ERROR!
 	    </code></pre>
 	  </section>
@@ -278,20 +279,20 @@ ERROR!
 	    <h3>Reverse a List</h3>
 	    <p>Create a file <code>myfunction.hs</code></p>
 	    <p>and write a function to reverse a list</p>
-	    <pre id="a"><code contenteditable>
+	    <pre id="a"><code contenteditable class="haskell">
 rev [] = []
 
 	    </code></pre>
 
-	    <pre id="b" style="display:none;"><code contenteditable>
+	    <pre id="b" style="display:none;"><code contenteditable class="haskell">
 rev [] = []
 rev xs = (last xs):(rev (init xs))
 	    </code></pre>
-	    <pre id="c" style="display:none;"><code contenteditable>
+	    <pre id="c" style="display:none;"><code contenteditable class="haskell">
 rev [] = []
 rev xs = rev (tail xs) ++ [head xs]
 	    </code></pre>
-	    <pre id="d" style="display:none;"><code contenteditable>
+	    <pre id="d" style="display:none;"><code contenteditable class="haskell">
 rev [] = []
 rev (x:xs) = reverse xs ++ [x]
 	    </code></pre>
@@ -304,7 +305,7 @@ rev (x:xs) = reverse xs ++ [x]
 	    </span>
 	    <div class="fragment roll-in">	    
 	      <p>run <code>ghci</code> and load the file</p>
-	      <pre><code>
+	      <pre><code class="haskell">
 Prelude> :load myfunction.hs
 [1 of 1] Compiling Main             ( myfunction.hs, interpreted )
 Ok, modules loaded: Main.
@@ -343,10 +344,10 @@ Ok, modules loaded: Main.
 
 	  <section data-state="soothe">
 	    <h3>What's the output?</h3>
-	    <pre id="e"><code>
+	    <pre id="e"><code class="haskell">
 Prelude> [ x+5 | x <- [1,2,3] ]
 	    </code></pre>
-	    <pre id="f" style="display:none;"><code>
+	    <pre id="f" style="display:none;"><code class="haskell">
 Prelude> [ x+5 | x <- [1,2,3] ]
 [6,7,8]
 	    </code></pre>
@@ -356,10 +357,10 @@ Prelude> [ x+5 | x <- [1,2,3] ]
 	      <a onclick="toggleElements('e', 'f');">(show answer)</a>
 	    </span>
 
-	    <pre id="g"><code>
+	    <pre id="g"><code class="haskell">
 Prelude> [ x | x <- [2..10], 10 `mod` x  == 0]
 	    </code></pre>
-	    <pre id="h" style="display:none;"><code>
+	    <pre id="h" style="display:none;"><code class="haskell">
 Prelude> [ x | x <- [2..10], 10 `mod` x  == 0]
 [2,5,10]
 	    </code></pre>
@@ -369,12 +370,12 @@ Prelude> [ x | x <- [2..10], 10 `mod` x  == 0]
 	      <a onclick="toggleElements('g', 'h');">(show answer)</a>
 	    </span>
 
-	    <pre id="i"><code>
+	    <pre id="i"><code class="haskell">
 Prelude> [ team ++ " " ++ player | 
              team   <- ["red", "blue"], 
              player <- ["soldier", "pyro", "scout"] ]
 	    </code></pre>
-	    <pre id="j" style="display:none;"><code>
+	    <pre id="j" style="display:none;"><code class="haskell">
 Prelude> [ team ++ " " ++ player | 
              team   <- ["red", "blue"], 
              player <- ["soldier", "pyro", "scout"] ]
@@ -394,10 +395,10 @@ Prelude> [ team ++ " " ++ player |
 	    <p>A tuple is surrounded by ( ... )</p>
 	    <br>
 	    <ul>
-	      <li><code>(1, 2)</code></li>
-	      <li><code>("lol", "wut")</code></li>
-	      <li><code>(40, "fourty")</code></li>
-	      <li><code>("Coins", [1, 5, 10, 25])</code></li>
+	      <li><code class="haskell">(1, 2)</code></li>
+	      <li><code class="haskell">("lol", "wut")</code></li>
+	      <li><code class="haskell">(40, "fourty")</code></li>
+	      <li><code class="haskell">("Coins", [1, 5, 10, 25])</code></li>
 	    </ul>
 	  </section>
 
@@ -405,15 +406,15 @@ Prelude> [ team ++ " " ++ player |
 	    <h3>Accessing Tuple Elements</h3>
 	    <ul>
 	      <li>
-		<p><code>fst</code> retrieves the first element</p>
-		<pre><code>
+		<p><code class="haskell">fst</code> retrieves the first element</p>
+		<pre><code class="haskell">
 Prelude> fst (1,2)
 1
 		</code></pre>
 	      </li>
 	      <li>
-		<p><code>snd</code> retrieves the second element</p>
-		<pre><code>
+		<p><code class="haskell">snd</code> retrieves the second element</p>
+		<pre><code class="haskell">
 Prelude> snd (1,2)
 2
 		</code></pre>
@@ -424,11 +425,11 @@ Prelude> snd (1,2)
 <!-- [f arg | f<-fs, arg<-args] -->
           <section>
 	    <h3>Tuple Examples</h3>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> [ (n, even n) | n <- [1..4] ]
 [(1,False),(2,True),(3,False),(4,True)]
 	    </code></pre>
-	    <pre><code>
+	    <pre><code class="haskell">
 Prelude> [(a,b,c) | c<-[1..10], b<-[1..c], a<-[1..b]
 					 , a^2 + b^2 == c^2]
 [(3,4,5),(6,8,10)]
@@ -447,14 +448,14 @@ Prelude> [(a,b,c) | c<-[1..10], b<-[1..c], a<-[1..b]
 	    <ol>
 	      <li>
 		<p>Write 2 different implementations of factorial</p>
-		<pre><code>
+		<pre><code class="haskell">
 fac1 n = ...
 
 fac2 n = ...
 		</code></pre>
 	      </li>
 	      <li>
-		<p>Save the file as <code>fac.hs</code> and submit it here</p>
+		<p>Save the file as <code class="haskell">fac.hs</code> and submit it here</p>
 	      </li>
 	    </ol>
 	  </section>
