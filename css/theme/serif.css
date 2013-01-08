@@ -53,7 +53,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a:not(.image) {
-  color: #38ACEC;
+  color: #080CAC;
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
