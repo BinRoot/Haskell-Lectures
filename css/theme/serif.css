@@ -138,6 +138,7 @@ body {
  *********************************************/
 .reveal .progress {
   background: rgba(0, 0, 0, 0.2);
+  height:6px;
 }
 
 .reveal .progress span {
