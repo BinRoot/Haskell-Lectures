@@ -115,17 +115,18 @@
 	    <img src="L01_files/overflow2.png" class="fragment roll-in">
 	    <img src="L01_files/overflow3.png" class="fragment roll-in">
 
-	    <aside class="notes">The class started out at just 30 open seats. Enrollment filled up quickly and we didn't expect this level of interest, so we increased enrollment to 45. Two days later the class was full again, so we finally increased enrollment to 60, doubling the original size. This class is at max capacity.</aside>
+	    <aside class="notes">The class started out with just 30 open seats. Enrollment filled up quickly and we didn't expect this level of interest, so we increased enrollment to 45. Two days later the class was full again, so we finally increased enrollment to 60, doubling the original size. This class is at max capacity.</aside>
 	  </section>
 
 	  <section>
-            <img width="800" src="L01_files/ranking.png">
+            <a target="_blank" href="http://redmonk.com/sogrady/2012/09/12/language-rankings-9-12/"><img width="800" src="L01_files/ranking.png"></a>
+	    <aside class="notes">This chart is from Septemeber 2012, and it shows Haskell's popularity compared to many other languages.</aside>
 	  </section>
 
 	  <section>
 	    <img src="L01_files/langs.jpg">
+	    <aside class="notes">Java is enterprisey, C is swift, PHP gets the job done, Ruby has a great community, and Haskell makes you think.</aside>
 	  </section>
-
 
 	  <section>
 	    <h3>Syllabus</h3>
@@ -148,6 +149,8 @@
 	    <p><a target="_blank" href="http://learnyouahaskell.com/">Learn You a Haskell</a></p>
 	    <p><small>by Miran Lipovača</small></p>
 	    </div>
+
+	    <aside class="notes">These lectures are based off 'Real World Haskell' and 'Learn You a Haskell.' For the most effective use of these lectures, you should follow along with these two books.</aside>
 	  </section>
 
 <!-- Add bell-curve slide -->
@@ -159,18 +162,22 @@
 	      <img width="200" src="L01_files/neo.jpg">
 	      <br>
 	    </p>
+
+	    <aside class="notes">Where have you seen Haskell before? What made you come here?</aside>
 	  </section>
 
 	  <section>
 	    <h3>History</h3>
 	    <p>Alonzo Church invented <a target="_blank" href="ftp://ftp.cs.ru.nl/pub/CompMath.Found/lambda.pdf">λ-calculus</a></p>
 	    <img src="L01_files/church.jpg">
-	    <p>
+	    <aside class="notes">Church made fundimental contributions to theoritical computer science. He's also known for the Church-Turing thesis, and for proving the undecidability of the Halting problem.</aside>
 	  </section>
 
 	  <section>
 	    <p>Then John McCarthy invented <a target="_blank" href="http://www.gnu.org/software/emacs/emacs-lisp-intro/html_node/lambda.html">Lisp</a></p>
 	    <img width="40%" src="L01_files/mccarthy.jpg">
+	    
+	    <aside class="notes">Lisp had one of the first implementation of lambda-calculus introduced by Church. Applied computer science met theoretical computer science.</aside>
 	  </section>
 
 	  <section>
@@ -189,26 +196,36 @@
 	      <li>University of Glasgow</li>
 	      <li>Microsoft Research Ltd</li>
 	    </ul>
+
+	    <aside class="notes">Most research languages don't catch on. It's been more than 20 years and Haskell is still relevant today.</aside>
 	  </section>
 
 	  <section>
 	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
 	    <img src="L01_files/lang1.png">
+	    
+	    <aside class="notes">This diagram is from Simon Peyton Jones' slides from OSCON.</aside>
 	  </section>
 
 	  <section>
 	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
 	    <img src="L01_files/lang2.png">
+	    
+	    <aside class="notes">Haskell stood the test of time</aside>
 	  </section>
 
 	  <section>
 	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
 	    <img src="L01_files/lang3.png">
+
+	    <aside class="notes">There are thousands of programming languages, yet these are the ones you hear about.</aside>
 	  </section>
 
 	  <section>
 	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
 	    <img src="L01_files/lang4.png">
+
+	    <aside class="notes">Haskell is becoming more and more relevant in industry today.</aside>
 	  </section>
 
           <section>
@@ -223,6 +240,8 @@
                 <li>Lazy</li>
               </ol>
             </div>
+
+	    <aside class="notes">These words may look confusing, but it's important you understand them in the coming slides.</aside>
           </section>
 
 	  <section>
@@ -254,6 +273,8 @@
 		</li>
 	      </ul>
 	    </div>
+
+	    <aside class="notes">Notice the emphasis on PURE. Haskell is not just a functional language, but it is a purely functional language!</aside>
 	  </section>
 	  
 	  <section data-state="soothe">
@@ -274,7 +295,7 @@ codomain(f) = B
 range(f)    ⊆ B
 	    </code></pre>
 </div>
-
+          <aside class="notes">Haskell functions behave similarly to mathematical functions</aside>
 	  </section>
 
 	  <section>
@@ -284,6 +305,8 @@ range(f)    ⊆ B
 	    <h3>Imperative:</h3>
 	    <p>C++, Java, Python, Pascal</p>
 	    <p><small>Focuses on the low-level <i>"how"</i></small></p>
+	    
+	    <aside class="notes">Functional languages only care about 'what' is done. Imperative languages often deal with 'how' memory is managed or 'how' data is organized.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -321,6 +344,7 @@ void f(int a[], int lo, int hi)
 </small>
 	    </code></pre>
 	    <small><a target="_blank" href="http://www.haskell.org/haskellwiki/Introduction">*</a></small>
+	    <aside class="notes">This is a quicksort in C. Notice the low level array manipulations.</aside>
 	  </section> 
 
 	  <section>
@@ -344,6 +368,8 @@ void f(int a[], int lo, int hi)
 	      <p>No array indices, </p>
 	      <p>No memory management!</p>
 	    </div>
+
+	    <aside class="notes">Haskell is elegant. This is the first time you've seen Haskell code in lecture, so don't worry about understanding it. Just awe at the readability of the code :)</aside>
           </section>
 
           <section>
@@ -361,7 +387,8 @@ int count( List l ) { ... }
 	    </pre></code>
 	    <small>C++ however doesn't promise integrity. Maybe it's doing file IO or updating a global variable. You can't trust the code won't burn down your house.</small>
 
-	  </Section>
+	    <aside class="notes">Haskell promises that your code will not burn down your house while computing the output. There are no surprises.</aside>
+	  </section>
 
 	  <section>
 	    <h3>2. Statically Typed</h3>
@@ -374,6 +401,8 @@ int count( List l ) { ... }
 	      <li>Strong formalism. The proof is the code.</li>
 	      <li>If your code compiles, you're 99% done</li>
 	    </ul>
+
+	    <aside class="notes">The compiler infers the type of every function before the code is run. In other words, the compiler catches a lot of your bugs for you.</aside>
 	  </section>
 	  
 	  <section>
@@ -385,11 +414,15 @@ foo :: Int -> String
 	    <br>
 	    <p>I don't know how <b>foo</b> means,</p>
 	    <p>but I know what it does!</p>
+
+	    <aside class="notes">As long as the type signature is appropriate, you can use the function anywhere. You might be thinking of methods in Java or C++ - that's a fine analogy for now.</aside>
 	  </section>
 
 	  <section>
 	    <h3>3. Lazy</h3>
 	    <img src="L01_files/lazy.jpg">
+
+	    <aside class="notes">Haskell is lazy... in a good way!</aside>
 	  </section>
 
 	  <section>
@@ -406,6 +439,8 @@ head (sort ls)
 [1..]
 	      </code></pre>
 	    </ul>
+
+	    <aside class="notes">This allows Haskell to be pretty fast without manipulating low-level code.</aside>
 	  </section>
 
 	  <section>
@@ -430,6 +465,8 @@ head (sort ls)
 		</td>
 	      </tr>
 	    </table>
+
+	    <aside class="notes">Technical recruiters are impressed by Haskell. By the end of these lectures you'll have the confidence to put Haskell on your resume.</aside>
 	  </section>
 
 	  <section>
@@ -449,6 +486,8 @@ A language that doesn’t affect the way you think about programming, is not wor
 	    </blockquote>
 	    <small class="fragment roll-in">- Alan Perlis</small>
 	    <p><small><a target="_blank" href="http://www.inf.ed.ac.uk/teaching/courses/inf1/fp/lectures/2012/lect01.pdf">*</a></small></p>
+
+	    <aside class="notes">Takes these quotes to heart.</aside>
 	  </section>
 
 	  <section>
@@ -470,6 +509,8 @@ A language that doesn’t affect the way you think about programming, is not wor
 		Fill out this survey
 	      </li>
 	    </ol>
+
+	    <aside class="notes">That wasn't too bad. Move on to lecture 2. We'll get to the fun stuff!</aside>
 	  </section>
 
 	</section>
@@ -488,7 +529,7 @@ A language that doesn’t affect the way you think about programming, is not wor
       Reveal.initialize({
       controls: true,
       progress: true,
-      history: false,
+      history: true,
       center: true,
       mouseWheel: true,
       rollingLinks: false,
