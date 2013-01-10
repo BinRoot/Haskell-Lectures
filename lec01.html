@@ -1,538 +1,538 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
 
-    <title>Introduction to Haskell - Lecture 1</title>
+  <title>Introduction to Haskell - Lecture 1</title>
 
-    <meta name="description" content="A course on the world's fastest growing functional programming language">
-    <meta name="author" content="Nishant Shukla">
+  <meta name="description" content="A course on the world's fastest growing functional programming language">
+  <meta name="author" content="Nishant Shukla">
 
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="css/reveal.min.css">
-    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 
-    <style>
-      body {
-      padding-top: 30px;
-      padding-bottom: 40px;
-      }
-    </style>
+  <style>
+  body {
+    padding-top: 30px;
+    padding-bottom: 40px;
+  }
+  </style>
 
-    <!-- For syntax highlighting, tomorrow-night-bright pojoaque sunburst-->
-    
-    <link rel="stylesheet" href="lib/css/pojoaque.css">
+  <!-- For syntax highlighting, tomorrow-night-bright pojoaque sunburst-->
 
-    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
-    <script>
-      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-    </script>
+  <link rel="stylesheet" href="lib/css/pojoaque.css">
 
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+  </script>
 
-  </head>
+  <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+</head>
 
 
-  <body>
+<body>
 
-    <script src="nav.js"></script>    
+  <script src="nav.js"></script>    
 
-    <div class="reveal">
+  <div class="reveal">
 
-      <!-- Slides begin here! -->
-      <div class="slides">
-	<section>
-          <section>
-            <h1>Introduction To Haskell</h1>
-            <p>Lecture 1</p>
-            <p>
-              <br>
-            </p>
-            <p>An Unexpected Journey™</p>
-	  </section>
+    <!-- Slides begin here! -->
+    <div class="slides">
+      <section>
+        <h1>Introduction To Haskell</h1>
+        <p>Lecture 1</p>
+        <p>
+          <br>
+        </p>
+        <p>An Unexpected Journey™</p>
+      </section>
 
-	  <section>
-	    <h3>Using These Slides</h3>
-	      <h4>Every slide has a secret note.</h4>
-	      <small>
-	      <ul>
-		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
-		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
-		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
-	      </ul>
-	      </small>
-	      <br>
-	      <br>
-	      <p><h3>Shortcut Keys:</h3></p>
-	    <center>
-	      <table width="80%">
-		<tr>
-		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
-		  <td>next slide</td>
-		</tr>
-		<tr>
-		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
-		  <td>prev slide</td>
-		</tr>
-		<tr>
-		  <td><code>Esc</code></td>
-		  <td>enables <code>ctrl+f</code> globally</td>
-		</tr>
-	      </table>
-	    </center>
+      <section>
+       <h3>Using These Slides</h3>
+       <h4>Every slide has a secret note.</h4>
+       <small>
+         <ul>
+          <li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+          <li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+          <li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+        </ul>
+      </small>
+      <br>
+      <br>
+      <p><h3>Shortcut Keys:</h3></p>
+      <center>
+       <table width="80%">
+        <tr>
+          <td><code>→</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+          <td>next slide</td>
+        </tr>
+        <tr>
+          <td><code>←</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+          <td>prev slide</td>
+        </tr>
+        <tr>
+          <td><code>↕</code></td>
+          <td>sub-topic slides</td>
+        </tr>
+        <tr>
+          <td><code>Esc</code></td>
+          <td>enables <code>ctrl+f</code> globally</td>
+        </tr>
+      </table>
+    </center>
 
-	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
-	  </section>
+    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+  </section>
 
-          <section>
-	    <h3>Instructor</h3>
-	    <p><a target="_blank" href="http://shuklan.com">Nishant Shukla</a></p>
-	    <p><small>ns4av@virginia.edu</small></p>
-	    <br>
-	    <h3>Watchful Guardian</h3>
-	    <p><a target="_blank" href="http://www.cs.virginia.edu/~jwd/joomla_site/">Professor Jack Davidson</a></p>
-	    <p><small>jwd@virginia.edu</small></p>
-	    
-	    <aside class="notes">Email Nishant for questions on homework, class structure, and general class related things. Email Professor Davidson for anything else.</aside>
-	  </section>
+  <section>
+   <h3>Instructor</h3>
+   <p><a target="_blank" href="http://shuklan.com">Nishant Shukla</a></p>
+   <p><small>ns4av@virginia.edu</small></p>
+   <br>
+   <h3>Watchful Guardian</h3>
+   <p><a target="_blank" href="http://www.cs.virginia.edu/~jwd/joomla_site/">Professor Jack Davidson</a></p>
+   <p><small>jwd@virginia.edu</small></p>
 
-	  <section>
-	    <h2>Sponsored by...</h2>
-	    <img src="L01_files/estud.png">
+   <aside class="notes">Email Nishant for questions on homework, class structure, and general class related things. Email Professor Davidson for anything else.</aside>
+ </section>
 
-	    <aside class="notes">The Engineering Student Council at UVa helped setup and advertise this class.</aside>
-	  </section>
+ <section>
+   <h2>Sponsored by...</h2>
+   <img src="L01_files/estud.png">
 
-	  <section data-state="soothe">
-	    <h4>Quite a Turnout</h4>
-	    <img src="L01_files/overflow.png">
-	    <img src="L01_files/overflow2.png" class="fragment roll-in">
-	    <img src="L01_files/overflow3.png" class="fragment roll-in">
+   <aside class="notes">The Engineering Student Council at UVa helped setup and advertise this class.</aside>
+ </section>
 
-	    <aside class="notes">The class started out with just 30 open seats. Enrollment filled up quickly and we didn't expect this level of interest, so we increased enrollment to 45. Two days later the class was full again, so we finally increased enrollment to 60, doubling the original size. This class is at max capacity.</aside>
-	  </section>
+ <section data-state="soothe">
+   <h4>Quite a Turnout</h4>
+   <img src="L01_files/overflow.png">
+   <img src="L01_files/overflow2.png" class="fragment roll-in">
+   <img src="L01_files/overflow3.png" class="fragment roll-in">
 
-	  <section>
-            <a target="_blank" href="http://redmonk.com/sogrady/2012/09/12/language-rankings-9-12/"><img width="800" src="L01_files/ranking.png"></a>
-	    <aside class="notes">This chart is from September 2012, and it shows Haskell's popularity compared to many other languages.</aside>
-	  </section>
+   <aside class="notes">The class started out with just 30 open seats. Enrollment filled up quickly and we didn't expect this level of interest, so we increased enrollment to 45. Two days later the class was full again, so we finally increased enrollment to 60, doubling the original size. This class is at max capacity.</aside>
+ </section>
 
-	  <section>
-	    <img src="L01_files/langs.jpg">
-	    <aside class="notes">Java is enterprisey, C is swift, PHP gets the job done, Ruby has a great community, and Haskell makes you think.</aside>
-	  </section>
+ <section>
+  <a target="_blank" href="http://redmonk.com/sogrady/2012/09/12/language-rankings-9-12/"><img width="800" src="L01_files/ranking.png"></a>
+  <aside class="notes">This chart is from September 2012, and it shows Haskell's popularity compared to many other languages.</aside>
+</section>
 
-	  <section>
-	    <h3>Syllabus</h3>
+<section>
+ <img src="L01_files/langs.jpg">
+ <aside class="notes">Java is enterprisey, C is swift, PHP gets the job done, Ruby has a great community, and Haskell makes you think.</aside>
+</section>
 
-	    <p>
-	      <p><a target="_blank" href="http://people.virginia.edu/~ns4av/syllabus">Find it on the class website</a></p>
-	      <p><small>(Slides, homework, and announcements)</small></p></p>
-	    <small><p>Meet once a week, Tuesday 5:30pm</p>
-	    <div style="text-align: left; margin-left:30%;">
-	    <p>Attendance: 40pts (5pts/day)</p>
-	    <p>Homework: 30pts</p>
-	    <p>Project: 30pts</p></small>
-	    </div>
-	    <br>
-	    
-	    <div class="fragment roll-in">
-	    <h3>Reference Text</h3>
-	    <p><a target="_blank" href="http://book.realworldhaskell.org/">Real World Haskell</a></p>
-	    <p><small>by Bryan O’Sullivan, Don Stewart, and John Goerzen</small></p>
-	    <p><a target="_blank" href="http://learnyouahaskell.com/">Learn You a Haskell</a></p>
-	    <p><small>by Miran Lipovača</small></p>
-	    </div>
+<section>
+ <h3>Syllabus</h3>
 
-	    <aside class="notes">These lectures are based off 'Real World Haskell' and 'Learn You a Haskell.' For the most effective use of these lectures, you should follow along with these two books.</aside>
-	  </section>
+ <p>
+   <p><a target="_blank" href="http://people.virginia.edu/~ns4av/syllabus">Find it on the class website</a></p>
+   <p><small>(Slides, homework, and announcements)</small></p></p>
+   <small><p>Meet once a week, Tuesday 5:30pm</p>
+     <div style="text-align: left; margin-left:30%;">
+       <p>Attendance: 40pts (5pts/day)</p>
+       <p>Homework: 30pts</p>
+       <p>Project: 30pts</p></small>
+     </div>
+     <br>
 
-<!-- Add bell-curve slide -->
+     <div class="fragment roll-in">
+       <h3>Reference Text</h3>
+       <p><a target="_blank" href="http://book.realworldhaskell.org/">Real World Haskell</a></p>
+       <p><small>by Bryan O’Sullivan, Don Stewart, and John Goerzen</small></p>
+       <p><a target="_blank" href="http://learnyouahaskell.com/">Learn You a Haskell</a></p>
+       <p><small>by Miran Lipovača</small></p>
+     </div>
 
-	  <section>
-            <h2>More Than a Language</h2>
-	    <blockquote>I know why you're here. ...why you hardly sleep, why night after night, you sit by your computer.</blockquote>
-	    <p>
-	      <img width="200" src="L01_files/neo.jpg">
-	      <br>
-	    </p>
+     <aside class="notes">These lectures are based off 'Real World Haskell' and 'Learn You a Haskell.' For the most effective use of these lectures, you should follow along with these two books.</aside>
+   </section>
 
-	    <aside class="notes">Where have you seen Haskell before? What made you come here?</aside>
-	  </section>
+   <!-- Add bell-curve slide -->
 
-	  <section>
-	    <h3>History</h3>
-	    <p>Alonzo Church invented <a target="_blank" href="ftp://ftp.cs.ru.nl/pub/CompMath.Found/lambda.pdf">λ-calculus</a></p>
-	    <img src="L01_files/church.jpg">
-	    <aside class="notes">Church made fundamental contributions to theoretical computer science. He's also known for the Church-Turing thesis, and for proving the undecidability of the Halting problem.</aside>
-	  </section>
+   <section>
+    <h2>More Than a Language</h2>
+    <blockquote>I know why you're here. ...why you hardly sleep, why night after night, you sit by your computer.</blockquote>
+    <p>
+     <img width="200" src="L01_files/neo.jpg">
+     <br>
+   </p>
 
-	  <section>
-	    <p>Then John McCarthy invented <a target="_blank" href="http://www.gnu.org/software/emacs/emacs-lisp-intro/html_node/lambda.html">Lisp</a></p>
-	    <img width="40%" src="L01_files/mccarthy.jpg">
-	    
-	    <aside class="notes">Lisp had one of the first implementation of lambda-calculus introduced by Church. Applied computer science met theoretical computer science.</aside>
-	  </section>
+   <aside class="notes">Where have you seen Haskell before? What made you come here?</aside>
+ </section>
 
-	  <section>
-	    <h2>The Origin</h2>
-	    <p>Haskell was made by a <strong>committee</strong> of really smart people to define an open standard<a target="_blank" href="http://www.haskell.org/onlinereport/preface-jfp.html">*</a></p>
-	    <p><small>More than 20 years old</small></p>
+ <section>
+   <h3>History</h3>
+   <p>Alonzo Church invented <a target="_blank" href="ftp://ftp.cs.ru.nl/pub/CompMath.Found/lambda.pdf">λ-calculus</a></p>
+   <img src="L01_files/church.jpg">
+   <aside class="notes">Church made fundamental contributions to theoretical computer science. He's also known for the Church-Turing thesis, and for proving the undecidability of the Halting problem.</aside>
+ </section>
 
-	    <ul>
-	      <li>MIT</li>
-	      <li>Chalmers University</li>
-	      <li>Mitre Corp</li>
-	      <li>Victoria University of Wellington</li>
-	      <li>Simon Fraser University</li>
-	      <li>University of Cambridge</li>
-	      <li>Yale University</li>
-	      <li>University of Glasgow</li>
-	      <li>Microsoft Research Ltd</li>
-	    </ul>
+ <section>
+   <p>Then John McCarthy invented <a target="_blank" href="http://www.gnu.org/software/emacs/emacs-lisp-intro/html_node/lambda.html">Lisp</a></p>
+   <img width="40%" src="L01_files/mccarthy.jpg">
 
-	    <aside class="notes">Most research languages don't catch on. It's been more than 20 years and Haskell is still relevant today.</aside>
-	  </section>
+   <aside class="notes">Lisp had one of the first implementation of lambda-calculus introduced by Church. Applied computer science met theoretical computer science.</aside>
+ </section>
 
-	  <section>
-	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
-	    <img src="L01_files/lang1.png">
-	    
-	    <aside class="notes">This diagram is from Simon Peyton Jones' slides from OSCON.</aside>
-	  </section>
+ <section>
+   <h2>The Origin</h2>
+   <p>Haskell was made by a <strong>committee</strong> of really smart people to define an open standard<a target="_blank" href="http://www.haskell.org/onlinereport/preface-jfp.html">*</a></p>
+   <p><small>More than 20 years old</small></p>
 
-	  <section>
-	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
-	    <img src="L01_files/lang2.png">
-	    
-	    <aside class="notes">Haskell stood the test of time</aside>
-	  </section>
+   <ul>
+     <li>MIT</li>
+     <li>Chalmers University</li>
+     <li>Mitre Corp</li>
+     <li>Victoria University of Wellington</li>
+     <li>Simon Fraser University</li>
+     <li>University of Cambridge</li>
+     <li>Yale University</li>
+     <li>University of Glasgow</li>
+     <li>Microsoft Research Ltd</li>
+   </ul>
 
-	  <section>
-	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
-	    <img src="L01_files/lang3.png">
+   <aside class="notes">Most research languages don't catch on. It's been more than 20 years and Haskell is still relevant today.</aside>
+ </section>
 
-	    <aside class="notes">There are thousands of programming languages, yet these are the ones you hear about.</aside>
-	  </section>
+ <section>
+   <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
+   <img src="L01_files/lang1.png">
 
-	  <section>
-	    <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
-	    <img src="L01_files/lang4.png">
+   <aside class="notes">This diagram is from Simon Peyton Jones' slides from OSCON.</aside>
+ </section>
 
-	    <aside class="notes">Haskell is becoming more and more relevant in industry today.</aside>
-	  </section>
+ <section>
+   <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
+   <img src="L01_files/lang2.png">
 
-          <section>
-            <h2>Features</h2>
-            <div>
-              <br>
-            </div>
-            <div>
-              <ol>
-                <li>Purely functional</li>
-                <li>Statically typed</li>
-                <li>Lazy</li>
-              </ol>
-            </div>
+   <aside class="notes">Haskell stood the test of time</aside>
+ </section>
 
-	    <aside class="notes">These words may look confusing, but it's important you understand them in the coming slides.</aside>
-          </section>
+ <section>
+   <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
+   <img src="L01_files/lang3.png">
 
-	  <section>
-	    <h3>1. Purely functional</h3>
-	    <div>
-	      <ul>
-		<li><strong>Every</strong> input has a corresponding output</li>
-		<li>
-		  <p>
-		    f(x) = x² + 1
-		  </p>
-		</li>
-		<li>
-		  <p>Powerful <strong>function compositions</strong></p>
-		  <p>
-		    g(x) = x - 1
-		  </p>
-		  <p>
-		    g(f(x)) = x²
-		  </p>
-		</li>
-		<li>
-		  <p><strong>PURE</strong></p>
-		  <p>That means <i>no side effects</i></p>
-		  <p>A function will never modify a <i>global variable</i></p>
-		  <p> 
-		  <p>Order doesn't matter!</p>
-		  <p>Easy concurrency</p>
-		</li>
-	      </ul>
-	    </div>
+   <aside class="notes">There are thousands of programming languages, yet these are the ones you hear about.</aside>
+ </section>
 
-	    <aside class="notes">Notice the emphasis on PURE. Haskell is not just a functional language, but it is a purely functional language!</aside>
-	  </section>
-	  
-	  <section data-state="soothe">
-	    <h4>Let's be a little formal</h4>
-	    <p>f is function from a set A to a set B.</p>
-	    <p>f :: A → B</p>
-	    <strong>What's the domain, codomain, and range?</strong>
-	    <pre><code contenteditable class="haskell">
-domain(f)   = 
-codomain(f) = 
-range(f)    ⊆ 
-	    </code></pre>
-	    <div class="fragment roll-in">
-	      Answer:
-	    <pre><code class="haskell">
-domain(f)   = A
-codomain(f) = B
-range(f)    ⊆ B
-	    </code></pre>
+ <section>
+   <p><a target="_blank" href="http://blip.tv/oreilly-open-source-convention/oscon-2007-simon-peyton-jones-a-taste-of-haskell-part-i-329701">From Simon Peyton Jones' talk at OSCON</a></p>
+   <img src="L01_files/lang4.png">
+
+   <aside class="notes">Haskell is becoming more and more relevant in industry today.</aside>
+ </section>
+
+ <section>
+  <h2>Features</h2>
+  <div>
+    <br>
+  </div>
+  <div>
+    <ol>
+      <li>Purely functional</li>
+      <li>Statically typed</li>
+      <li>Lazy</li>
+    </ol>
+  </div>
+
+  <aside class="notes">These words may look confusing, but it's important you understand them in the coming slides.</aside>
+</section>
+
+<section>
+ <h3>1. Purely functional</h3>
+ <div>
+   <ul>
+    <li><strong>Every</strong> input has a corresponding output</li>
+    <li>
+      <p>
+        f(x) = x² + 1
+      </p>
+    </li>
+    <li>
+      <p>Powerful <strong>function compositions</strong></p>
+      <p>
+        g(x) = x - 1
+      </p>
+      <p>
+        g(f(x)) = x²
+      </p>
+    </li>
+    <li>
+      <p><strong>PURE</strong></p>
+      <p>That means <i>no side effects</i></p>
+      <p>A function will never modify a <i>global variable</i></p>
+      <p> 
+        <p>Order doesn't matter!</p>
+        <p>Easy concurrency</p>
+      </li>
+    </ul>
+  </div>
+
+  <aside class="notes">Notice the emphasis on PURE. Haskell is not just a functional language, but it is a purely functional language!</aside>
+</section>
+
+<section data-state="soothe">
+ <h4>Let's be a little formal</h4>
+ <p>f is function from a set A to a set B.</p>
+ <p>f :: A → B</p>
+ <strong>What's the domain, codomain, and range?</strong>
+ <pre><code contenteditable class="haskell">
+  domain(f)   = 
+  codomain(f) = 
+  range(f)    ⊆ 
+</code></pre>
+<div class="fragment roll-in">
+ Answer:
+ <pre><code class="haskell">
+  domain(f)   = A
+  codomain(f) = B
+  range(f)    ⊆ B
+</code></pre>
 </div>
-          <aside class="notes">Haskell functions behave similarly to mathematical functions</aside>
-	  </section>
+<aside class="notes">Haskell functions behave similarly to mathematical functions</aside>
+</section>
 
-	  <section>
-	    <h3>Functional:</h3>
-	    <p>Haskell, Lisp, ML, Scheme, Erlang</p>
-	    <p><small>Focuses on the high-level <i>"what"</i></small></p>
-	    <h3>Imperative:</h3>
-	    <p>C++, Java, Python, Pascal</p>
-	    <p><small>Focuses on the low-level <i>"how"</i></small></p>
-	    
-	    <aside class="notes">Functional languages only care about 'what' is done. Imperative languages often deal with 'how' memory is managed or 'how' data is organized.</aside>
-	  </section>
+<section>
+ <h3>Functional:</h3>
+ <p>Haskell, Lisp, ML, Scheme, Erlang</p>
+ <p><small>Focuses on the high-level <i>"what"</i></small></p>
+ <h3>Imperative:</h3>
+ <p>C++, Java, Python, Pascal</p>
+ <p><small>Focuses on the low-level <i>"how"</i></small></p>
 
-	  <section data-state="soothe">
-	    <h4>What does this code do?</h4>
-	    <pre><code>
-<small>
-void f(int a[], int lo, int hi) 
-{
-  int h, l, p, t;
+ <aside class="notes">Functional languages only care about 'what' is done. Imperative languages often deal with 'how' memory is managed or 'how' data is organized.</aside>
+</section>
 
-  if (lo < hi) {
+<section data-state="soothe">
+ <h4>What does this code do?</h4>
+ <pre><code>
+  <small>
+    void f(int a[], int lo, int hi) 
+    {
+    int h, l, p, t;
+
+    if (lo < hi) {
     l = lo;
     h = hi;
     p = a[hi];
 
     do {
-      while ((l < h) && (a[l] <= p)) 
-          l = l+1;
-      while ((h > l) && (a[h] >= p))
-          h = h-1;
-      if (l < h) {
-          t = a[l];
-          a[l] = a[h];
-          a[h] = t;
-      }
-    } while (l < h);
-
-    a[hi] = a[l];
-    a[l] = p;
-
-    f( a, lo, l-1 );
-    f( a, l+1, hi );
+    while ((l < h) && (a[l] <= p)) 
+    l = l+1;
+    while ((h > l) && (a[h] >= p))
+    h = h-1;
+    if (l < h) {
+    t = a[l];
+    a[l] = a[h];
+    a[h] = t;
   }
+} while (l < h);
+
+a[hi] = a[l];
+a[l] = p;
+
+f( a, lo, l-1 );
+f( a, l+1, hi );
+}
 }
 </small>
-	    </code></pre>
-	    <small><a target="_blank" href="http://www.haskell.org/haskellwiki/Introduction">*</a></small>
-	    <aside class="notes">This is a quicksort in C. Notice the low level array manipulations.</aside>
-	  </section> 
+</code></pre>
+<small><a target="_blank" href="http://www.haskell.org/haskellwiki/Introduction">*</a></small>
+<aside class="notes">This is a quicksort in C. Notice the low level array manipulations.</aside>
+</section> 
 
-	  <section>
-	    <h3>Sort in Haskell</h3>
-	    <div class="fragment">
-	      <pre><code>
-<b>qsort</b> :: Ord a =&gt; [a] -&gt; [a]
-	      </code></pre>
-	    </div>
+<section>
+ <h3>Sort in Haskell</h3>
+ <div class="fragment">
+   <pre><code>
+    <b>qsort</b> :: Ord a =&gt; [a] -&gt; [a]
+  </code></pre>
+</div>
 
-	    <pre><code contenteditable>
-<b>qsort</b> []     = []
+<pre><code contenteditable>
+  <b>qsort</b> []     = []
 
-<b>qsort</b> (p:xs) = (<b>qsort</b> lesser) ++ [p] ++ (<b>qsort</b> greater)
-    where
-        lesser  = filter (&lt; p) xs
-        greater = filter (&gt;= p) xs
-	    </code></pre>
-            <div class="fragment">
-              <p>No variable assignments, </p>
-	      <p>No array indices, </p>
-	      <p>No memory management!</p>
-	    </div>
+  <b>qsort</b> (p:xs) = (<b>qsort</b> lesser) ++ [p] ++ (<b>qsort</b> greater)
+  where
+  lesser  = filter (&lt; p) xs
+  greater = filter (&gt;= p) xs
+</code></pre>
+<div class="fragment">
+  <p>No variable assignments, </p>
+  <p>No array indices, </p>
+  <p>No memory management!</p>
+</div>
 
-	    <aside class="notes">Haskell is elegant. This is the first time you've seen Haskell code in lecture, so don't worry about understanding it. Just awe at the readability of the code :)</aside>
-          </section>
+<aside class="notes">Haskell is elegant. This is the first time you've seen Haskell code in lecture, so don't worry about understanding it. Just awe at the readability of the code :)</aside>
+</section>
 
-          <section>
-	    <h3>No Side Effects</h3>
-	    <p style="margin-right:60%">Haskell code:</p>
-	    <pre><code>
-count :: List -> Int
-	    </code></pre>
-	    <small>When this function runs on a List, we get back an Int. No more, no less.</small>
-	    <br>
-	    <br>
-	    <p style="margin-right:65%">C++ code:</p>
-	    <pre><code>
-int count( List l ) { ... }
-	    </pre></code>
-	    <small>C++ however doesn't promise integrity. Maybe it's doing file IO or updating a global variable. You can't trust the code won't burn down your house.</small>
+<section>
+ <h3>No Side Effects</h3>
+ <p style="margin-right:60%">Haskell code:</p>
+ <pre><code>
+  count :: List -> Int
+</code></pre>
+<small>When this function runs on a List, we get back an Int. No more, no less.</small>
+<br>
+<br>
+<p style="margin-right:65%">C++ code:</p>
+<pre><code>
+  int count( List l ) { ... }
+</pre></code>
+<small>C++ however doesn't promise integrity. Maybe it's doing file IO or updating a global variable. You can't trust the code won't burn down your house.</small>
 
-	    <aside class="notes">Haskell promises that your code will not burn down your house while computing the output. There are no surprises.</aside>
-	  </section>
+<aside class="notes">Haskell promises that your code will not burn down your house while computing the output. There are no surprises.</aside>
+</section>
 
-	  <section>
-	    <h3>2. Statically Typed</h3>
-	    <ul>
-	      <li>f x = x² + 1</li>
-	      <li>f :: Int → Int</li>
-	      <li>There is never confusion about types 
-		<p>(Bool, Int, Char, etc)</p>
-	      </li>
-	      <li>Strong formalism. The proof is the code.</li>
-	      <li>If your code compiles, you're 99% done</li>
-	    </ul>
+<section>
+ <h3>2. Statically Typed</h3>
+ <ul>
+   <li>f x = x² + 1</li>
+   <li>f :: Int → Int</li>
+   <li>There is never confusion about types 
+    <p>(Bool, Int, Char, etc)</p>
+  </li>
+  <li>Strong formalism. The proof is the code.</li>
+  <li>If your code compiles, you're 99% done</li>
+</ul>
 
-	    <aside class="notes">The compiler infers the type of every function before the code is run. In other words, the compiler catches a lot of your bugs for you.</aside>
-	  </section>
-	  
-	  <section>
-	    <h3>Types</h3>
-	    <p>Every function in haskell has a Type signature.</p>
-	    <pre><code class="haskell">
-foo :: Int -> String
-	    </pre></code>
-	    <br>
-	    <p>I don't know what <b>foo</b> means,</p>
-	    <p>but I know what it does!</p>
+<aside class="notes">The compiler infers the type of every function before the code is run. In other words, the compiler catches a lot of your bugs for you.</aside>
+</section>
 
-	    <aside class="notes">As long as the type signature is appropriate, you can use the function anywhere. You might be thinking of methods in Java or C++ - that's a fine analogy for now.</aside>
-	  </section>
+<section>
+ <h3>Types</h3>
+ <p>Every function in haskell has a Type signature.</p>
+ <pre><code class="haskell">
+  foo :: Int -> String
+</pre></code>
+<br>
+<p>I don't know what <b>foo</b> means,</p>
+<p>but I know what it does!</p>
 
-	  <section>
-	    <h3>3. Lazy</h3>
-	    <img src="L01_files/lazy.jpg">
+<aside class="notes">As long as the type signature is appropriate, you can use the function anywhere. You might be thinking of methods in Java or C++ - that's a fine analogy for now.</aside>
+</section>
 
-	    <aside class="notes">Haskell is lazy... in a good way!</aside>
-	  </section>
+<section>
+ <h3>3. Lazy</h3>
+ <img src="L01_files/lazy.jpg">
 
-	  <section>
-	    <h4>Lazy?</h4>
-	    <ul>
-	      <li>Nothing is evaluated unless necessary</li>
-	      <pre><code contenteditable>
-head (sort ls)
-	      </code></pre>
-	      <p><small>The list will only be sorted enough to find the minimum</small></p>
+ <aside class="notes">Haskell is lazy... in a good way!</aside>
+</section>
 
-	      <li>Allows infinite data structures</li>
-	      <pre><code>
-[1..]
-	      </code></pre>
-	    </ul>
+<section>
+ <h4>Lazy?</h4>
+ <ul>
+   <li>Nothing is evaluated unless necessary</li>
+   <pre><code contenteditable>
+    head (sort ls)
+  </code></pre>
+  <p><small>The list will only be sorted enough to find the minimum</small></p>
 
-	    <aside class="notes">This allows Haskell to be pretty fast without manipulating low-level code.</aside>
-	  </section>
+  <li>Allows infinite data structures</li>
+  <pre><code>
+    [1..]
+  </code></pre>
+</ul>
 
-	  <section>
-	    <h3>Who uses Haskell? <a target="_blank" href="http://www.haskell.org/haskellwiki/Haskell_in_industry">*</a></h3>
-	    <table>
-	      <tr>
-		<td>
-		  <ul>
-		    <li>AT&amp;T <p><small>automate form processing</small></p></li>
-		    <li>Bank of America Merril Lynch <p><small>data transformation and loading</small></p></li>
-		    <li>Bump <p><small>Haskell-based server</small></p></li>
-		    <li>Facebook <p><small>manipulating PHP code base</small></p></li>
-		  </ul>
-		</td>
-		<td>
-		  <ul>
-		    <li>Google <p><small>internal IT infrastructure</small></p></li>
-		    <li>MITRE <p><small>cryptographic protocol analysis</small></p></li>
-		    <li>NVIDIA <p><small>in-house tools</small></p></li>
-		    <li>Qualcomm, Inc <p><small>generate Lua bindings</small></p></li>
-		  </ul>
-		</td>
-	      </tr>
-	    </table>
+<aside class="notes">This allows Haskell to be pretty fast without manipulating low-level code.</aside>
+</section>
 
-	    <aside class="notes">Technical recruiters are impressed by Haskell. By the end of these lectures you'll have the confidence to put Haskell on your resume.</aside>
-	  </section>
+<section>
+ <h3>Who uses Haskell? <a target="_blank" href="http://www.haskell.org/haskellwiki/Haskell_in_industry">*</a></h3>
+ <table>
+   <tr>
+    <td>
+      <ul>
+        <li>AT&amp;T <p><small>automate form processing</small></p></li>
+        <li>Bank of America Merril Lynch <p><small>data transformation and loading</small></p></li>
+        <li>Bump <p><small>Haskell-based server</small></p></li>
+        <li>Facebook <p><small>manipulating PHP code base</small></p></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Google <p><small>internal IT infrastructure</small></p></li>
+        <li>MITRE <p><small>cryptographic protocol analysis</small></p></li>
+        <li>NVIDIA <p><small>in-house tools</small></p></li>
+        <li>Qualcomm, Inc <p><small>generate Lua bindings</small></p></li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-	  <section>
-	    <blockquote class="fragment roll-in">
-Language shapes the way we think, and determines what we
-can think about.
-	    </blockquote >
-	    <small class="fragment roll-in">- Benjamin Lee Whorf</small>
+<aside class="notes">Technical recruiters are impressed by Haskell. By the end of these lectures you'll have the confidence to put Haskell on your resume.</aside>
+</section>
 
-	    <blockquote class="fragment roll-in">
-The limits of my language mean the limits of my world.
-	    </blockquote>
-	    <small class="fragment roll-in">- Ludwig Wittgenstein</small>
+<section>
+ <blockquote class="fragment roll-in">
+  Language shapes the way we think, and determines what we
+  can think about.
+</blockquote >
+<small class="fragment roll-in">- Benjamin Lee Whorf</small>
 
-	    <blockquote class="fragment roll-in">
-A language that doesn’t affect the way you think about programming, is not worth knowing.
-	    </blockquote>
-	    <small class="fragment roll-in">- Alan Perlis</small>
-	    <p><small><a target="_blank" href="http://www.inf.ed.ac.uk/teaching/courses/inf1/fp/lectures/2012/lect01.pdf"><i>Slide from ed.ac.uk</i></a></small></p>
+<blockquote class="fragment roll-in">
+  The limits of my language mean the limits of my world.
+</blockquote>
+<small class="fragment roll-in">- Ludwig Wittgenstein</small>
 
-	    <aside class="notes">Takes these quotes to heart.</aside>
-	  </section>
+<blockquote class="fragment roll-in">
+  A language that doesn’t affect the way you think about programming, is not worth knowing.
+</blockquote>
+<small class="fragment roll-in">- Alan Perlis</small>
+<p><small><a target="_blank" href="http://www.inf.ed.ac.uk/teaching/courses/inf1/fp/lectures/2012/lect01.pdf"><i>Slide from ed.ac.uk</i></a></small></p>
 
-	  <section>
-	    <h1>Homework</h1>
-	    <h2>The Journey Begins</h2>
-	    <ol>
-	      <li>
-		<p><a target="_blank" href="http://www.haskell.org/platform/">Install Haskell</a></p>
-	      </li>
-	      <li>
-		<p>Run the interactive interpreter</p>		
-		<pre><code>
- $ ghci
-	    
- Prelude&gt;
-		</code></pre>
-	      </li>
-	      <li>
-		<a href="https://docs.google.com/spreadsheet/viewform?formkey=dElQVDZlN3pWT0JmVDNLQnYtOWVXYWc6MQ">Fill out this week's form</a>
-	      </li>
-	    </ol>
+<aside class="notes">Takes these quotes to heart.</aside>
+</section>
 
-	    <aside class="notes">That wasn't too bad. Move on to lecture 2. We'll get to the fun stuff!</aside>
-	  </section>
+<section>
+ <h1>Homework</h1>
+ <h2>The Journey Begins</h2>
+ <ol>
+   <li>
+    <p><a target="_blank" href="http://www.haskell.org/platform/">Install Haskell</a></p>
+  </li>
+  <li>
+    <p>Run the interactive interpreter</p>		
+    <pre><code>
+     $ ghci
 
-	</section>
+     Prelude&gt;
+   </code></pre>
+ </li>
+ <li>
+  <a href="https://docs.google.com/spreadsheet/viewform?formkey=dElQVDZlN3pWT0JmVDNLQnYtOWVXYWc6MQ">Fill out this week's form</a>
+</li>
+</ol>
 
-      </div>
+<aside class="notes">That wasn't too bad. Move on to lecture 2. We'll get to the fun stuff!</aside>
+</section>
+</div>
 
-    </div>
+</div>
 
-    <script src="lib/js/head.min.js"></script>
-    <script src="js/reveal.min.js"></script>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
 
-    <script>
+<script>
 
       // Full list of configuration options available here:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-      controls: true,
-      progress: true,
-      history: true,
-      center: true,
-      mouseWheel: true,
-      rollingLinks: false,
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        mouseWheel: true,
+        rollingLinks: false,
 
       theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
       transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
@@ -547,39 +547,39 @@ A language that doesn’t affect the way you think about programming, is not wor
       { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
       // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
       ]
-      });
+    });
 
-    </script>
+</script>
 
 
 
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
-    <script src="js/vendor/bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+<script src="js/vendor/bootstrap.min.js"></script>
 
-    <script src="js/main.js"></script>
+<script src="js/main.js"></script>
 
-    <script>
-      Reveal.addEventListener( 'slidechanged', function( event ) {
+<script>
+Reveal.addEventListener( 'slidechanged', function( event ) {
       // event.previousSlide, event.currentSlide, event.indexh, event.indexv
       var notes = event.currentSlide.querySelector(".notes");
       if(notes) {
-          console.info("---");
-          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+        console.info("---");
+        console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
       }
-      } );
-    </script>
+    } );
+</script>
 
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-29747714-1']);
-      _gaq.push(['_trackPageview']);
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-29747714-1']);
+_gaq.push(['_trackPageview']);
 
-      (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
 
-  </body>
+</body>
 </html>
