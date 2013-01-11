@@ -1253,14 +1253,14 @@ var Reveal = (function(){
 	function navigateLeft() {
 		// Prioritize hiding fragments
 		if( availableRoutes().left && isOverviewActive() || previousFragment() === false ) {
-			slide( indexh - 1 );
+			slide( indexh - 1, indexv );
 		}
 	}
 
 	function navigateRight() {
 		// Prioritize revealing fragments
 		if( availableRoutes().right && isOverviewActive() || nextFragment() === false ) {
-			slide( indexh + 1 );
+			slide( indexh + 1, indexv );
 		}
 	}
 
