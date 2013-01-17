@@ -66,6 +66,40 @@
             <p>(["lists", "tuples"], "and data types")</p>
 	  </section>
 
+	  <section>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
 <!-- Do a live example with `mod` -->
 	  <section>
 	    <h3>Jumping into GHCi</h3>
@@ -84,6 +118,8 @@ Prelude> sqrt( x^2 + y^2 )
 Prelude> 2^1000
 10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376
 	    </code></pre>
+	    
+	    <aside class="notes">GHC is a Haskell compiler, and GHCi is the interactive environment for writing Haskell code. We will use GHCi for most of the demos, and eventually we'll grow out of it and start writing out code in some text-file.</aside>
 	  </section>
 
 <!-- Do a live example with `mod` -->
@@ -102,7 +138,9 @@ Prelude> (^) 3 4
 81
 	      </pre></code>
 	       <p><small>g(3, 4) = 3^4 = 81</small></p>
-	       </div>
+	    </div>
+
+	    <aside class="notes">Haskell allows you to infix some symbols for your convenience. You can write  100 `mod` 3  instead of  mod 100 3.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -125,6 +163,8 @@ Prelude> 30 < 31
 True
 	    </code></pre>
 
+	    <aside class="notes">The only boolean data types are True and False. Unlike some other languages, the number 0 does not mean False, and the number 1 does not mean True.</aside>
+
 	  </section>
 
 <!-- 
@@ -141,13 +181,18 @@ Prelude> let isHaxxor p = if p>9000 then True else False
 Prelude> isHaxxor 9001
 True
 	    </code></pre>
-	    <p>Lets also define a related function <i>isNoob</i></p>
-	    <pre><code class="haskell">
+	    <div class="fragment roll-in">
+	      <p>Lets also define a related function <i>isNoob</i></p>
+	      <pre><code class="haskell">
 Prelude> let isNoob p = not (isHaxxor p)
 Prelude> isNoob 9001
 False
-	    </code></pre>
-	    <p>Reusing code is easy</p>
+	      </code></pre>
+	    </div>
+
+	    <p class="fragment roll-in">Reusing code is easy</p>
+
+	    <aside class="notes">Even an if-statement is a function. Also, 'not' is a function that takes in a Bool and negates it.</aside>
 	  </section>
 
 	  <section>
@@ -158,6 +203,7 @@ False
 	      <li>surrounded by square brackets [ ... ]</li>
 	      <li>an empty list is simply []</li>
 	    </ul>
+	    <aside class="notes">A list is a collections of things that have the same Type. You should always think, 'a list of what?' We can have a list of numbers, a list of Bools, and so on.</aside>
 	  </section>
 
 	  <section>
@@ -175,6 +221,8 @@ Prelude> ["list","of","strings"]
 Prelude> [1,2,3,"a","bb","ccc"]
 ERROR!
 	    </code></pre>
+
+	    <aside class="notes">A list is just a comma separated value.</aside>
 	  </section>
 
 <!-- Do example of [1..] again -->
@@ -190,6 +238,7 @@ Prelude> [1..10]
 Prelude> [1, 1.25 .. 4.0]
 [1.0,1.25,1.5,1.75,2.0,2.25,2.5,2.75,3.0,3.25,3.5,3.75,4.0]
 	    </code></pre>
+	     <aside class="notes">The '..' notation reads our mind and creates a list with the elements interpolated.</aside>
 	  </section>
 
 	  <section>
@@ -206,6 +255,8 @@ Prelude> l1 ++ l2
 Prelude> 0 : [1,2,3]
 [0,1,2,3]
 	    </code></pre>
+
+	    <aside class="notes">The Construct (:) function is more effecient than the Concatenation function due to the implementation. If you're constructing a huge list, use the construct (:) function.</aside>
 	  </section>
 
 	  <section>
@@ -227,16 +278,20 @@ Prelude> [1,2,3] == (:) 1 ((:) 2 ((:) 3 []))
 True
 	    </code></pre>
 	    <small>Gross! We'll put that away. I'm so sorry.</small>
+
+	    <aside class="notes">Try it out. Pull up GHCi and break apart that last example.</aside>
 	  </section>
 
 	  <section>
 	    <h3>String</h3>
-	    <p>A string is just a list of characters.</p>
+	    <p>A String is just a list of characters.</p>
 	    <pre><code class="haskell">
 Prelude> "wahoo" == ['w', 'a', 'h', 'o', 'o']
 True
 	    </code></pre>
 	    <p>So (++) and (:) work on strings too.</p>
+
+	    <aside class="notes">Well, that's convenient!</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -261,6 +316,8 @@ Prelude> 6:"789" == "6789"
 	    <pre class="fragment roll-in"><code contenteditable class="haskell">
 ERROR!
 	    </code></pre>
+
+	    <aside class="notes">"Hi" is just syntactic sugar for ['H','i'], which is just syntactic sugar for (:) 'H' ((:) 'i' []). Haskell is pretty sweet.</aside>
 	  </section>
 
 	  <section>
@@ -270,9 +327,13 @@ ERROR!
 	      <li><p><code>tail</code> returns the remaining elements of a list</p></li>
 	      <li><p><code>last</code> returns the last element of a list</p></li>
 	      <li><code>init</code> returns everything but the last element</li>
-	      <img src="L02_files/listmonster.png">
-	      <small><a target="_blank" href="http://learnyouahaskell.com/starting-out#an-intro-to-lists">image © Miran Lipovača: <i>Learn You a Haskell</i></a></small>
+	      <center>
+		<img src="L02_files/listmonster.png">
+		<small><a target="_blank" href="http://learnyouahaskell.com/starting-out#an-intro-to-lists">image © Miran Lipovača: <i>Learn You a Haskell</i></a></small>
+	      </center>
 	    </ul>
+
+	    <aside class="notes">Bring up GHCi and try it yourself!</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -314,6 +375,8 @@ Ok, modules loaded: Main.
 "olleh"
 	      </code></pre>
 	    </div>
+
+	    <aside class="notes">This is your first time writing code outside of GHCi. Exciting! Open up notepad, emacs, vim, or any text-editor, and start writing code.</aside>
 
 	  </section>
 
@@ -498,11 +561,22 @@ fac2 n = ...
     </script>
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
+
 
     <script type="text/javascript">
 
