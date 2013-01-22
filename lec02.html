@@ -63,7 +63,7 @@
             <p>
               <br>
             </p>
-            <p>(["lists", "tuples"], "and data types")</p>
+            <p>([<font color='#aa4422'>"lists"</font>, <font color='#aa4422'>"tuples"</font>], <font color='#aa4422'>"and data types"</font>)</p>
 	  </section>
 
 	  <section>
@@ -119,7 +119,7 @@ Prelude> 2^1000
 10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376
 	    </code></pre>
 	    
-	    <aside class="notes">GHC is a Haskell compiler, and GHCi is the interactive environment for writing Haskell code. We will use GHCi for most of the demos, and eventually we'll grow out of it and start writing out code in some text-file.</aside>
+	    <aside class="notes">GHC is a Haskell compiler, and GHCi is the interactive environment for writing Haskell code. We will use GHCi for most of the demos, and eventually we'll grow out of it and start writing our code in a text-file.</aside>
 	  </section>
 
 <!-- Do a live example with `mod` -->
@@ -140,7 +140,7 @@ Prelude> (^) 3 4
 	       <p><small>g(3, 4) = 3^4 = 81</small></p>
 	    </div>
 
-	    <aside class="notes">Haskell allows you to infix some symbols for your convenience. You can write  100 `mod` 3  instead of  mod 100 3.</aside>
+	    <aside class="notes">Haskell allows you to infix some symbols for your convenience. You can write  100 `mod` 3  instead of  mod 100 3. Also, unlike some other languages, Haskell statements do not end with a semi-colon.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -175,29 +175,32 @@ Do live example of using /= instead of !=
 -->
 	  <section>
 	    <h3>if ... then ... else ...</h3>
-	    <p>Lets define a function <i>isHaxxor</i></p>
+	    <p>Lets define a function <code>royal</code></p>
 	    <pre><code class="haskell">
-Prelude> let isHaxxor p = if p>9000 then True else False
-Prelude> isHaxxor 9001
+Prelude> let royal p = if p>9000 then True else False
+Prelude> royal 9001
 True
 	    </code></pre>
+	    <br>
 	    <div class="fragment roll-in">
-	      <p>Lets also define a related function <i>isNoob</i></p>
+	      <p>Lets also define a related function <code>peasant</code></p>
 	      <pre><code class="haskell">
-Prelude> let isNoob p = not (isHaxxor p)
-Prelude> isNoob 9001
+Prelude> let peasant p = not (royal p)
+Prelude> peasant 9001
 False
 	      </code></pre>
 	    </div>
-
 	    <p class="fragment roll-in">Reusing code is easy</p>
 
-	    <aside class="notes">Even an if-statement is a function. Also, 'not' is a function that takes in a Bool and negates it.</aside>
+	    <aside class="notes">Even an if-statement is a function. 'not' is a function that takes in a Bool and negates it.</aside>
 	  </section>
 
 	  <section>
 	    <h2>Lists</h2>
 	    <p>The most common data type in Haskell</p>
+	    <br>
+	    <h1>[☺, ☹, ☺]</h1>
+	    <br>
 	    <ul>
 	      <li>elements are comma-separated</li>
 	      <li>surrounded by square brackets [ ... ]</li>
@@ -216,6 +219,7 @@ Prelude> [3,1,5,3]
 Prelude> ["list","of","strings"]
 ["list","of","strings"]
 	    </code></pre>
+	    <br>
 	    <p>The elements must be of the same type</p>
 	    <pre><code class="haskell">
 Prelude> [1,2,3,"a","bb","ccc"]
@@ -233,6 +237,7 @@ ERROR!
 Prelude> [1..10]
 [1,2,3,4,5,6,7,8,9,10]
 	    </code></pre>
+	    <br>
 	    <p>Start at 1, count up by 0.25, end at 4</p>
 	    <pre><code class="haskell">
 Prelude> [1, 1.25 .. 4.0]
@@ -250,6 +255,7 @@ Prelude> let l2 = [4,5,6]
 Prelude> l1 ++ l2
 [1,2,3,4,5,6]
 	    </code></pre>
+	    <br>
 	    <h4>Construct (:)</h4>
 	    <pre><code class="haskell">
 Prelude> 0 : [1,2,3]
@@ -272,13 +278,14 @@ Prelude> (++) l1 l2
 Prelude> (:) 0 [1,2,3]
 [0,1,2,3]
 	    </code></pre>
-	    <p>In fact, a list is formally defined like this</p>
-	    <pre><code class="haskell">
+	    <div class="fragment roll-in">
+	      <p>In fact, a list is formally defined like this</p>
+	      <pre><code class="haskell">
 Prelude> [1,2,3] == (:) 1 ((:) 2 ((:) 3 []))
 True
-	    </code></pre>
-	    <small>Gross! We'll put that away. I'm so sorry.</small>
-
+	      </code></pre>
+	      <small>Gross! We'll put that away. I'm so sorry.</small>
+	    </div>
 	    <aside class="notes">Try it out. Pull up GHCi and break apart that last example.</aside>
 	  </section>
 
@@ -289,9 +296,10 @@ True
 Prelude> "wahoo" == ['w', 'a', 'h', 'o', 'o']
 True
 	    </code></pre>
+	    <br>
 	    <p>So (++) and (:) work on strings too.</p>
 
-	    <aside class="notes">Well, that's convenient!</aside>
+	    <aside class="notes">A String is surrounded by double-quotation marks, and a Char is surrounded by single-quotation marks.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -333,7 +341,7 @@ ERROR!
 	      </center>
 	    </ul>
 
-	    <aside class="notes">Bring up GHCi and try it yourself!</aside>
+	    <aside class="notes">Bring up GHCi and try it yourself! See what happens when you apply the `head` function to a String.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -347,7 +355,7 @@ rev [] = []
 
 	    <pre id="b" style="display:none;"><code contenteditable class="haskell">
 rev [] = []
-rev xs = (last xs):(rev (init xs))
+rev xs = last xs : rev (init xs)
 	    </code></pre>
 	    <pre id="c" style="display:none;"><code contenteditable class="haskell">
 rev [] = []
@@ -376,8 +384,7 @@ Ok, modules loaded: Main.
 	      </code></pre>
 	    </div>
 
-	    <aside class="notes">This is your first time writing code outside of GHCi. Exciting! Open up notepad, emacs, vim, or any text-editor, and start writing code.</aside>
-
+	    <aside class="notes">This is your first time writing code outside of GHCi. Exciting! Open up notepad, emacs, vim, or any text-editor, and start writing code. Remember where you saved your file. In GHCi, make sure you're in the same directory. If you saved your file in C:\myfunction.hs, type `:cd C:\` in GHCi.</aside>
 	  </section>
 
 	  <section>
@@ -387,6 +394,8 @@ Ok, modules loaded: Main.
 	    <p><a target="_blank" href="http://www.haskell.org/onlinereport/standard-prelude.html"><code>reverse</code> is already implemented for you!</a></p>
 	    <br>
 	    <p class="fragment roll-in"><small>GG, Haskell</small></p>
+	    
+	    <aside class="notes">I hope you're beginning to see why Haskell is called a functional language.</aside>
 	  </section>
 
 	  <section>
@@ -403,10 +412,13 @@ Ok, modules loaded: Main.
 	      <p><small><code>p x</code> is called a <b>guard</b></small></p>
 	    </div>
 
+	    <aside class="notes">Think of this as a for-loop.</aside>
+
 	  </section>
 
 	  <section data-state="soothe">
 	    <h3>What's the output?</h3>
+
 	    <pre id="e"><code class="haskell">
 Prelude> [ x+5 | x <- [1,2,3] ]
 	    </code></pre>
@@ -414,12 +426,12 @@ Prelude> [ x+5 | x <- [1,2,3] ]
 Prelude> [ x+5 | x <- [1,2,3] ]
 [6,7,8]
 	    </code></pre>
-
 	    <span style="font-size:12px;">
 	      <a onclick="toggleElements('f', 'e');">(clear answer)</a>
 	      <a onclick="toggleElements('e', 'f');">(show answer)</a>
 	    </span>
 
+	    <div class="fragment roll-in">
 	    <pre id="g"><code class="haskell">
 Prelude> [ x | x <- [2..10], 10 `mod` x  == 0]
 	    </code></pre>
@@ -432,7 +444,9 @@ Prelude> [ x | x <- [2..10], 10 `mod` x  == 0]
 	      <a onclick="toggleElements('h', 'g');">(clear answer)</a>
 	      <a onclick="toggleElements('g', 'h');">(show answer)</a>
 	    </span>
+	    </div>
 
+	    <div class="fragment roll-in">
 	    <pre id="i"><code class="haskell">
 Prelude> [ team ++ " " ++ player | 
              team   <- ["red", "blue"], 
@@ -449,6 +463,7 @@ Prelude> [ team ++ " " ++ player |
 	      <a onclick="toggleElements('j', 'i');">(clear answer)</a>
 	      <a onclick="toggleElements('i', 'j');">(show answer)</a>
 	    </span>
+	    </div>
 	  </section>
 
 	  <section>
@@ -492,6 +507,7 @@ Prelude> snd (1,2)
 Prelude> [ (n, even n) | n <- [1..4] ]
 [(1,False),(2,True),(3,False),(4,True)]
 	    </code></pre>
+            <br>
 	    <pre><code class="haskell">
 Prelude> [(a,b,c) | c<-[1..10], b<-[1..c], a<-[1..b]
 					 , a^2 + b^2 == c^2]
@@ -510,16 +526,17 @@ Prelude> [(a,b,c) | c<-[1..10], b<-[1..c], a<-[1..b]
 	    <h2>Think Differently</h2>
 	    <ol>
 	      <li>
-		<p>Write 2 different implementations of factorial</p>
+		<p>Write 2 different implementations of <a href="http://en.wikipedia.org/wiki/Factorial">factorial</a></p>
 		<pre><code class="haskell">
-fac1 n = ...
+facA n = ...
 
-fac2 n = ...
+facB n = ...
 		</code></pre>
 	      </li>
 	      <li>
-		<p>Save the file as <code class="haskell">fac.hs</code> and submit it here</p>
+		<p>Save the file as <code class="haskell">fac.hs</code> and run it using GHCi</p>
 	      </li>
+	      <li><p><a href="https://docs.google.com/spreadsheet/viewform?formkey=dHpELS1oeFNvc0VxUS1xbkxIQVlYOWc6MQ">Fill out this week's form</a></p></li>
 	    </ol>
 	  </section>
 
