@@ -19,7 +19,7 @@ document.write('\
 			    <ul class="dropdown-menu">\
 			      <li class="nav-header">Skip to a lecture</li>\
                               <li><a href="lec01.html">1 - An Unexpected Journey™</a></li>\
-                              <li class="disabled"><a href="#">2 - (["lists", "tuples"], "and data types")</a></li>\
+                              <li><a href="lec02.html">2 - (["lists", "tuples"], "and data types")</a></li>\
 			      <li class="disabled"><a href="#">3 - types :: type1 → type2</a></li>\
                               <li class="disabled"><a href="#">4 - #SyntaxSwag</a></li>\
                               <li class="disabled"><a href="#">5 - Make Your Own Data Type</a></li>\
