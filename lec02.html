@@ -124,7 +124,7 @@ Prelude> 2^1000
 
 <!-- Do a live example with `mod` -->
 	  <section>
-	    <h2>Everything is a function</h2>
+	    <h2>Functions are Everywhere</h2>
 	    <div>
 	      <pre><code class="haskell">
 Prelude> (+) 2 3
@@ -266,7 +266,7 @@ Prelude> 0 : [1,2,3]
 	  </section>
 
 	  <section>
-	    <h3><i>Everything</i> is a function</h3>
+	    <h3>Almost <i>Everything</i> is a function</h3>
 	    <pre><code class="haskell">
 Prelude> let l1 = [1,2,3]
 Prelude> let l2 = [4,5,6]
@@ -464,6 +464,8 @@ Prelude> [ team ++ " " ++ player |
 	      <a onclick="toggleElements('i', 'j');">(show answer)</a>
 	    </span>
 	    </div>
+
+           <aside class="notes">List comprehensions are an easy way to construct lists</aside>
 	  </section>
 
 	  <section>
@@ -475,9 +477,10 @@ Prelude> [ team ++ " " ++ player |
 	    <ul>
 	      <li><code class="haskell">(1, 2)</code></li>
 	      <li><code class="haskell">("lol", "wut")</code></li>
-	      <li><code class="haskell">(40, "fourty")</code></li>
+	      <li><code class="haskell">(40, "forty")</code></li>
 	      <li><code class="haskell">("Coins", [1, 5, 10, 25])</code></li>
 	    </ul>
+	    <aside class="notes">Tuples can contain different data types. This is useful for mapping one data to another. Note, a Tuple doesn't need to be just 2 elements.</aside>
 	  </section>
 
 	  <section>
@@ -498,6 +501,7 @@ Prelude> snd (1,2)
 		</code></pre>
 	      </li>
 	    </ul>
+            <aside class="notes">fst and snd only work with types with just two elements</aside>
 	  </section>
 
 <!-- [f arg | f<-fs, arg<-args] -->
@@ -514,11 +518,14 @@ Prelude> [(a,b,c) | c<-[1..10], b<-[1..c], a<-[1..b]
 [(3,4,5),(6,8,10)]
 	    </code></pre>
 
+            <aside class="notes">We can use tuples with list comprehension to create some interesting things.</aside>
 	  </section>
 
           <section>
 	    <h2>Editors</h2>
 	    <p>Grab <a target="_blank" href="http://www.haskell.org/haskellwiki/Editors">one of these editors</a>, and start hacking!</p>
+	    
+	    <aside class="notes">You're almost ready!</aside>
 	  </section>
 
           <section>
@@ -538,6 +545,8 @@ facB n = ...
 	      </li>
 	      <li><p><a href="https://docs.google.com/spreadsheet/viewform?formkey=dHpELS1oeFNvc0VxUS1xbkxIQVlYOWc6MQ">Fill out this week's form</a></p></li>
 	    </ol>
+
+	    <aside class="notes">Don't forget to fill out the form!</aside>
 	  </section>
 
 	</section>
