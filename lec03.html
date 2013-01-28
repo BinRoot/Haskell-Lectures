@@ -56,7 +56,6 @@
       <div class="slides">
 	<section>
 
-
           <section>
             <h1>Introduction To Haskell</h1>
             <p>Lecture 3</p>
@@ -67,17 +66,239 @@
 	  </section>
 
 	  <section>
-	    <h3>Common Types</h3>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
+
+	  <script>
+	    function clearAll() {
+            document.getElementById('facA').style.display = 'none';
+            document.getElementById('facB').style.display = 'none';
+            document.getElementById('facC').style.display = 'none';
+            document.getElementById('facD').style.display = 'none';
+            document.getElementById('facE').style.display = 'none';
+            document.getElementById('facF').style.display = 'none';
+            document.getElementById('facG').style.display = 'none';
+            document.getElementById('facH').style.display = 'none';
+            document.getElementById('facI').style.display = 'none';
+            document.getElementById('facJ').style.display = 'none';
+	    }
+	    function showOne(fac) {
+	    clearAll();
+	    document.getElementById(fac).style.display = 'block';
+	    }
+	  </script>
+
+	  <section>
+	    <h3>Haskell Programming</h3>
 	    <ul>
-	      <li><p><code class="haskell">Bool</code> = False | True</p></li>
-	      <li><p><code class="haskell">Char</code> = 'a' | 'b' | ... | 'A' | 'B' | ...</p></li>
-	      <li><p><code class="haskell">Int</code> = -2<sup>31</sup> | ... | -1 | 0 | 1 | ... | 2<sup>31</sup>-1</p></li>
-	      <li><p><code class="haskell">Integer</code></p></li>
-	      <li><p><code class="haskell">Double</code></p></li>
+	      <li>Code lives in a file with a .hs extension</li>
+	      <br>
+	      <li>Open the file with GHCi
+		<table>
+		  <tr>
+		    <td>
+		<small>Run it from the terminal</small>
+		<pre><code class="haskell">
+$ ghci myfile.hs
+
+		</code></pre>
+		    </td>
+		    <td>
+		<small>Or run ghci, then load the file</small>
+		<pre><code class="haskell">
+$ ghci
+Prelude> :load myfile.hs
+		</code></pre>
+		    </td>
+		  </tr>
+		</table>
+	      </li>
+	      <li>Run your function through ghci</li>
+	    </ul>
+	  </section>
+
+
+	  <section>
+	    <h2>Previous Homework</h2>
+	    <small><q><a href="./lec02.html#/0/22" target="_blank">Implement factorial</a></q></small>
+
+	    <table style="width:100%">
+	      <tr>
+		<td><a onclick="showOne('facA');">A</a></td>
+		<td><a onclick="showOne('facB');">B</a></td>
+		<td><a onclick="showOne('facC');">C</a></td>
+		<td><a onclick="showOne('facD');">D</a></td>
+		<td><a onclick="showOne('facE');">E</a></td>
+		<td><a onclick="showOne('facF');">F</a></td>
+		<td><a onclick="showOne('facG');">G</a></td>
+		<td><a onclick="showOne('facH');">H</a></td>
+		<td><a onclick="showOne('facI');">I</a></td>
+		<td><a onclick="showOne('facJ');">J</a></td>
+		<td><a target="_blank" href="http://willamette.edu/~fruehr/haskell/evolution.html">...</a></td>
+	      </tr>
+	    </table>
+
+	    <pre id='facA'><code>
+-- Most popular solution
+facA n = if n > 1 
+         then n * facA(n-1) 
+         else n
+
+
+
+
+
+
+
+
+
+
+	    </code></pre>
+
+	    <pre id='facB' style="display:none;"><code>
+-- Right tools for the right job
+facB n = product [1..n]
+	    </code></pre>
+
+	    <pre id='facC' style="display:none;"><code>
+-- Oh, you.
+facC n = foldr (*) 1 [1..n]
+	    </code></pre>
+
+	    <pre id='facD' style="display:none;"><code>
+-- Sophomore Haskell programmer
+-- (studied Scheme as a freshman)
+-- http://willamette.edu/~fruehr/haskell/evolution.html
+facD = (\(n) ->
+        (if ((==) n 0)
+            then 1
+            else ((*) n (facD ((-) n 1)))))
+	    </code></pre>
+
+	    <pre id='facE' style="display:none;"><code>
+-- Memoizing Haskell programmer
+-- http://willamette.edu/~fruehr/haskell/evolution.html
+facs = scanl (*) 1 [1..]
+facE n = facs !! n
+	    </code></pre>
+
+	    <pre id='facF' style="display:none;"><code>
+-- Iterative Haskell programmer
+-- (former Pascal programmer)
+-- http://willamette.edu/~fruehr/haskell/evolution.html
+facF n = result (for init next done)
+        where init = (0,1)
+              next   (i,m) = (i+1, m * (i+1))
+              done   (i,_) = i==n
+              result (_,m) = m
+
+for i n d = until d n i
+	    </code></pre>
+
+	    <pre id='facG' style="display:none;"><code>
+-- Continuation-passing Haskell programmer
+-- http://willamette.edu/~fruehr/haskell/evolution.html
+
+facCps k 0 = k 1
+facCps k n = facCps (k . (n *)) (n-1)
+
+facG = facCps id
+	    </code></pre>
+
+	    <pre id='facH' style="display:none;"><code>
+-- Boy Scout Haskell programmer
+-- http://willamette.edu/~fruehr/haskell/evolution.html
+
+y f = f (y f)
+
+facH = y (\f n -> if (n==0) then 1 else n * f (n-1))
+	    </code></pre>
+
+	    <pre id='facI' style="display:none;"><code>
+-- Combinatory Haskell programmer
+-- http://willamette.edu/~fruehr/haskell/evolution.html
+s f g x = f x (g x)
+
+k x y   = x
+
+b f g x = f (g x)
+
+c f g x = f x g
+
+y f     = f (y f)
+
+cond p f g x = if p x then f x else g x
+
+facI  = y (b (cond ((==) 0) (k 1)) (b (s (*)) (c b pred)))
+	    </code></pre>
+
+	    <pre id='facJ' style="display:none;"><code>
+-- List-encoding Haskell programmer
+-- (prefers to count in unary)
+-- http://willamette.edu/~fruehr/haskell/evolution.html
+arb = ()
+
+listenc n = replicate n arb
+listprj f = length . f . listenc
+
+listprod xs ys = [ i (x,y) | x<-xs, y<-ys ]
+                 where i _ = arb
+
+facl []         = listenc  1
+facl n@(_:pred) = listprod n (facl pred)
+
+facJ = listprj facl
+	    </code></pre>
+	    
+
+	    <aside class="notes">There's always multiple ways to implement any function.</aside>
+	  </section>
+
+	  <section>
+	    <h3>Types</h3>
+	    <ul>
+	      <li class="fragment"><p><code class="haskell">Bool</code> = False | True</p></li>
+	      <li class="fragment"><p><code class="haskell">Char</code> = 'a' | 'b' | ... | 'A' | 'B' | ...</p></li>
+	      <li class="fragment"><p><code class="haskell">Int</code> = -2<sup>31</sup> | ... | -1 | 0 | 1 | ... | 2<sup>31</sup>-1</p></li>
+	      <li class="fragment"><p><code class="haskell">Integer</code></p></li>
+	      <li class="fragment"><p><code class="haskell">Double</code></p></li>
 	    </ul>
 	    <br>
 	    <br>
 	    <p>Types always start with a capital letter</p>
+
+	    <aside class="notes">Think of these almost as Java types (int, String, etc).</aside>
 	  </section>
 	  
 	  <section>
@@ -87,7 +308,9 @@
 Prelude> :type True
 True :: Bool
 	    </code></pre>
-	    <p>You can also use a type explicitly.</p>
+	    <br>
+	    <div class="fragment roll-in">
+	    <p>You can also explicitly use a type.</p>
 	    <pre><code class="haskell">
 Prelude> 3 :: Int
 3
@@ -95,12 +318,16 @@ Prelude> 3 :: Int
 Prelude> 3 :: Double
 3.0
 	    </code></pre>
-
+	    </div>
+      
+          <aside class="notes">'::' is pronounced 'has the type of'</aside>
+      
 	  </section>
 
 	  <section>
 	    <h3>Yes, Functions have a Type</h3>
 
+	    <div class="fragment roll-in">
 	    <pre><code class="haskell">
 Prelude> head [1,2,3,4]
 1
@@ -108,7 +335,10 @@ Prelude> head [1,2,3,4]
 Prelude> :type head
 head :: [a] -> a
 	    </code></pre>
-	    <small>head has the type <i>List of <code class="haskell">a</code>'s</i> to just <i><code class="haskell">a</code></i></small>
+	    <small><code>head</code> has the type <i>List of <code class="haskell">a</code>'s</i> to just <i><code class="haskell">a</code></i></small>
+	    </div>
+
+	    <div class="fragment roll-in">
 	    <pre><code class="haskell">
 Prelude> fst ("left", "right")
 "left"
@@ -117,6 +347,9 @@ Prelude> :type fst
 fst :: (a, b) -> a
 	    </code></pre>
 	    <small>fst has the type <i>tuple of <code class="haskell">a</code> and <code class="haskell">b</code></i> to just <i><code class="haskell">a</code></i></small>
+	    </div>
+
+	    <aside class="notes">'a' and 'b' here are called Type variables.</aside>
 
 	  </section>
 
@@ -153,10 +386,17 @@ talk about variables "Just what is a variable, anyway?"
 
 	    </table>
 
+	    <aside class="notes">Bugs are usually caught at compile-time. The compiler knows the type of every value, so there is never ambiguity.</aside>
+
 	  </section>
 	  
 	  <section data-state="soothe">
-	    <p><small>What should be the <b>type declaration</b> for <code class="haskell">fac</code>?</small></p>
+	    <p><small>What should be the <b>type declaration</b> for <code class="haskell">fac</code>?</small>
+	      <small>
+		  <a onclick="toggleElements('b', 'a');">(clear answer)</a>
+		  <a onclick="toggleElements('a', 'b');">(show answer)</a>
+	      </small>
+	    </p>
 	    <pre id="a"><code class="haskell" contenteditable>
 fac n = product [1..n]
 	    </code></pre>
@@ -164,24 +404,36 @@ fac n = product [1..n]
 fac :: Integer -> Integer
 fac n = product [1..n]
 	    </code></pre>
-	    <span style="font-size:12px;">
-		  <a onclick="toggleElements('b', 'a');">(clear answer)</a>
-		  <a onclick="toggleElements('a', 'b');">(show answer)</a>
-	    </span>
+	    
+	    <br>
 
-	    <p><small>What's the <b>type declaration</b> for <code class="haskell">&&</code> ?</small></p>
+	    <div class="fragment roll-in">
+	    <p><small>What's the <b>type declaration</b> for <code class="haskell">&&</code> ?</small>
+	      <small>
+		<a onclick="toggleElements('d', 'c');">(clear answer)</a>
+		<a onclick="toggleElements('c', 'd');">(show answer)</a>
+	      </small>
+	    </p>
+
 	    <pre id="c"><code class="haskell" contenteditable>
 (&&) ::
 	    </code></pre>
 	    <pre id="d" style="display:none;"><code class="haskell">
 (&&) :: Bool -> Bool -> Bool
 	    </code></pre>
-	    <span style="font-size:12px;">
-		  <a onclick="toggleElements('d', 'c');">(clear answer)</a>
-		  <a onclick="toggleElements('c', 'd');">(show answer)</a>
-	    </span>
+	    </div>
 
-	    <p><small>How about <code class="haskell">:</code> ?</small></p>
+	    <br>
+
+	    <div class="fragment roll-in">
+	    <p><small>How about <code class="haskell">:</code> ?</small>
+	      <small>
+		<a onclick="toggleElements('f', 'e');">(clear answer)</a>
+		<a onclick="toggleElements('e', 'f');">(show answer)</a>
+	      </small>
+	    </p>
+
+
 	    <pre id="e"><code class="haskell" contenteditable>
 Prelude> 0:[1,2,3]
 [0,1,2,3]
@@ -196,27 +448,30 @@ Prelude> 0:[1,2,3]
 Prelude> :type (:)
 (:) :: a -> [a] -> [a]
 	    </code></pre>
-	    <span style="font-size:12px;">
-		  <a onclick="toggleElements('f', 'e');">(clear answer)</a>
-		  <a onclick="toggleElements('e', 'f');">(show answer)</a>
-	    </span>	   
+	    </div>
+
+	    <aside class="notes">In GHCi, you can do ':type f' to find the type of function 'f'</aside>
 	  </section>
 
 	  <section>
 	    <h2>Google Tech Talk</h2>
 	    <p><small>(8:00 to 9:22)</small></p>
-<iframe width="672" height="504" src="http://www.youtube.com/embed/b9FagOVqxmI?start=480&end=562" frameborder="0" allowfullscreen></iframe>
+	    <iframe width="672" height="504" src="http://www.youtube.com/embed/b9FagOVqxmI?start=480&end=562" frameborder="0" allowfullscreen></iframe>
+	    <aside class="notes">The Haskell compiler tries to infer the type for you. If ambiguous, the programmer must specify the Type explicitly.</aside>
 	  </section>
 
 	  <section>
-	    <h2>Typeclasses</h2>
-	    <p>A typeclass lets you generalize a function.</p>
+	    <h2>Typeclass</h2>
+	    <p>A Typeclass lets you generalize a function.</p>
+	    <small><p>For example, the less-than sign can be used multiple ways.</p></small>
 	    <ul>
 	      <li><code class="haskell">10 < 20</code></li>
 	      <li><code class="haskell">'a' < 'b'</code></li>
 	      <li><code class="haskell">"aardvark" < "zzz"</code></li>
 	      <li><code class="haskell">[6,2,4] < [6,3,8]</code></li>
 	    </ul>
+
+	    <aside class="notes">This is a type of polymorphism.</aside>
 	  </section>
 
 	  <section>
@@ -240,6 +495,8 @@ Prelude> :type (<)
 	      <a onclick="toggleElements('g', 'h');toggleElements('i', 'h');">(show incorrect answer)</a>
 	      <a onclick="toggleElements('g', 'i');toggleElements('h', 'i');">(show answer)</a>
 	    </span>
+
+	    <aside class="notes">Less-than is a function that that takes two comparable things, and outputs a Bool.</aside>
 	  </section>
 
           <section>
@@ -250,6 +507,7 @@ public class LessThanSign implements Comparable {
   ...
 }
 	    </code></pre>
+	    <aside class="notes">A Typeclass gives a Type some property. For example, both Int and String are comparable, so they both has the type class of Ord.</aside>
 	  </section>
 
 	  <section>
@@ -275,10 +533,14 @@ Prelude> 5.2 * 2.5
 
 	      </li>
 	    </ul>
+
+            <aside class="notes">42 has the Show Typeclass because we can print it out as a String. Characters have the Enum Typeclass because we can put them in order of ASCII code. Numbers have the Num Typeclass because they can do number-like operations.</aside>
 	  </section>
 
 	  <section>
+	    <h3>Have you noticed?</h3>
 	    <p>Functions with multiple arguments look funny.</p>
+	    <div class="fragment">
 	    <p>The <code class="haskell">take</code> function has <b>two arguments</b>:</p>
 	    <ul>
 	      <li>an integer, <code class="haskell">n</code></li>
@@ -297,15 +559,21 @@ take :: Int -> [a] -> [a]
 	      </code></pre>
 	      <p class="fragment roll-in">Weird...</p>
 	    </div>
+	    </div>
+
+	    <aside class="notes">It appears like this function has one argument 'Int', and one output '[a]' with something in-between.</aside>
 	  </section>
 
 	  <section>
-	    <h2>Currying</h2>
+	    <h2>The Concept of <a href="http://www.haskell.org/haskellwiki/Currying" target="_blank">Currying</a></h2>
 	    <p>All Haskell functions take only one argument</p>
+	    
+	    <aside class="notes">Take a moment to think about that statement.</aside>
 	  </section>
 
 	  <section>
 	    <img src="L03_files/grumpycat.png">
+	    <aside class="notes">You mind is about to be blown.</aside>
 	  </section>
 
 	  <section>
@@ -320,9 +588,11 @@ take :: Int -> [a] -> [a]
 	      <pre><code class="haskell">
 take :: Int -> ([a] -> [a])
 	      </code></pre>
-	      <p><code class="haskell">take</code> has type of <i>Int to a function</i></p>
+	      <p><code class="haskell">take</code> actually has type of <i>Int to a function</i></p>
 	    </div>
 
+	    <aside class="notes">So technically, 'take' has just one argument (something of type Int)</aside>
+	    
 	  </section>
 
 	  <section>
@@ -341,6 +611,7 @@ takeFive :: [a] -> [a]
 Prelude> take5 [1..]
 [1,2,3,4,5]
 	    </pre></code>
+	    <aside class="notes">Try it out yourself.</aside>
 	  </section>
 
           <section>
@@ -350,27 +621,8 @@ Prelude> take5 [1..]
 	    <p class="fragment roll-in">Focus on <i>what</i> is done, not <i>how</i>.</p>
 	    <p class="fragment roll-in">Inherently modular</p>
 	    <p class="fragment roll-in">Elegant</p>
-	  </section>
 
-
-
-	  <section>
-	    <h3>Haskell Programming</h3>
-	    <ul>
-	      <li>Code lives in a file with a .hs extension</li>
-	      <li>Open the file with GHCi
-		<li style="margin-left:10%;">Run it from the terminal</li>
-		<pre><code class="haskell">
-$ ghci myfile.hs
-		</code></pre>
-		<li style="margin-left:10%;">Or run ghci, then load the file</li>
-		<pre><code class="haskell">
-$ ghci
-Prelude> :load myfile.hs
-		</code></pre>
-	      </li>
-	      <li>Run any function through ghci</li>
-	    </ul>
+	    <aside class="notes">I hope you're beginning to see why Haskell is a little different.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -378,8 +630,6 @@ Prelude> :load myfile.hs
 	    <p>Create <code class="haskell">mycode.hs</code> and write a function called <code class="haskell">zipTogether</code></p>
 	    <pre id="j"><code class="haskell" contenteditable>
 -- mycode.hs
--- comments begin with a '--'
-
 -- |The 'zipTogether' function binds together two lists.
 
 zipTogether :: [a] -> [b] -> [(a,b)]
@@ -387,8 +637,6 @@ zipTogether :: [a] -> [b] -> [(a,b)]
 	    </code></pre>
 	    <pre id="k" style="display:none;"><code class="haskell" contenteditable>
 -- mycode.hs
--- comments begin with a '--'
-
 -- |The 'zipTogether' function binds together two lists.
 
 zipTogether :: [a] -> [b] -> [(a,b)]
@@ -400,9 +648,7 @@ zipTogether xs ys = (head xs, head ys):
 	    </code></pre>
 	    <pre id="l" style="display:none;"><code class="haskell" contenteditable>
 -- mycode.hs
-
 -- |The 'zipTogether' function binds together two lists.
--- comments begin with a '--'
 
 zipTogether :: [a] -> [b] -> [(a,b)]
 zipTogether [] [] = []
@@ -424,6 +670,8 @@ Prelude> zipTogether [1,2,3] "abc"
 [(1,'a'),(2,'b'),(3,'c')]
 	    </code></pre>
 	    <small class="fragment roll-in">by the way, Haskell comes with <code class="haskell">zip</code></small>
+
+	    <aside class="notes">Zipping is actually used a lot in functional programming. Think of it as zipping together the x-y axes of a graph to plot points.</aside>
 	  </section>
 
           <section>
@@ -469,7 +717,7 @@ rotate :: Char -> Int -> Char
 		<p>Bonus points for a cool solution!</p>
 	      </li>
 	      <li>
-		<p>Fill out this exercise</p>
+		<p>Submit this week's attendance form!</p>
 	      </li>
 	    </ol>
 	  </section>
@@ -510,11 +758,22 @@ rotate :: Char -> Int -> Char
 
     </script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
 
     <script type="text/javascript">
 
