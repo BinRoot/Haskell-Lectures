@@ -21,7 +21,7 @@ document.write('\
                               <li><a href="lec01.html">1 - An Unexpected Journey™</a></li>\
                               <li><a href="lec02.html">2 - (["lists", "tuples"], "and data types")</a></li>\
 			      <li><a href="lec03.html">3 - types :: type1 → type2</a></li>\
-                              <li class="disabled"><a href="#">4 - #SyntaxSwag</a></li>\
+ 			      <li><a href="lec04.html">4 - #SyntaxSwag</a></li>\
                               <li class="disabled"><a href="#">5 - Make Your Own Data Type</a></li>\
                               <li class="disabled"><a href="#">6 - Maps, Folds, and Beyond</a></li>\
                               <li class="disabled"><a href="#">7 - The Prolific Haskell Community</a></li>\

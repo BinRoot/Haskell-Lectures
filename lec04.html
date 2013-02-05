@@ -67,6 +67,207 @@
             <p>#SyntaxSwag</p>
 	  </section>
 
+	  <section>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
+	  <section>
+	    <h2>Review</h2>
+	    
+	    <table style="width:100%">
+	      <tr>
+		<td>
+		  <center>
+		    <p>Haskell is</p>
+		    <ul>
+		      <li>Purely functional</li>
+		      <li>Statically typed</li>
+		      <li>Lazy</li>
+		    </ul>
+		  </center>
+		</td>
+		<td class="fragment roll-in">
+		  <center>
+		    <p>Data looks like</p>
+		    <ul>
+		      <li>Bool</li>
+		      <li>Int</li>
+		      <li>Char</li>
+		      <li>...</li>
+		    </ul>
+		  </center>
+		</td>
+	      </tr>
+	    </table>
+	    
+	    <br>
+	    <div class="fragment roll-in">
+	      <p>Lists and Tuples are useful data structures</p>
+	      <table style="width:100%">
+		<tr>
+		  <td>
+		    <center>
+		      <p>List</p>
+		      <code>[1,2,3]</code>
+		    </center>
+		  </td>
+		  <td>
+		    <center>
+		      <p>Tuple</p>
+		      <code>(1, "one")</code>
+		    </center>
+		  </td>
+		</tr>
+	      </table>
+	    </div>
+
+	    <aside class="notes">Just as a reminder, there are the basic properties of Haskell.</aside>
+
+	  </section>
+
+	  <section>
+	    <h3>More Review</h3>
+	    <p>Everything in Haskell has a Type</p>
+	    <small>Here are some Type declarations.</small>
+	    <small><p>These are your <b>greatest weapons</b>.</p></small>
+	    <pre><code class="haskell">
+head :: [a] -> a -- gets the first element of a list
+
+tail :: [a] -> [a] -- gets everything but the first element
+
+last :: [a] -> a -- gets the last element of a list
+
+init :: [a] -> [a] -- gets everything but the last element
+
+(++) :: [a] -> [a] -> [a] -- concatenates two lists together
+
+(:) :: a -> [a] -> [a] -- prepends an element to a list
+
+fst  :: (a,b) -> a -- gets the first element of a tuple
+
+snd  :: (a,b) -> b -- gets the second element of a tuple
+	    </code></pre>
+
+	    <aside class="notes">These are the most fundamental and important functions that are used everywhere.</aside>
+	  </section>
+
+	  <script>
+	    function clearAll() {
+            document.getElementById('cipherA').style.display = 'none';
+            document.getElementById('cipherB').style.display = 'none';
+            document.getElementById('cipherC').style.display = 'none';
+            document.getElementById('cipherD').style.display = 'none';
+	    }
+	    function showOne(cipher) {
+	    clearAll();
+	    document.getElementById(cipher).style.display = 'block';
+	    }
+	  </script>
+	  
+	  
+	  <section>
+	    <h3>Review of Homework 3</h3>
+	    <small><a href="lec03.html#/0/21" target="_blank">Implement a Caesar Cipher</a></small>
+	    <table style="width:100%">
+	      <tr>
+		<td><center><a onclick="showOne('cipherA');">A</a></center></td>
+		<td><center><a onclick="showOne('cipherB');">B</a></center></td>
+		<td><center><a onclick="showOne('cipherC');">C</a></center></td>
+		<td><center><a onclick="showOne('cipherD');">D</a></center></td>
+	      </tr>
+	    </table>
+	    
+	    <pre id='cipherA'><code class='haskell'>
+-- This example uses 'succ' to get next letter
+
+cipher :: String -> Int-> String
+cipher "" n = ""
+cipher str n = rotate (head str) n : cipher (tail str) n
+
+rotate :: Char -> Int -> Char
+rotate c 0 = c
+rotate c n = rotate (next c) (n-1)
+
+next :: Char -> Char
+next c = if c=='z' then 'a' else succ c
+	    </code></pre>
+
+	    <pre id='cipherB' style="display:none;"><code class='haskell'>
+-- Importing a really useful library
+-- designed by Preetam C. Jinka
+
+import Data.Char
+
+cipher :: [Char] -> Int -> [Char]
+cipher [] _ = []
+cipher (s:ss) n = (rotate s n) : (cipher ss n)
+
+rotate :: Char -> Int -> Char
+rotate c 0 = c
+rotate c n = int2letter ( mod ((letter2int c) + n) 26 )
+
+letter2int c = ord c - 97
+int2letter n = chr (n + 97)
+	    </code></pre>
+
+	    <pre id='cipherC' style="display:none;"><code class='haskell'>
+-- Here's a one-line solution 
+-- designed by James C. Sun
+
+import Data.Char
+cipher :: [Char] -> Int -> [Char]
+cipher s n = map (\c -> ([c..'z'] ++ ['a'..c]) !! mod n 26) s		
+	    </code></pre>
+
+	    <pre id='cipherD' style="display:none;"><code>
+-- designed by Matthias pall Gissurarson
+
+import Data.List
+import Data.Maybe
+
+alphabet:: [Char]
+alphabet = cycle ['a'..'z']
+
+rotate:: Int -> Char -> Char
+rotate k a = alphabet !! (k + ( fromJust ( elemIndex a alphabet)))
+
+cipher:: [Char] -> Int -> [Char]
+cipher str k = map (rotate k) str		
+	    </code></pre>
+
+	    <aside class="notes">This was one of the hardest homework assignements. It was to really get your hands dirty in Haskell. I hope these examples clear up some confusion about where to start.</aside>
+	  </section>
+
 	  <!-- Maybe include Lambda Calculus now? -->
 
 	  <section>
@@ -78,7 +279,9 @@ guess :: Int -> [Char]
 guess 42 = "correct!"
 guess x  = "wrong guess!"
 	    </code></pre>
-	    <p class="fragment roll-in">Each pattern has the same type deceleration</&#16;p>
+	    <p class="fragment roll-in">Each pattern has the same type deceleration</p>
+
+            <aside class="notes">Patterns are matched top-down.</aside>
 	  </section>
 
           <section>
@@ -88,6 +291,8 @@ guess x  = "wrong guess!"
 	      <li><p>Only the first matched pattern is evaluated</p></li>
 	      <li><p>The patterns must exhaust the entire domain</p></li>
 	    </ul>
+
+	    <aside class="notes">The last point is very important. Always make sure your patterns match the entire set of inputs.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -104,13 +309,30 @@ fib 1 = 1
 	      <strong>∞ loop</strong>
 	      <p><img src="L04_files/woahcool.gif"></p>
 	    </div>
+
+	    <aside class="notes">Remember, patterns are matched top-down. So the base case is never hit in this example.</aside>
+	  </section>
+
+	  <section>
+	    <h3>More Pattern Matching</h3>
+	    <br>
+	    <p>You can even match lists using Construct</p>
+	    <pre><code class='haskell'>
+head (firstItem : everythingElse) = firstItem
+	    </code></pre>
+	    <pre><code class='haskell'>
+tail (x:xs) = xs
+	    </code></pre>
+
+	    <aside class="notes">Using constructs in pattern matching makes your code look really elegant.</aside>
+
 	  </section>
 
 	  <section data-state="soothe">
 	    <h3>More Pattern Matching</h3>
 	    <p>White a function to detect if a list is a palindrome</p>
 	    <pre id="c"><code class="haskell">
-isPal        :: Eq a => [a] -> Bool
+isPal :: Eq a => [a] -> Bool
 
 
 
@@ -125,6 +347,8 @@ isPal (x:xs) = (x == (last xs)) && isPal (init xs)
 	      <a onclick="toggleElements('d', 'c');">(clear answer)</a>
 	      <a onclick="toggleElements('c', 'd');">(show answer)</a>
 	    </span>
+
+	    <aside class="notes">We can use pattern matching in designing a function to detect palindromes.</aside>
 	  </section>
 
 
@@ -155,6 +379,8 @@ head [] = error "empty list"
 		<a onclick="toggleElements('a', 'b');">(show answer)</a>
 	      </span>
 	    </div>
+
+	    <aside class="notes">Pattern matching makes code look more readable.</aside>
 	  </section>
 
 	  
@@ -171,6 +397,7 @@ tail (_:xs) = xs
 	    </code></pre>
 	    </ul>
 	    
+	    <aside class="notes">Using a wildcard is optional. Use it for readability.</aside>
 	  </section>
 
 	  <section>
@@ -188,6 +415,7 @@ head []          =  error "Prelude.head: empty list"
 	    </code></pre>
 	    <p><a target="_blank" href="http://www.haskell.org/onlinereport/standard-prelude.html">*</a></p>
 
+	    <aside class="notes">Try it out. In GHCi, type `error "oh no!"`</aside>
 	  </section>
 
 	  <section>
@@ -206,6 +434,8 @@ guessMyNumber x
 	      </code></pre>
 	      <small><code class="haskell">otherwise</code> is just a fancy word for <code class="haskell">True</code></small>
 	    </ul>
+
+	    <aside class="notes">Guards are just pretty if-statements.</aside>
 	  </section>
 
 	  <section>
@@ -213,11 +443,14 @@ guessMyNumber x
 	    <p>Guards are very powerful.</p>
 	    <p>Anything done with pattern matching can be done with guards.</p>
 	    <pre><code class="haskell">
-head'' :: [a] -> a
-head'' xs
+head' :: [a] -> a
+head' xs
     | null xs   = error "list is empty"
     | otherwise = xs !! 0
 	      </code></pre>
+	      <small class="fragment roll-in"><code>!!</code> is a function that gives an element at an index</small>
+	      
+	      <aside class="notes">Here I've introduced a function (!!) that returns the element at a specific index. I'm using (!!) in-fix in this example.</aside>
 	  </section>
 
 	  <section>
@@ -234,11 +467,15 @@ x = 2;
 	    <br>
 	    <p>Mathematically, this makes no sense.</p>
 
+	    <aside class="notes">Haskell is very different. It is mathematical.</aside>
+
 	  </section>
 
 	  <section>
 	    <h2>It implies <code class="haskell">1=2</code> Preposterous!</h2>
 	    <img src="L04_files/noway.gif">
+
+	    <aside class="notes">By the transitive property, the previous code implies 1=2.</aside>
 	  </section>
 
 	  <section>
@@ -259,16 +496,14 @@ slope (x1,y1) (x2,y2) = dy/dx
                         where dy = y2-y1
                               dx = x2-x1
 	    </code></pre>
+
+	    <aside class="notes">They're called variables, but they do not change. They are always immutable.</aside>
 	  </section>
 
 	  <section>
 	    <h2>Whitespace</h2>
 	    <p>In Haskell, indentation matters.</p>
-	    <ul>
-	      <li>The first line can start at any column.</li>
-	      <li>The next level starts on the right-hand side.</li>
-	      <li>Equal levels start at the same column.</li>
-	    </ul>
+	    <q>Code which is part of some expression should be indented further in than the beginning of that expression</q><a href="http://en.wikibooks.org/wiki/Haskell/Indentation"> *</a>
 	    <pre><code class="haskell">
 Level-1
     Level-2
@@ -286,6 +521,8 @@ Level-1
 Level-1
 	    </code></pre>
 	    <small>Don't use tab. Use spaces '<code class="haskell"> </code>'.</small>
+
+	    <aside class="notes">Indentation matters!</aside>
 	  </section>
 
 
@@ -294,7 +531,7 @@ Level-1
 	    <h1>Homework</h1>
 	    <h2>A Useful Tool</h2>
 	    <ol>
-	      <li>Fill out this survey!</li>
+	      <li><a href="https://docs.google.com/forms/d/1nOtIyac9Mf6LsOVtXO0dpUKvMhPB6lx6DubvpnDn-RE/viewform">Fill out this week's form.</a></li>
 	      <li>
 		<p>Convert between metric and imperial.</p>
 		<p><small><code class="haskell">convert :: (Double, [Char]) -> (Double, [Char])</code></small></p>
@@ -316,6 +553,8 @@ Prelude> convert (1, "kg")
 	      </li>
 
 	    </ol>
+
+	    <aside class="notes">This is easier than it looks.</aside>
 
 	  </section>
 
@@ -356,11 +595,22 @@ Prelude> convert (1, "kg")
     </script>
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
+
 
     <script type="text/javascript">
       var _gaq = _gaq || [];
