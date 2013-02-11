@@ -279,7 +279,7 @@ guess :: Int -> [Char]
 guess 42 = "correct!"
 guess x  = "wrong guess!"
 	    </code></pre>
-	    <p class="fragment roll-in">Each pattern has the same type deceleration</p>
+	    <p class="fragment roll-in">Each pattern has the same type declaration</p>
 
             <aside class="notes">Patterns are matched top-down.</aside>
 	  </section>
@@ -330,7 +330,7 @@ tail (x:xs) = xs
 
 	  <section data-state="soothe">
 	    <h3>More Pattern Matching</h3>
-	    <p>White a function to detect if a list is a palindrome</p>
+	    <p>Write a function to detect if a list is a palindrome</p>
 	    <pre id="c"><code class="haskell">
 isPal :: Eq a => [a] -> Bool
 
