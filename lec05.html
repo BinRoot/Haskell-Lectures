@@ -67,35 +67,195 @@
 	  </section>
 
 	  <section>
-	    <h3>Some Existing Data Types</h3>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
+	  <script>
+	    function clearAll() {
+            document.getElementById('convertA').style.display = 'none';
+            document.getElementById('convertB').style.display = 'none';
+            document.getElementById('convertC').style.display = 'none';
+            document.getElementById('convertD').style.display = 'none';
+	    }
+	    function showOne(convert) {
+	    clearAll();
+	    document.getElementById(convert).style.display = 'block';
+	    }
+	  </script>
+
+
+	  <section>
+	    <h3>Review of Homework 4</h3>
+	    <small><a href="lec04.html#/0/19" target="_blank">Write a function to convert units</a></small>
+	    <table style="width:100%">
+	      <tr>
+		<td><center><a onclick="showOne('convertA');">A</a></center></td>
+		<td><center><a onclick="showOne('convertB');">B</a></center></td>
+		<td><center><a onclick="showOne('convertC');">C</a></center></td>
+		<td><center><a onclick="showOne('convertD');">D</a></center></td>
+	      </tr>
+	    </table>
+
+	    <pre id='convertA'><code class='haskell'>
+-- Designed by Matthew R. Bongiovi
+-- using guards
+
+convert :: (Double, [Char]) -> (Double, [Char])
+convert (x,l)
+    | (l == "m") = (1.09361 * x,"yd")
+    | (l == "L") = (0.264172 * x,"gal")
+    | (l == "kg") = (2.20462 * x,"lb")
+    | (l == "yd") = (x / 1.09361, "m")
+    | (l == "gal") = (x / 0.264172,"L")
+    | (l == "lb") = (x / 2.20462,"kg")
+    | otherwise = error "Invalid input"
+	    </code></pre>
+	    <pre id='convertB' style="display:none;"><code class='haskell'>
+-- Designed by James C. Sun
+-- using pattern matching
+
+convert :: (Double, [Char]) -> (Double, [Char])
+convert (n, "m") = (n*1.09361, "yd")
+convert (n, "L") = (n*0.264172, "gal")
+convert (n, "kg") = (n*2.20462, "lb")
+convert (n, "yd") = (n/1.09361, "m")
+convert (n, "gal") = (n/0.264172, "L")
+convert (n, "lb") = (n/2.20462, "kg")
+convert _ = error "conversion not defined"
+	    </code></pre>
+	    <pre id='convertC' style="display:none;"><code class='haskell'>
+-- Designed by Anthony A. Teate
+-- the "I'll do it my own way!" solution
+
+convert :: (Double, [Char]) -> (Double, [Char])
+convert(v,s)=head[(a,b)|(a,b)<-(head[[(v*y,z),(v/y,x)]|(x,y,z)<-[("m",1.09361,"yd"),("L",0.264172,"gal"),("kg",2.20462,"lb")],x==s||z==s]),b/=s]      
+	    </code></pre>
+	    <pre id='convertD' style="display:none;"><code class='haskell'>
+-- Designed by François Beausoleil
+-- the "right way"
+
+module Homework where
+
+data Unit = Meter
+          | Yard
+          | Litre
+          | Gallon
+          | Kilogram
+          | Pound
+      deriving (Ord, Eq)
+instance Show Unit where
+  show Meter    = "m"
+  show Yard     = "yd"
+  show Litre    = "l"
+  show Gallon   = "gal"
+  show Kilogram = "kg"
+  show Pound    = "lb"
+
+factor :: Unit -> Double
+factor Meter    = 1.09361
+factor Litre    = 0.264172
+factor Kilogram = 2.20462
+factor Yard     = 1 / (factor Meter)
+factor Gallon   = 1 / (factor Litre)
+factor Pound    = 1 / (factor Kilogram)
+
+inverse :: Unit -> Unit
+inverse Meter    = Yard
+inverse Yard     = Meter
+inverse Litre    = Gallon
+inverse Gallon   = Litre
+inverse Kilogram = Pound
+inverse Pound    = Kilogram
+
+convert :: (Double, Unit) -> (Double, Unit)
+convert (n, u) = (n * (factor u), inverse u)
+
+data Measurement = Measurement Double Unit deriving (Eq)
+instance Show Measurement where
+  show (Measurement n u) = (show n) ++ " " ++ (show u)
+
+conv (Measurement n u) = measurement $ convert (n, u)
+      where measurement (n1, u1) = Measurement n1 u1
+	    </code></pre>
+	    
+	    <aside class="notes">Here's a good couple solutions you guys came up with.</aside>
+
+	  </section>
+
+	  <section>
+	    <h3>Data Types</h3>
+	    <br>
 	    <ul>
-	      <li><p>Bool  =  False | True</p></li>
-	      <li><p>Int  =  -2<sup>31</sup> ... -1 | 0 | 1 ... 2<sup>31</sup>-1</p></li>
-	      <li><p>[Char]  =  [] | Char : [Char]</p></li>
-	      <li><p>Double</p></li>
+	      <li><p><code>Bool</code>  =  False | True</p></li>
+	      <br>
+	      <li><p><code>Int</code>  =  -2<sup>31</sup> ... -1 | 0 | 1 ... 2<sup>31</sup>-1</p></li>
+	      <br>
+	      <li><p><code>[Char]</code>  =  [] | Char : [Char]</p></li>
+	      <br>
+	      <li><p><code>Double</code></p></li>
 	    </ul>
+
+	    <aside class="notes">You're been playing with these data types for a while now. You can also create your own.</aside>
 	  </section>
 
 	  <section>
 	    <h3>Making Data Types</h3>
 	    <ul>	    
-	      <li>gives us better structured code</li>
-	      <li>makes programs more readable</li>
-	      <li>improves type safety of code</li>
+	      <li>for well structured code</li>
+	      <br>
+	      <li>for better readability</li>
+	      <br>
+	      <li>for improving type safety</li>
+	      
 	    </ul>
+
+	    <aside class="notes">The homework done last week was not very type safe. As a developer, you had to remember which units were valid (m, L, kg, etc). When you make your own Data types, code becomes maintainable.</aside>
 	  </section>
 
 	  <section>
 	    <h3><code class="haskell">data</code> keyword</h3>
-	    <p>Create a file <code class="haskell">MyData.hs</code></p>
-	    <p>Start a line with <code class="haskell">data</code> and name the type <code class="haskell">MetricUnits</code></p>
+	    <p>In a new file <code class="haskell">MyData.hs</code></p>
+	    <p>create a Data type called  <code class="haskell">MetricUnits</code></p>
 	    <pre><code class="haskell">
 data MetricUnit = Meter | Liter | KiloGram
 	    </code></pre>
 
 	    <p><i>MetricUnit</i> is called the <b>type constructor</b></p>
 	    <p>Everything after the equal sign is called the <b>value constructor</b></p>
+	    <br>
+	    <p><small>Notice the capitalization!</small></p>
 
+	    <aside class="notes">Cool. You just made a new Data type. Let's run this code though GHCi and see what happens.</aside>
 	  </section>
 
 	  <section>
@@ -116,7 +276,9 @@ Liter :: MetricUnit
 Prelude> :type KiloGram
 KiloGram :: MetricUnit
 	    </code></pre>
-	    <p>They are each of type <i>MetricUnit</i></p>
+	    <p><b>Meter</b> <i>has the type</i> <b>MetricUnit</b></p>
+	    
+	    <aside class="notes">Creating a MetricUnit data type is better than just using a String representation of units like we had before.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -133,6 +295,8 @@ Prelude> Meter
 	      </code></pre>
 	      <p>Why did we get this error?</p>
 	    </div>
+	    
+	    <aside class="notes">Our data type needs to derive the Show typeclass in order to be printed to the console.</aside>
 	  </section>
 
 	  <section>
@@ -140,7 +304,7 @@ Prelude> Meter
 	    <ul>
 	    <li><p>GHCi is trying to call the print function</p></li>
 	    <li><p><code class="haskell">print</code> only works for things that derive Show</p></li>
-	    <li><p>but a MetricUnit doesn't derive Show</p></li>
+	    <li><p>but our MetricUnit doesn't derive Show</p></li>
 	    </ul>
 	    <br>
 	    <br>
@@ -148,8 +312,10 @@ Prelude> Meter
 	    <pre><code class="haskell">
 data MetricUnit = Meter | Liter | KiloGram  deriving (Show)
 	    </code></pre>
-	    <small><i>FTFY</i></small>
+	    <small><i>F T F Y</i></small>
 	    </div>
+	    
+	    <aside class="notes">Now things that are of type MetricUnit can be called by the print or show functions.</aside>
 	  </section>
 
 	  <section>
@@ -161,10 +327,12 @@ data MetricUnit = Meter | Liter | KiloGram  deriving (Show)
 	    <br>
 	    <br>
 	    <p>So let's make our own function</p>
+
+	    <aside class="notes">It's like you're solving a jig-saw puzzle. You code will compile only if all types match.</aside>
 	  </section>
 
 	  <section data-state="soothe">
-	    <h3>Function for MetricUnit</h3>
+	    <h3>Function that uses MetricUnit</h3>
 	    <p>Write a simple function that takes in a MetricUnit, and returns its symbol</p>
 	    <ul>
 	      <li>Meter → "m"</li>
@@ -188,6 +356,8 @@ symbol KiloGram = "kg"
 	      <a onclick="toggleElements('b', 'a');">(clear answer)</a>
 	      <a onclick="toggleElements('a', 'b');">(show answer)</a>
 	    </span>
+
+	    <aside class="notes">You can instead just define the show function from the Show typeclass, but we won't cover that yet.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -213,6 +383,8 @@ symbol x
 	      <a onclick="toggleElements('c', 'd');">(show answer)</a>
 	    </span>
 	    <p>Try compiling it. What happens?</p>
+
+	    <aside class="notes">You'll get an error message. You are using the (==) function which can only be used between two things that can be compared for equivalency. In other words, if you use the (==) function, the arguments must derive the Eq typeclass.</aside>
 	  </section>
 	  
 	  <section>
@@ -224,10 +396,12 @@ symbol x
     In the expression: x == Meter
 	    </code></pre>
 	    <br>
-	    <p>So MetricUnit should also derive Eq if we want to use '=='</p>
+	    <p>So MetricUnit should derive Eq in this case</p>
 	    <pre><code class="haskell">
 data MetricUnit = Meter | Liter | KiloGram  deriving (Show, Eq)
 	    </code></pre>
+
+	    <aside class="notes">Play close attention to the syntax. To derive multiple typeclasses, you separate them by commas.</aside>
 	  </section>
 
 	  <section>
@@ -237,6 +411,8 @@ data MetricUnit = Meter | Liter | KiloGram  deriving (Show, Eq)
 	    <p>Just like last week's homework</p>
 	    <br>
 	    <p class="fragment roll-in">But this time it will be elegant!</p>
+
+	    <aside class="notes">We're about to write a convert function using our own Data types.</aside>
 	  </section>
 
 	  <section>
@@ -254,21 +430,23 @@ data ImperialUnit = Yard
 	    </code></pre>
 	    <br>
 	    
-	    
+	    <aside class="notes">First create your Data type</aside>
 	  </section>
 
 	  <section>
-	    <p>2. Define Measurement</p>
+	    <p>2. Create a Measurement Data Type</p>
+	    <br>
+	    <p>Look closely. This syntax is new!</p>
 	    <pre><code class="haskell">
 data Measurement = MetricMeasurement Double MetricUnit 
                  | ImperialMeasurement Double ImperialUnit 
                    deriving (Show)
 	    </code></pre>
 	    <br>
-	    <p>This is new!</p>
-	    <br>
 	    <small><code class="haskell">(MetricMeasurement 3.1 Liter) :: Measurement</code></small>
 	    <small><code class="haskell">(ImperialMeasurement 200 Pound) :: Measurement</code></small>
+
+	    <aside class="notes">A MetricMeasurement requires a value (Double) and a unit (MetricUnit). Likewise, an ImperialMeasurement requires a value (Double) and a unit (ImperialUnit).</aside>
 	  </section>
 
 	  <section>
@@ -290,6 +468,8 @@ convert (ImperialMeasurement x u)
     | u==Gallon = MetricMeasurement (3.7854*x) Liter
     | u==Pound  = MetricMeasurement (0.4536*x) KiloGram
 	    </code></pre>
+
+	    <aside class="notes">This function is very maintainable. It properly accepts a Measurement as an input, converts it, and returns a Measurement.</aside>
 	  </section>
 
 	  <section>
@@ -304,6 +484,9 @@ Prelude> convert (convert m)
 MetricMeasurement 2 Meter
 	    </pre></code>
 	    <img class="fragment roll-in" src="L05_files/awwyea.jpg">
+
+	    <aside class="notes">More than likely, you code will work if it compiles. A lot of brain-work comes before the code compiles, but when it does, you're probably done.</aside>
+
 	  </section>
 
 	  <section>
@@ -326,6 +509,8 @@ yval (Point _ y) = y
 data Point = Point { xval::Double, yval::Double }
 	      </code></pre>
 	    </div>
+
+	    <aside class="notes">Record syntax is a little syntatic sugar to make code look readable.</aside>
 	  </section>
 
 	  <section>
@@ -338,6 +523,8 @@ let b = Point {xval = 2, yval = 3}
 	    </code></pre>
 	    <small><p>There's more to write, but anyone can easily figure out what's going on.</p></small>
 	    <small><p>Especially for large data types!</p></small>
+
+	    <aside class="notes">It's good practice.</aside>
 	  </section>
 
 	  <section>
@@ -355,6 +542,8 @@ ThreeThings 1 2 3
 Prelude> ThreeThings "hello" "there" "lad"
 ThreeThings "hello" "there" "lad"
 	    </code></pre>
+
+	    <aside class="notes">ThreeThings is a Data type that stores three things of the same type.</aside>
 	  </section>
 
 	  <section>
@@ -362,7 +551,7 @@ ThreeThings "hello" "there" "lad"
 	    <p>We can export useful code to a module</p>
 	    <p>so that other projects can reuse them.</p>
 	    <br>
-	    <small>Let's make a module out of our measurement conversion code.</small>
+	    <small>Let's make a module out of our <code>convert</code> code.</small>
 	    <p>Step 1</p>
 	    <pre><code class="haskell">
 module MyData
@@ -373,9 +562,11 @@ module MyData
 where
 	    </code></pre>
 	    <div class="fragment roll-in">
-	    <p>Done. No step 2. That was easy!</p>
+	    <p>No step 2. That was easy!</p>
 	    <small>Note: your file name should be the same as your module name!</small>
 	    </div>
+
+	    <aside class="notes">Now you can use the convert function from anywhere.</aside>
 	  </section>
 	  
 	  <section>
@@ -383,25 +574,25 @@ where
 	    <p>Use <code class="haskell">convert</code> from anywhere!</p>
 	    <pre class="fragment roll-in"><code class="haskell">
 -- OtherFile.hs
-
 import MyData
 	    </code></pre>
 	    <pre class="fragment roll-in"><code class="haskell">
+-- display a measurement in Metric
 reportMeasurement :: Measurement -> String
 	    </code></pre>
 
 	    <pre class="fragment roll-in"><code class="haskell">
 -- if metric, print out the measurement
-
 reportMeasurement (MyData.MetricMeasurement x u) 
     = (show x) ++ " " ++ (show u)
 	    </code></pre>
 	    <pre class="fragment roll-in"><code class="haskell">
 -- otherwise if imperial, convert the measurement and try again
-
 reportMeasurement m 
     = reportMeasurement (convert m)
 	    </code></pre>
+	    
+	    <aside class="notes">You can keep making useful Modules and import them in your future projects.</aside>
 	  </section>
 
           <section>
@@ -453,11 +644,21 @@ reportMeasurement m
     </script>
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
 
 
     <script type="text/javascript">
