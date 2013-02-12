@@ -468,7 +468,7 @@ convert (ImperialMeasurement x u)
     | u==Gallon = MetricMeasurement (3.7854*x) Liter
     | u==Pound  = MetricMeasurement (0.4536*x) KiloGram
 	    </code></pre>
-
+	    <small class="fragment roll-in"> <a href="https://gist.github.com/BinRoot/4771288" target="_blank">Full code listing here</a> </small>
 	    <aside class="notes">This function is very maintainable. It properly accepts a Measurement as an input, converts it, and returns a Measurement.</aside>
 	  </section>
 
@@ -599,7 +599,7 @@ reportMeasurement m
 	    <h1>Homework</h1>
 	    <h2>Trees in Haskell</h2>
 	    <ol>
-	      <li>Fill out this form!</li>
+	      <li>Fill out <a target="_blank" href="https://docs.google.com/forms/d/1Jc0H2JCWLuVFN97iLXqqZHTFpznOKv8_C7WDm6FnzYg/viewform">this week's form!</a></li>
 	      <li>Create a binary tree data type of Int nodes</li>
 	      <pre><code class="haskell">data Tree = ... </code></pre>
 	      <li>Write a function to sum all nodes in the tree</li>
