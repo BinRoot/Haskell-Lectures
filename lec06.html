@@ -67,9 +67,116 @@
 	  </section>
 
 	  <section>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
+	  <section>
 	    <h3>High Order Functions</h3>
 	    <p>Functions can take functions as arguments</p>
 	    <img src="L06_files/inception.png">
+	    
+	    <aside class="notes">A function is a first class citizen of Haskell.</aside>
+	  </section>
+
+
+	  <script>
+	    function clearAll() {
+            document.getElementById('treeA').style.display = 'none';
+            document.getElementById('treeB').style.display = 'none';
+            document.getElementById('treeC').style.display = 'none';
+            document.getElementById('treeD').style.display = 'none';
+	    }
+	    function showOne(tree) {
+	    clearAll();
+	    document.getElementById(tree).style.display = 'block';
+	    }
+	  </script>
+
+	  <section>
+	      <h3>Review of Homework 5</h3>
+	    <small><a href="lec05.html#/0/23" target="_blank">Create a Binary Tree Data Type in Haskell</a></small>
+	    <table style="width:100%">
+	      <tr>
+		<td><center><a onclick="showOne('treeA');">A</a></center></td>
+		<td><center><a onclick="showOne('treeB');">B</a></center></td>
+		<td><center><a onclick="showOne('treeC');">C</a></center></td>
+		<td><center><a onclick="showOne('treeD');">D</a></center></td>
+	      </tr>
+	    </table>
+
+	    <pre id='treeA'><code class='haskell'>
+-- Designed by Matthew A. Frazier
+-- "I haven't actually tested it, but it compiles so it should work"
+
+data Tree a = Leaf a | Node a (Tree a) (Tree a) 
+                     deriving (Show, Eq)
+
+add :: Integral a => Tree a -> a
+add (Leaf l) = l
+add (Node i right left) = i + (add right) + (add left)
+	    </code></pre>
+
+	    <pre id='treeB' style="display:none;"><code class='haskell'>
+-- Designed by Rolph J. J. Recto
+
+data Tree = Branch Int Tree Tree | Leaf Int | NullNode deriving (Show)
+
+add :: Tree -> Int
+add NullNode = 0
+add (Leaf x) = x
+add (Branch x left right) = x + (addTree left) + (addTree right)
+	    </code></pre>
+
+	    <pre id='treeC' style="display:none;"><code class='haskell'>
+-- Designed by Domenic V. Puzio
+
+data Tree = Node Tree Tree Int | Leaf Int deriving (Show, Eq)
+
+add :: Tree -> Int
+add (Leaf x) = x
+add (Node a b x) = x + add(a) + add(b)
+	    </code></pre>
+
+	    <pre id='treeD' style="display:none;"><code class='haskell'>
+-- Designed by Julien Letrouit
+
+data Tree = Node {left::Tree, right::Tree, value::Int} | NilTree
+
+treeSum NilTree = 0
+treeSum node = value node + treeSum (left node) + treeSum (right node)
+	    </code></pre>
+
+	    <aside class="notes">As you can see, creating and traversing a tree in Haskell is very simple and elegant.</aside>
 	  </section>
 	  
 	  <section>
@@ -82,6 +189,8 @@ Prelude> map even [1..10]
 Prelude> map (+5) [1..10]
 [6,7,8,9,10,11,12,13,14,15]
             </code></pre>
+
+	    <aside class="notes">The function `map` has two inputs: a function and a list. It applies the function to each element of the list to get the output.</aside>
 	  </section>
 
 	  <section>
@@ -96,6 +205,8 @@ map :: (a -> b) -> [a] -> [b]
 map f [] = []
 map f (x:xs) = (f x):(map f xs)
 	    </code></pre>
+
+	    <aside class="notes">It's exciting to see that implementing such a core functions is possible in one line of code.</aside>
 	  </section>
 
 	  <section>
@@ -108,6 +219,8 @@ Prelude> filter even [1..10]
 Prelude> filter (>5) [1..10]
 [6,7,8,9,10]
 	    </code></pre>
+	    
+	    <aside class="notes">A filter has two arguments just like a map: a function and a list. The output is a list of elements that pass the filter function.</aside>
 	  </section>
 
 	  <section>
@@ -123,6 +236,8 @@ filter p []                 = []
 filter p (x:xs) | p x       = x : filter p xs
                 | otherwise = filter p xs
 	    </code></pre>
+
+	    <aside class="notes">This implementation uses both pattern matching and guards to form a readable definition of `filter`</aside>
 	  </section>
 
 	  <section>
@@ -137,10 +252,13 @@ Prelude> map (\x -> x*x) [1..10]
 	      <p>This notation is inspired from <a target="_blank" href="http://en.wikipedia.org/wiki/Lambda_calculus">lambda calculus</a></p>
 	      <p>λx.(x*x)</p>
 	    </div>
+
+	    <aside class="notes">Lamda calculus allows us to define ad-hoc functions.</aside>
 	  </section>
 
 	  <section>
 	    <h3>These Are Very Powerful</h3>
+	    <small>In the code below, take a look at the λ-function</small>
 	    <pre><code class="haskell">
 Prelude> data Gender = Male | Female deriving (Show, Eq)
 
@@ -156,6 +274,8 @@ Prelude> filter (\(a,b) -> a==Female) people
 Prelude> map snd it
 ["Zoe", "Inara", "Kaylee", "River"]
 	    </code></pre>
+
+	    <aside class="notes">List of tuples is actually a very common way to storing key-value pairs.</aside>
 	  </section>
 
 	  <section>
@@ -177,6 +297,8 @@ Prelude> foldl (\acc x -> if x `elem` "aeiou"
 
 	    </code></pre>
 	    <img src="L06_files/fold.jpg">
+
+	    <aside class="notes">A fold takes a function, an accumulator value, and a list, and returns some transformation on the accumulator.</aside>
 	  </section>
 
 	  <section>
@@ -197,6 +319,8 @@ Prelude> scanl (\acc x -> if x `elem` "aeiou"
 [0,0,1,1,1,2,2,2,3,3,3,3]
 
 	    </code></pre>
+
+	    <aside class="notes">A scan is basically the same thing as a fold, but it shows all the intermediate steps.</aside>
 	  </section>
 
 	  <section>
@@ -215,10 +339,12 @@ True
 Prelude> not $ odd 4
 True
 	    </code></pre>
+
+	    <aside class="notes">It's for code readability.</aside>
 	  </section>
 
 	  <section>
-	    <h2>The <code class="haskell">(.)</code> Function</h2>
+	    <h2>The <code class="haskell">.</code> Function</h2>
 	    <p>It composes functions in a readable manner</p>
 	    <br>
 	    <p><code class="haskell">f(g(h(k(x))))</code> is ugly</p>
@@ -231,6 +357,8 @@ True
 Prelude> (length.head.words) "University of Virginia"
 10
 	    </code></pre>
+
+	    <aside class="notes">As you can see, these abstract functions give you a log of power over how you prefer to write your Haskell code.</aside>
 	  </section>
 
 	  <section>
@@ -246,7 +374,9 @@ Prelude> (length.head.words) "University of Virginia"
 	    </ul>
 	    <br>
 	    <br>
-	    <p>...and more than 350 others!</p>
+	    <p>...and more than <a target="_blank" href="http://www.haskell.org/ghc/docs/latest/html/libraries/base-4.6.0.1/Prelude.html">350 others</a>!</p>
+
+	    <aside class="notes">No need to memorize these functions. You will learn to use the right ones over time.</aside>
 	  </section>
 
 	  <section>
@@ -266,7 +396,8 @@ True
 Prelude Data.List> sort "hello"
 "ehllo"
 	    </code></pre>
-	    <small class="fragment roll-in">...and over 200 more!</small>
+	    <small class="fragment roll-in">...and over <a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base//Data-List.html">200 more</a>!</small>
+	    <aside class="notes">Data.List contains useful list manipulation functions.</aside>
 	  </section>
 
 	  <section>
@@ -287,7 +418,10 @@ Prelude Data.Char> toUpper 't'
 Prelude Data.Char> map ord ['A'..'F']
 [65,66,67,68,69,70]
 	    </code></pre>
-	    <small class="fragment roll-in">...and over 100 more!</small>
+	    <small class="fragment roll-in">...and over <a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base//Data-Char.html">100 more</a>!</small>
+
+	    <aside class="notes">Data.Char contains lots of useful character and string manipulation functions.</aside>
+
 	  </section>
 
 	  <section>
@@ -297,7 +431,7 @@ Prelude> import Data.Map
 	    </code></pre>
 	    <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.Map> let m = fromList [("CS", "Computer Science"), 
-                                        ("PHIL", "Philisophy")
+                                        ("PHIL", "Philosophy")
                                         ("ASTR", "Astronomy")]
 	    </code></pre>
 	    <pre class="fragment roll-in"><code class="haskell">
@@ -309,7 +443,9 @@ Prelude Data.Map> keys m
 Prelude Data.Map> Data.Map.lookup "CS" m
 Just "Computer Science"
 	    </code></pre>
-	    <small class="fragment roll-in">...and over 200 more!</small>
+	    <small class="fragment roll-in">...and over <a href="http://www.haskell.org/ghc/docs/6.12.2/html/libraries/containers-0.3.0.0/Data-Map.html">200 more</a>!</small>
+
+	    <aside class="notes">Hashmaps can be used from the Data.Map package.</aside>
 	  </section>
 
 	  <section>
@@ -330,7 +466,9 @@ fromList [53,54,55,56,57,58]
 Prelude Data.Set> findMax $ union a b
 100
 	    </code></pre>
-	    <small class="fragment roll-in">...and around 100 more!</small>
+	    <small class="fragment roll-in">...and around <a href="http://www.haskell.org/ghc/docs/6.4.1/html/libraries/base/Data-Set.html">100 more</a>!</small>
+
+	    <aside class="notes"></aside>
 	  </section>
 
           <section>
@@ -356,8 +494,9 @@ strong :: String -> Bool
 Prelude> strong "sup3rL33Tpassw0rd"
 True
 	      </code></pre>
-	  <small>Hint: Use Data.Char</small>
+	  <small>Try to use tools you've learned this lecture</small>
 	  </section>
+	  <aside class="notes">Make a function for each of the 4 cases for a strong password. Create functions generously!</aside>
 	</section>
       </div>
     </div>
@@ -394,11 +533,21 @@ True
 
     </script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
 
     <script type="text/javascript">
 
