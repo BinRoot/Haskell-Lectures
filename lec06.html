@@ -99,16 +99,6 @@
 	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
 	  </section>
 
-
-	  <section>
-	    <h3>High Order Functions</h3>
-	    <p>Functions can take functions as arguments</p>
-	    <img src="L06_files/inception.png">
-	    
-	    <aside class="notes">A function is a first class citizen of Haskell.</aside>
-	  </section>
-
-
 	  <script>
 	    function clearAll() {
             document.getElementById('treeA').style.display = 'none';
@@ -158,13 +148,36 @@ add (Branch x left right) = x + (addTree left) + (addTree right)
 	    </code></pre>
 
 	    <pre id='treeC' style="display:none;"><code class='haskell'>
--- Designed by Domenic V. Puzio
+-- Mastered by James C. Sun
+-- download: https://gist.github.com/BinRoot/4983189
 
-data Tree = Node Tree Tree Int | Leaf Int deriving (Show, Eq)
+module BinaryTree
+    (Tree(..), makeTree, add, printTree)
+where
+         
+data Tree = Tree Int Tree Tree | EMPTYTREE deriving (Show, Eq)
+
+printTree :: Tree -> IO()
+printTree tree = putStrLn (printSubTree tree 0 0)
+
+nodeLinks = ["", "/", "\\"]
+
+printSubTree :: Tree -> Int -> Int -> String
+printSubTree EMPTYTREE _ _ = ""
+printSubTree (Tree root leftSubTree rightSubTree) n link = (printSubTree leftSubTree (n+3) 1) 
+    ++ (replicate n ' ') 
+    ++ (nodeLinks !! link)
+    ++ (show root) ++ "\n"
+    ++ (printSubTree rightSubTree (n+3) 2) 
+
+makeTree :: Int -> Tree
+makeTree n 
+    | n < 0     = EMPTYTREE
+    | otherwise = Tree n (makeTree (n - 1)) (makeTree (n - 2))
 
 add :: Tree -> Int
-add (Leaf x) = x
-add (Node a b x) = x + add(a) + add(b)
+add EMPTYTREE = 0
+add (Tree root leftSubTree rightSubTree) = root + (add leftSubTree) + (add rightSubTree)
 	    </code></pre>
 
 	    <pre id='treeD' style="display:none;"><code class='haskell'>
@@ -178,7 +191,15 @@ treeSum node = value node + treeSum (left node) + treeSum (right node)
 
 	    <aside class="notes">As you can see, creating and traversing a tree in Haskell is very simple and elegant.</aside>
 	  </section>
-	  
+
+	  <section>
+	    <h3>High Order Functions</h3>
+	    <p>Functions can take functions as arguments</p>
+	    <img src="L06_files/inception.png">
+	    
+	    <aside class="notes">A function is a first class citizen of Haskell.</aside>
+	  </section>
+
 	  <section>
 	    <h2>Maps</h2>
 	    <p>A map applies a function to each element of a list</p>
@@ -207,6 +228,23 @@ map f (x:xs) = (f x):(map f xs)
 	    </code></pre>
 
 	    <aside class="notes">It's exciting to see that implementing such a core functions is possible in one line of code.</aside>
+	  </section>
+
+	  <section>
+	      <h3>Estimating π</h3>
+	      <p><img src="L06_files/pi.png"></p>
+	      <small>This summation is called the Gregory Series, and it converges to Pi</small>
+	      <div class="fragment roll-in">
+	      <pre><code>
+piGuess :: Int -> Double
+piGuess n = sum (map f [1..n])
+
+f :: Int -> Double
+f x = 4*(-1)^(x+1) / (2.0 * k - 1)
+    where k = fromIntegral x		      
+	      </code></pre>
+	      <small>Use a map! Bam!</small>
+	      </div>
 	  </section>
 
 	  <section>
@@ -474,7 +512,7 @@ Prelude Data.Set> findMax $ union a b
           <section>
 	    <h1>Homework</h1>
 	    <ol>
-	      <li>Fill out this form!</li>
+	      <li>Fill out this <a target="_blank" href="https://docs.google.com/forms/d/1WX__zBdNU6yPRMUtB9PmINrXLDms5IRq9izb0cZa8SM/viewform">form</a>!</li>
 	      <li>Create a password strength checker</li>
 	      <small>
 		<br>
