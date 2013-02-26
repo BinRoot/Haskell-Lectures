@@ -24,7 +24,7 @@ document.write('\
  			      <li><a href="lec04.html">4 - #SyntaxSwag</a></li>\
 			      <li><a href="lec05.html">5 - Make Your Own Data Type</a></li>\
 			      <li><a href="lec06.html">6 - Maps, Folds, and Beyond</a></li>\
-                              <li class="disabled"><a href="#">7 - The Prolific Haskell Community</a></li>\
+			      <li><a href="lec07.html">7 - The Prolific Haskell Community</a></li>\
 			      <li class="disabled"><a href="#">8 - Input/Output</a></li>\
                               <li class="disabled"><a href="#">9 - M.. M.. MONADS!</a></li>\
                               <li class="disabled"><a href="#">10 - Coming soon</a></li>\

@@ -67,19 +67,100 @@
 	  </section>
 
 	  <section>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
+
+	  <script>
+	    function clearAll() {
+            document.getElementById('strongA').style.display = 'none';
+            document.getElementById('strongB').style.display = 'none';
+            document.getElementById('strongC').style.display = 'none';
+            document.getElementById('strongD').style.display = 'none';
+	    }
+	    function showOne(strong) {
+	    clearAll();
+	    document.getElementById(strong).style.display = 'block';
+	    }
+	  </script>
+
+	  <section>
+	      <h3>Review of Homework 6</h3>
+	    <small><a href="lec06.html#/0/20" target="_blank">Detect whether a password is strong</a></small>
+	    <table style="width:100%">
+	      <tr>
+		<td><center><a onclick="showOne('strongA');">A</a></center></td>
+		<td><center><a onclick="showOne('strongB');">B</a></center></td>
+		<td><center><a onclick="showOne('strongC');">C</a></center></td>
+		<td><center><a onclick="showOne('strongD');">D</a></center></td>
+	      </tr>
+	    </table>
+
+	    <pre id='strongA'><code class='haskell'>
+a
+	    </code></pre>
+
+	    <pre id='strongB' style="display:none;"><code class='haskell'>
+b
+	    </code></pre>
+
+	    <pre id='strongC' style="display:none;"><code class='haskell'>
+c
+	    </code></pre>
+
+	    <pre id='strongD' style="display:none;"><code class='haskell'>
+d
+	    </code></pre>
+
+	  </section>
+
+	  <section>
 	    <h2><a target="_blank" href="http://www.haskell.org/haskellwiki/Category:Haskell">Haskell Wiki</a></h2>
 	    <p>Find everything you need to know about Haskell directly from the official Wiki.</p>
 	    <ul>
-	      <li><a target="_blank" href="http://www.haskell.org/haskellwiki/Category:Tutorials">129 tutorials</a></li>
+	      <li><a target="_blank" href="http://www.haskell.org/haskellwiki/Category:Tutorials">130 tutorials</a></li>
 	      <li><a target="_blank" href="http://www.haskell.org/haskellwiki/Category:Mathematics">46 articles on mathematics</a></li>
 	      <li><a target="_blank" href="http://www.haskell.org/haskellwiki/Category:FAQ">46 FAQ topics</a></li>
 	      <li><a target="_blank" href="http://www.haskell.org/haskellwiki/Category:Community">186 articles on other Haskell communities</a></li>
 	    </ul>
+
+	    <aside class="notes">The best and most formal place to start is from the Wiki. It will lead you to almost every other resources.</aside>
 	  </section>
 
           <section>
 	    <h2><a target="_blank" href="http://stackoverflow.com/questions/tagged?tagnames=haskell">StackOverflow</a></h2>
-	    <p>More than 9,427 questions tagged</p>
+	    <p>More than 10,000 questions tagged</p>
+	    <aside class="notes">StackOverflow is a popular question and answer website for finding appropriate fixes and assistance on code.</aside>
 	  </section>
 
 	  <section>
@@ -88,16 +169,19 @@
 	    <p>Channel: #haskell</p>
 	    <a target="_blank" href="http://irc.netsplit.de/channels/details.php?room=%23haskell&net=freenode"><img src="L07_files/irc.png"></a>
 	    <p>#haskell is one of the <a target="_blank" href="http://irc.netsplit.de/channels/?net=freenode">top 10 most popular channels</a> on freenode</p>
+	    <aside class="notes">IRC is an ancient but prolific online-chat technology used for more involved discussion or rapid feedback.</aside>
 	  </section>
 	  
 	  <section>
 	    <h2><a target="_blank" href="http://www.reddit.com/r/haskell/">Reddit /r/Haskell</a></h2>
 	    <p>More than 10,000 subscribers</p>
+	    <aside class="notes">Reddit is a popular news abrogator with a lively community.</aside>
 	  </section>
 
 	  <section>
 	    <h1><a target="_blank" href="http://hackage.haskell.org/packages/archive/pkg-list.html">Hackage</a></h1>
 	    <p>The <b>ultimate</b> collection of Haskell packages</p>
+	    <aside class="notes">The official collection of supported Haskell packages is on Hackage.</aside>
 	  </section>
 
 	  <section>
@@ -107,6 +191,8 @@
 	      <p><li>Cabal is a command-line tool that installs packages and their dependencies</li></p>
 	      <p><li><p>For example, try installing the HTTP library</p> <pre><code class="haskell">cabal install HTTP</code></pre></li></p>
 	    </ul>
+
+	    <aside class="notes">Cabal is meant to interact with Hackage.</aside>
 	  </section>
 
 	  <section>
@@ -121,6 +207,8 @@
 	      </ul>
 	    </p>
 	    <p><a target="_blank" href="http://www.haskell.org/haskellwiki/Cabal-Install">*</a></p>
+	    
+	    <aside class="notes">It does most of the hard work of setting a package.</aside>
 	  </section>
 
 	  <section>
@@ -131,6 +219,8 @@
 	      <li>Install the HTTP package</li>
 	      <li>Use it!</li>
 	    </ol>
+
+	    <aside class="notes">These three steps are often tightly coupled.</aside>
 	  </section>
 
 	  <section>
@@ -139,6 +229,8 @@
 	    <pre><code class="haskell">
 cabal update
 	    </code></pre>
+
+	    <aside class="notes">Make sure to always update cabal before installing a new package to get the most up to date code.</aside>
 	  </section>
 
 	  <section>
@@ -147,6 +239,8 @@ cabal update
 	    <pre><code class="haskell">
 cabal install HTTP
 	    </code></pre>
+	    
+	    <aside class="notes">Installation might take a minute or two.</aside>
 	  </section>
 
 	  <section>
@@ -156,18 +250,24 @@ cabal install HTTP
 	    <pre><code class="haskell">
 import Network.HTTP
 	    </code></pre>
+
+	    <aside class="notes">Now you can use the installed package from your Haskell code or GHCi.</aside>
 	  </section>
 
 	  <section>
 	    <h3>Using Network.HTTP</h3>
 	    <p>All packages come with <a target="_blank" href="http://hackage.haskell.org/package/HTTP">documentation on Hackage</a></p>
 	    <img src="L07_files/modules.png">
+
+	    <aside class="notes">Always read the documentation, but feel free to be adventurous.</aside>
 	  </section>
 
 	  <section>
 	    <p>Let's take a look at one of the functions in Network.HTTP</p>
 	    <p><img src="L07_files/simpleHTTP.png"></p>
 	    <p><code class="haskell">simpleHTTP</code> takes in a <code class="haskell">Request</code> object, and returns an IO Monad</p>
+
+	    <aside class="notes">Apparently there is a Request data type in this package, and if we pass it in to this function, we can get some output back.</aside>
 	  </section>
 
 	  <section>
@@ -187,6 +287,8 @@ Prelude Network.HTTP> let myRequest
 Prelude Network.HTTP> simpleHTTP myRequest >>= getResponseBody
 &quot;&lt;!DOCTYPE&nbsp;html&gt...&quot;
 	    </code></pre>
+
+	    <aside class="notes">Use the getRequest function to create a variable with a Request data type. We can then pass it into `simpleHTTP` and get the output. Look carefully at the syntax above.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -206,17 +308,23 @@ Prelude Network.HTTP> :t (>>=)
 	      
 	      <p class="fragment roll-in"><code class="haskell">>>=</code> is called the <i>bind</i> operator</p>
 	    </div>
+
+	    <aside class="notes">We're learn more about monads in Lecture 9. Don't worry about them now.</aside>
 	  </section>
 
 	  <section>
 	    <h1>MONADS!</h1>
 	    <a target="_blank" href="http://www.chrisscalf.com/Sci%20Fi%20Portfolio/SciFi%20Html/Dragon%20Fire.html"><img src="L07_files/dragon.png"/></a>
+	    
+	    <aside class="notes">Details about monads coming lecture 9!</aside>
 	  </section>
 
 	  <section>
 	    <h2>Monad</h2>
 	    <a target="_blank" href="http://swizec.com/blog/monads-monads-monads-monads/swizec/5206"><img src="L07_files/monads.png"/></a>
 	    <p>Stay tuned till next time for a peek into Monads</p>
+
+	    <aside class="notes">There is an aura of mysticism surrounding monads in Haskell. You're about to join me in an unforgettable journey.</aside>
 	  </section>
 	  
           <section>
@@ -263,11 +371,22 @@ Prelude Network.HTTP> :t (>>=)
 
     </script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
+
 
     <script type="text/javascript">
 
