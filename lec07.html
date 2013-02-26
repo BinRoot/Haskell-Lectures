@@ -132,10 +132,14 @@
 import Data.Char
 import Data.List
 
-let strong x = length x > 14
+strong x = length x > 14
     && any isLower x
     && any isUpper x
     && any isDigit x
+
+
+
+
 	    </code></pre>
 
 	    <pre id='strongB' style="display:none;"><code class='haskell'>
@@ -145,7 +149,6 @@ let strong x = length x > 14
 import Data.Set
 
 strong :: String -> Bool
-
 strong y
     | length y < 15 = False
     | intersection (fromList ['A'..'Z']) (fromList y) == fromList [] = False
@@ -161,7 +164,10 @@ import Data.Char
 
 strong :: String -> Bool
 strong [] = False
-strong x = checkLower x && checkUpper x && checkNum x && checkLength x
+strong x = checkLower x 
+    && checkUpper x 
+    && checkNum x 
+    && checkLength x
 
 checkLower :: String -> Bool
 checkLower [] = False
@@ -196,7 +202,10 @@ import Data.Char
 strong :: String -> Bool
 strong password = all ($ password) requirements
     where
-        requirements = [minLength 15, any isUpper, any isLower, any isDigit]
+        requirements = [minLength 15, 
+                        any isUpper, 
+                        any isLower, 
+                        any isDigit]
         minLength n str = n <= length str
 	    </code></pre>
 	    
@@ -390,7 +399,7 @@ Prelude Network.HTTP> :t (>>=)
 	    <h1>Homework</h1>
 	    <ol>
 	      <li><a href="https://docs.google.com/forms/d/1lJ0u2mp8A_p-8d9iiGhMBey9tO8jwMHqPzv0UCKNfbI/viewform" target="_blank">Fill out this week's form!</a></li>
-	      <li>Find the point of intersect of two lines using a package from Hackage</li>
+	      <li>Find the point of intersect of two lines using a package from <a href="http://hackage.haskell.org/packages/archive/pkg-list.html" target="_blank">Hackage</a></li>
 	      <li>If you need help, address the Haskell community (Wiki, IRC, etc)</li>
 	    </ol>
 	  </section>
