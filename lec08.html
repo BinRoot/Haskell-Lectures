@@ -67,8 +67,43 @@
 	  </section>
 
 	  <section>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
+	  <section>
 	    <h3>Pure</h3>
 	    <p>Remember, Haskell is pure.</p>
+	    <br>
 	    <ul>
 	      <li>Functions can't have side-effects</li>
 	      <li>Functions take in inputs and compute outputs</li>
@@ -77,6 +112,8 @@
 	    <br>
 	    <br>
 	    <small class="fragment roll-in">However, input/output is not at all pure. There is a side effect! By displaying output pixels on your monitor, you are changing the global state of your computer.</small>
+
+	    <aside class="notes">It would be difficult to make anything useful without side-effects.</aside>
 	  </section>
 	  
 	  <section>
@@ -124,6 +161,8 @@ $ ./Main
 	      </table>
 
 	    </small>
+
+	    <aside class="notes">Notice the two new ways of running Haskell code. We've been using GHCi the whole time, but this is how you compile it.</aside>
 	  </section>
 
 	  <section>
@@ -136,6 +175,8 @@ $ ghci Main.hs
 main :: IO ()
 	    </code></pre>
 	    <p>It's like the <code class="haskell">main</code> from Java or C++. When you compile Haskell code, the <code class="haskell">main</code> function runs.</p>
+	    
+	    <aside class="notes">main has the type IO () Monad.</aside>
 	  </section>
 
 	  <section>
@@ -148,6 +189,8 @@ main = do
   putStrLn "putStrLn has type String -> IO ()"
   putStrLn "we are glueing together multiple IO ()"
 	    </code></pre>
+
+	    <aside class="notes">`putStrLn` produce IO Monads, and we use `do` to glue them together.</aside>
 	  </section>
 
 	  <section>
@@ -160,10 +203,12 @@ module Main where
 main = do
   putStrLn "Why did the banker leave his job?"
   answer <- getLine
-  putStrLn (if answer=="he lost interest"
+  putStrLn (if answer == "he lost interest"
             then "Correct!"
-            else "Nope, he lost interest")
+            else "Wrong!")
 	    </code></pre>
+	    
+	    <aside class="notes">putStrLn takes in a String as input, so our if-then-else function appropriately returns a String.</aside>
 	  </section>
 
 	  <section>
@@ -180,6 +225,8 @@ main = do
   putStrLn ("you wrote: " ++ input)
 	    </code></pre>
 	    <p>"input is drawn from getLine"</p>
+
+	    <aside class="notes">Really get to know this piece of code. Open up your text editor and start writing it. Play around with it.</aside>
 	  </section>
 
 	  <section>
@@ -189,22 +236,24 @@ main = do
 
 	    <br>
 
-	    <p>putStrLn returns nothing, ()</p>
+	    <p>putStrLn gives back nothing, ()</p>
 	    <pre><code class="haskell">
 Prelude> :t putStrLn
 putStrLn :: String -> IO ()
 	    </code></pre>
 	    <br>
-	    <p>getLine returns a String</p>
+	    <p>getLine gives back a String to use</p>
 	    <pre><code class="haskell">
 Prelude> :t getLine 
 getLine :: IO String
 	    </code></pre>
+
+	    <aside class="notes">The IO Monad "gives back" a result to use, bundled in a monad.</aside>
 	  </section>
 
 	  <section>
 	    <h3>Pure</h3>
-	    <p class="fragment roll-in">Haskell isolates side-effects into I/O actions.</p>
+	    <p class="fragment roll-in">Side-effects are isolated into I/O actions.</p>
 	    <p class="fragment roll-in">Pure code is separated from impure operations.</p>
 	    <p class="fragment roll-in">I/O actions only exist within other I/O actions.</p>
 	    <div class="fragment roll-in">
@@ -212,6 +261,8 @@ getLine :: IO String
 	      <h3>Brilliant!</h3>
 	      <img src="L08_files/brilliant.gif">
 	    </div>
+
+	    <aside class="notes">We're dealing with a dangerous creature, side-effects. Haskell is still pure, even after introducing input and output. Thank the dozens of researchers around the world for that.</aside>
 	  </section>
 
 	  <section>
@@ -231,6 +282,8 @@ main = do
   putStrLn input
 	    </code></pre>
 	    <p><small><code class="haskell">return</code> packs up a value into an IO box. <code class="haskell">&lt;-</code> extracts the value out of an IO box.</small></p>
+
+	    <aside class="notes">The return function is nothing like the one you've used in Java or C++.</aside>
 	  </section>
 
 	  <section>
@@ -249,6 +302,8 @@ main = do
 	    </code></pre>
 	    <p><b>return ()</b> has the type <b>IO ()</b></p>
 	    <p>We create an IO that doesn't do anything so that the program could exit.</p>
+
+	    <aside class="notes">By necessity, we need an empty IO monad to finish the main function.</aside>
 	  </section>
 
 	  <section>
@@ -292,6 +347,8 @@ main = do
 		</td>
 	      </tr>
 	    </table>
+
+	    <aside class="notes">Haskell code is surprisingly readable.</aside>
 	  </section>
 
 	  <section>
@@ -313,6 +370,8 @@ Prelude> sequence (map print [1,2])
 [(),()]
 	    </code></pre>
             <p><small><b>print</b> is equivalent to <b>putStrLn.show</b></small></p>
+
+	    <aside class="notes">You can easily mix pure and impure concepts in Haskell.</aside>
 	  </section>
 
 	  <section>
@@ -335,6 +394,8 @@ Prelude> mapM_ print [1,2,3]
 3
 	      </code></pre>
 	    </div>
+
+            <aside class="notes">There are a lot of useful functions!</aside>
 	  </section>
 
           <section>
@@ -356,6 +417,8 @@ countChars str =
         lengths  = map (show.length) allLines
     in unlines lengths
 	    </code></pre>
+
+	    <aside class="notes">Notice how I separate the impure stuff from the pure haskell code. The main function handling the ugly IO, and the countChars function is pure.</aside>
 	  </section>
 
 	  <section>
@@ -391,6 +454,8 @@ main = readFile "input.txt" >>= print.length.lines
 	      </code></pre>
 	      <p><img src="L08_files/checkmate.gif"></p>
 	    </div>
+
+	    <aside class="notes">The code is beautiful.</aside>
 	  </section>
 
 	  <section>
@@ -406,6 +471,8 @@ main = do
   writeFile "output.txt" ['A'..'Z']
 	    </code></pre>
 	    <small><b>writeFile</b> will overwrite the file. Use <b>appendFile</b> if you'd like to append instead</small>
+
+	    <aside class="notes">The code is very "English-like"</aside>
 	  </section>
 
           <section>
@@ -443,6 +510,8 @@ dlrow olleh
 	      </li>
 	      
 	    </ol>
+
+	    <aside class="notes">This is actually much easier than it appears. A good amount of the code is in the slides.</aside>
 	  </section>
 
 	</section>
@@ -481,11 +550,23 @@ dlrow olleh
 
     </script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>
+
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
+
 
     <script type="text/javascript">
 
