@@ -100,6 +100,68 @@
 	  </section>
 
 
+
+	  <script>
+	    function clearAll() {
+            document.getElementById('intersectA').style.display = 'none';
+            document.getElementById('intersectB').style.display = 'none';
+	    }
+	    function showOne(intersect) {
+	    clearAll();
+	    document.getElementById(intersect).style.display = 'block';
+	    }
+	  </script>
+
+	  <section>
+	      <h3>Review of Homework 7</h3>
+	    <small><a href="lec07.html#/0/20" target="_blank">Find the intersect of two lines using an existing package</a></small>
+	    <table style="width:100%">
+	      <tr>
+		<td><center><a onclick="showOne('intersectA');">A</a></center></td>
+		<td><center><a onclick="showOne('intersectB');">B</a></center></td>
+	      </tr>
+	    </table>
+
+	    <pre id='intersectA'><code class='haskell'>
+-- Designed by Anish S. Tondwalkar
+
+import Graphics.Gloss.Geometry.Line
+
+-- A line is specified by two points (a point is a pair of Floats)
+data Line = L Point Point
+
+-- takes two lines instead of two points
+intersectLines (L a b) (L c d) = intersectLineLine a b c d
+
+
+
+
+	    </code></pre>
+
+	    <pre id='intersectB' style="display:none;"><code class='haskell'>
+-- Designed by Jonathan E Hills
+
+import Roots
+import Data.Complex
+
+-- Find the intersection of the lines 
+--  y = m1 * x + b1 and y = m2 * x + b2 by getting the roots 
+--  of the difference of the polynomials 
+--  b1 + m1 * x and b2 + m2 * x
+-- findIntersection (m1, b1) (m2, b2) gives (x, y)
+
+findIntersection :: (Double, Double) -> (Double, Double) -> (Double, Double)
+findIntersection (m1, b1) (m2, b2)
+  | m1 == m2 = error ""Lines are parallel!""
+  | otherwise = (x, m1 * x + b1) where
+      x = Data.Complex.realPart (r !! 0) where
+        r = roots 0.00001 10000 [(b1 - b2) :+ 0, (m1 - m2) :+ 0]
+	    </code></pre>
+
+	  </section>
+
+
+
 	  <section>
 	    <h3>Pure</h3>
 	    <p>Remember, Haskell is pure.</p>
@@ -406,8 +468,6 @@ Prelude> mapM_ print [1,2,3]
 	    <small>This code counts the number of characters per line</small>
 	    <pre><code class="haskell">
 module Main where
-
-import System.IO
 
 main = interact countChars
 
