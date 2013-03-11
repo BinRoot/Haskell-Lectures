@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Introduction to Haskell - Lecture 9</title>
+
+    <meta name="description" content="A course on the world's fastest growing functional programming language">
+    <meta name="author" content="Nishant Shukla">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+
+    <style>
+      body {
+      padding-top: 30px;
+      padding-bottom: 40px;
+      }
+    </style>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/pojoaque.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+  </head>
+
+
+  <body>
+
+    <script src="nav.js"></script>
+
+    <script>
+      function toggleElements(one, two) {
+          document.getElementById(one).style.display = 'none';
+          document.getElementById(two).style.display = 'block';
+      }
+    </script>
+
+
+    <div class="reveal">
+
+      <!-- Slides begin here! -->
+      <div class="slides">
+	<section>
+
+
+          <section>
+            <h1>Introduction To Haskell</h1>
+            <p>Lecture 9</p>
+            <p>
+              <br>
+            </p>
+            <p>M.. M.. MONADS!</p>
+	  </section>
+
+	  <section>
+	    <h3>Using These Slides</h3>
+	      <h4>Every slide has a secret note.</h4>
+	      <small>
+	      <ul>
+		<li>On <b>Chrome</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>IE</b>: press <code>F12</code>, then click <b>Console</b></li>
+		<li>On <b>Firefox</b>: <code>Ctrl+Shift+k</code></li>
+	      </ul>
+	      </small>
+	      <br>
+	      <br>
+	      <p><h3>Shortcut Keys:</h3></p>
+	    <center>
+	      <table width="80%">
+		<tr>
+		  <td><code>↓</code>, <code>PgDn</code>, <code>n</code>, <code>j</code></td>
+		  <td>next slide</td>
+		</tr>
+		<tr>
+		  <td><code>↑</code>, <code>PgUp</code>, <code>p</code>, <code>k</code></td>
+		  <td>prev slide</td>
+		</tr>
+		<tr>
+		  <td><code>Esc</code></td>
+		  <td>enables <code>ctrl+f</code> globally</td>
+		</tr>
+	      </table>
+	    </center>
+
+	    <aside class="notes">Hi there! This is a secret lecture note. Every slide has a little blurb of text like this!</aside>
+	  </section>
+
+
+	  <script>
+	    function clearAll() {
+            document.getElementById('strongA').style.display = 'none';
+            document.getElementById('strongB').style.display = 'none';
+            document.getElementById('strongC').style.display = 'none';
+            document.getElementById('strongD').style.display = 'none';
+	    }
+	    function showOne(strong) {
+	    clearAll();
+	    document.getElementById(strong).style.display = 'block';
+	    }
+	  </script>
+
+	  <section>
+	      <h3>Review of Homework 8</h3>
+	    <small><a href="lec06.html#/0/20" target="_blank">Detect whether a password is strong</a></small>
+	    <table style="width:100%">
+	      <tr>
+		<td><center><a onclick="showOne('strongA');">A</a></center></td>
+		<td><center><a onclick="showOne('strongB');">B</a></center></td>
+		<td><center><a onclick="showOne('strongC');">C</a></center></td>
+		<td><center><a onclick="showOne('strongD');">D</a></center></td>
+	      </tr>
+	    </table>
+
+	    <pre id='strongA'><code class='haskell'>
+-- Designed by A
+	    </code></pre>
+
+	    <pre id='strongB' style="display:none;"><code class='haskell'>
+-- Designed by B
+	    </code></pre>
+
+	    <pre id='strongC' style="display:none;"><code class='haskell'>
+-- Designed by c
+	    </code></pre>
+
+	    <pre id='strongD' style="display:none;"><code class='haskell'>
+-- Designed by D
+	    </code></pre>
+	    
+	  </section>
+
+	  <section>
+	      <h2>The <code>Maybe</code> data type</h2>
+	      <pre><code class="haskell">
+data Maybe a = Nothing | Just a  
+	      </code></pre>
+	      <p>Use <code>Maybe</code> when the output isn't guaranteed</p>
+	      <pre><code class="haskell">
+Prelude> import Data.List
+
+Prelude> :t elemIndex
+elemIndex :: Eq a => a -> [a] -> Maybe Int
+
+Prelude Data.List> elemIndex 'b' "abc"
+Just 1
+
+Prelude Data.List> elemIndex 'z' "abc"
+Nothing
+
+	      </code></pre>
+	      
+	  </section>
+
+	  <section>
+	      <h3>Context</h3>
+	      <p><code>Maybe</code> wraps things into a context.</p>
+	      <br>
+	      <ul>
+		  <li><i><code>Just 1</code></i> vs <i><code>1</code></i></li>
+		  <br>
+		  <li><i><code>Just "hello"</code></i> vs <i><code>"hello"</code></i></li>
+		  <br>
+		  <li><i><code>Just 'a'</code></i> vs <i><code>'a'</code></i></li>
+	      </ul>
+	  </section>
+
+	  <section>
+	      <h2>Functor</h2>
+	      <p>A Typeclass for things that can be mapped</p>
+	      <p>All Functors need to implement <code>fmap</code></p>
+	      <pre><code class="haskell">
+fmap :: (a -> b) -> f a -> f b
+	      </code></pre>
+	      <br>
+	      <p>Naturally, a list derives the Functor Typeclass</p>
+	      <pre><code class="haskell">
+Prelude> fmap (+1) [1,2,3]
+[2,3,4]
+	      </code></pre>
+	  </section>
+
+	  <section>
+	      <h3>What else is a Functor?</h3>
+	      <p><code>Maybe</code> is a Functor</p>
+	      <pre><code class="haskell">
+*Main> fmap (+1) (Just 1)
+Just 2
+	      </code></pre>
+	      <br>
+	      <p><code>IO</code> is a Functor</p>
+	      <pre><code class="haskell">
+*Main> fmap (++"!") getLine
+hi
+"hi!"
+	      </code></pre>
+	  </section>
+
+	  <section>
+	      <h2>Applicative Typeclass</h2>
+	      <pre><code>
+Prelude> import Control.Applicative
+
+Prelude> (*) <$> Just 2 <*> Just 8  
+Just 16
+	      </code></pre>
+	      
+	  </section>
+
+	  <section>
+	      <h2>Monoid</h2>
+	      <p>A <b>Monoid</b> is what you call a Set (S) and a binary function (*) that satisfy the following:</p>
+	      <ol>
+		  <li class="fragment roll-in"><p>∀ a,b ∈ S: <b>a*b ∈ S</b></p>
+		      <small>The Set (S) is <b>closed</b> under the binary function (*).</small></li>
+		  <li class="fragment roll-in"><p>∀ a,b,c ∈ S: <b>(a*b)*c = a*(b*c)</b></p>
+		      <small>The binary function is <b>associative</b></small>
+		  </li>
+		  <li class="fragment roll-in"><p>∃ e∈S: ∀ a∈S: <b>e*a = a*e = a</b></p>
+		      <small><i>e</i> is the <b>identity</b> element</small></li>
+	      </ol>
+
+	      <br>
+	      <br>
+	      <small class="fragment roll-in">A Monoid is a <a target="_blank" href="http://simple.wikipedia.org/wiki/Group_theory">Group</a> without the requirement of an inverse</small>
+	      <small class="fragment roll-in">Or a <a target="_blank" href="http://en.wikipedia.org/wiki/Monoid#Relation_to_category_theory">Category</a> with a single object.</small>
+	  </section>
+
+	  <section>
+	      <h3>Examples of Monoids</h3>
+	      <ul>
+		  <li><code>+</code> , <code>0</code></li>
+		  <li><code>*</code> , <code>1</code></li>
+		  <li><code>++</code> , <code>[]</code></li>
+		  <li><code>∪</code> , <code>∅</code></li>
+	      </ul>
+	      <br>
+	      <br>
+	      <p>Is this also a Monoid?</p>
+	      <ul>
+		  <li><code>||</code> , <code>False</code></li>
+	      </ul>
+	  </section>
+
+	  <section>
+	      <h3>Try it out</h3>
+	      <p>In Haskell, the <i>binary function</i> is called <code>mappend</code> and its <i>identity element</i> is <code>mempty</code></p>
+
+	      <pre><code>
+Prelude> import Data.Monoid
+
+Prelude Data.Monoid> [1,2,3] `mappend` [4,5,6]
+[1,2,3,4,5,6]
+
+Prelude Data.Monoid> [1,2,3] `mappend` mempty
+[1,2,3]
+
+Prelude Data.Monoid> mempty `mappend` [1,2,3]
+[1,2,3]
+
+	      </code></pre>
+
+	      <p>As you can see above, lists are Monoids.</p>
+	  </section>
+
+
+
+	  <section>
+	      <h3>Quick Reminder</h3>
+	      <p>If you have a type <code>a</code> and a function <code>a -> b</code></p>
+	      <p>then you can get <code>b</code>.</p>
+	      <pre><code class="haskell">
+Prelude> odd 3
+True
+	      </code></pre>
+
+	  </section>
+
+	  <section>
+	      <h3><code>Maybe</code> Continued</h3>
+	      <p>If we instead have <code>m a</code> and a function <code>a -> m b</code></p>
+	      <p>How would we get <code>m b</code>?</p>
+	      <br>
+	      <div class="fragment roll-in">
+	      <p>For example, given <code>Just a</code> and <code>a -> Just b</code></p>
+	      <p>How would we get <code>Just b</code>?</p>
+	      </div>
+	      <br>
+	      <div class="fragment roll-in">
+	      <p>The answer we desire looks like this</p>
+	      <pre><code class="haskell">
+(>>=) :: (Monad m) => m a -> (a -> m b) -> m b
+	      </code></pre>
+	      <p><code>>>=</code> is called a <i>bind</i></p>
+	      </div>
+	  </section>
+
+	  <section>
+	      <h3>Necessity of <i>bind</i></h3>
+	      <p>Let's say we had the function <code>f</code> below</p>
+	      <pre><code class="haskell">
+f :: Int -> Maybe Int
+f n = Just (n+1)
+	      </code></pre>
+	      <pre><code class="haskell">
+Prelude> f 1
+Just 2
+	      </code></pre>
+	      <br>
+	      <p>What if we wanted to pass in <code>Just 1</code>?</p>
+	      <pre><code class="haskell">
+Prelude> f (Just 1)
+ERROR!
+	      </code></pre>
+	  </section>
+
+	  <section>
+	      <h2><i>bind</i> <code>(>>=)</code></h2>
+	      <pre><code class="haskell">
+Prelude> :t (>>=)
+(>>=) :: Monad m => m a -> (a -> m b) -> m b
+	      </code></pre>
+	      <pre><code class="haskell">
+Prelude> Just 1 >>= f
+Just 2
+	      </code></pre>
+
+	  </section>
+
+	  <section>
+	      <h2>The <code>Monad</code> Typeclass</h2>
+	      <p>The two important functions featured by Monads are <code>return</code> and <code>>>=</code></p>
+	      <pre><code class="haskell">
+return :: a -> m a  
+  
+(>>=) :: m a -> (a -> m b) -> m b  
+	      </code></pre>
+	  </section>
+
+
+	  <section>
+	      <h2>Monad Laws</h2>
+	      <p>For something to truly be a Monad,</p>
+	      <p>it must also obey the following laws: <a href="http://www.haskell.org/haskellwiki/Monad_Laws" target="_blank">*</a></p>
+	      <br>
+	      <ul>
+		  <li>
+		      <p>Left Identity</p>
+		      <small><code>return a >>= f</code>&nbsp;&nbsp; ≡ &nbsp;&nbsp;<code>f a</code></small>
+		  </li>
+		  
+		  <li>
+		      <p>Right Identity</p>
+		      <small><code>m >>= return</code>&nbsp;&nbsp; ≡ &nbsp;&nbsp;<code>m</code></small>
+		  </li>
+		  
+		  <li>
+		      <p>Associativity</p>
+		      <small><code>(m >>= f) >>= g</code>&nbsp;&nbsp; ≡ &nbsp;&nbsp;<code>m >>= (\x -> f x >>= g)</code></small>
+		  </li>
+	      </ul>
+	      <br>
+	      <br>
+	      <p class="fragment roll-in"><small>These laws are similar to those of Monoids.</small></p>
+	  </section>
+
+	  <section>
+	      <h2>Monad Laws</h2>
+	      <p>Here's another way to write the three laws</p>
+	      <table style="width:100%">
+		  <tr>
+		      <td style="width:48%">
+<pre><code class="haskell">
+do
+  x' <- return x
+  f x'
+</code></pre>
+		      </td>
+		      <td style="width:4%">≡</td>
+		      <td style="width:48%">
+<pre><code class="haskell">
+do
+  f x
+</code></pre>
+		      </td>
+		  </tr>
+
+		  <tr>
+		      <td style="width:48%">
+<pre><code class="haskell">
+do
+  x <- m
+  return x
+</code></pre>
+		      </td>
+		      <td style="width:4%">≡</td>
+		      <td style="width:48%">
+<pre><code class="haskell">
+do
+  m
+</code></pre>
+		      </td>
+		  </tr>
+
+		  <tr>
+		      <td style="width:48%">
+<pre><code class="haskell">
+do
+  y <- do
+    x <- m
+    f x
+  g y
+</code></pre>
+		      </td>
+		      <td style="width:4%">≡</td>
+		      <td style="width:48%">
+<pre><code class="haskell">
+do 
+  x <- m
+  y <- f x
+  g y
+</code></pre>
+		      </td>
+		  </tr>
+
+              </table>
+	  </section>
+
+	  <section>
+	      <h3>It's based off the Kleisli composition operator <a href="http://www.haskell.org/haskellwiki/Monad_Laws" target="_blank">*</a></h3>
+	      <small>(This is for your own curiosity.)</small>
+	      <pre><code class="haskell">
+(>=>) :: Monad m => (a -> m b) -> (b -> m c) -> a -> m c
+	      </code></pre>
+              <br>
+              <ul>
+		  <li><p>Left Identity</p>
+		      <small><code>return >=> g</code>&nbsp;&nbsp; ≡ &nbsp;&nbsp;<code>g</code></small>
+		  </li>
+		  <li><p>Right Identity</p>
+		      <small><code>f >=> return</code>&nbsp;&nbsp; ≡ &nbsp;&nbsp;<code>f</code></small></li>
+		  <li><p>Associativity</p>
+		      <small><code>(f >=> g) >=> h</code>&nbsp;&nbsp; ≡ &nbsp;&nbsp;<code>f >=> (g >=> h)</code></small></li>
+	      </ul>
+	  </section>
+
+	  <section>
+	      <h3>Why such specific rules?</h3>
+	      <p>These Monad laws form a mathematical <a href="http://en.wikipedia.org/wiki/Category_theory" target="_blank">category</a>.</p>
+	      <br>
+	      <div class="fragment roll-in">
+	      <q>All told, a <b>monad</b> in X is just a <b>monoid</b> in the category of <b>endofunctors</b> of X, with product × replaced by <b>composition of endofunctors</b> and <b>unit set</b> by the <b>identity endofunctor</b>.</q>
+	      <p><a href="http://books.google.com/books?id=MXboNPdTv7QC&pg=PA138&dq=%22a+monad+in+X+is+just+a%22+mac+lane&hl=en&sa=X&ei=f2c9UZeaFuam2gWnpoDIDw&ved=0CDAQ6AEwAA#v=onepage&q=%22a%20monad%20in%20X%20is%20just%20a%22%20mac%20lane&f=false" target="_blank">-- Mac Lane</a></p>
+	      </div>
+	      <br>
+	      <div class="fragment roll-in">
+	      <q><b>Monads</b> are like <b>burritos</b></q>
+	      <p><a href="http://blog.plover.com/prog/burritos.html" target="_blank">-- Mark Dominus</a></p>
+	      </div>
+
+	      
+	  </section>
+
+
+	</section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+      rollingLinks: false,
+
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+      });
+
+    </script>
+
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script>
+      Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      var notes = event.currentSlide.querySelector(".notes");
+      if(notes) {
+          console.info("---");
+          console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+      }
+      } );
+    </script>
+
+
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29747714-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
+
+  </body>
+</html>
