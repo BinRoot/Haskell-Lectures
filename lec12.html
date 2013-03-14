@@ -250,6 +250,151 @@
 	      <p>Contradiction. GG.</p>
 	  </section>
 
+	  <section>
+	      <h3>Definition: Category</h3>
+	      <small class="fragment roll-in"><p>A <b>Category</b> <i>C</i> is a collection of <b>Ob(<i>C</i>)</b> and <b>Ar(<i>C</i></b>).</p></small>
+	      <small class="fragment roll-in"><b>Ob(<i>C</i>)</b> are the objects of <b><i>C</i></b>. &nbsp;<b>Ar(<i>C</i>)</b> are the "arrows" or morphisms of <b><i>C</i></b>.</small>
+	      <small class="fragment roll-in"><p>Each <i><b>f</b>:A→B</i> ∈ <b>Ar(<i>C</i>)</b> has it's <b>A</b> and <b>B</b> chosen from <b>Ob(<i>C</i>)</b>.</p></small>
+	      <small class="fragment roll-in">If <b><i>f</i></b>:A→B and <b><i>g</i></b>:B→C, then there always exists <b><i>h</i></b> = <b><i>g∘f</i></b>: A→C</small>
+	      <small class="fragment roll-in">For every <b>A</b> ∈ <b>Ob(<i>C</i>)</b>, there is an identity function <b>id<sub>A</sub></b>: A→A.</id></small>
+              <br>
+	      <br>
+	      <div class="fragment roll-in">
+		  <p>Axioms:</p>
+		  <p><small>Left and right identity: <b><i>f</i>∘id<sub>A</sub></b> = <b>id<sub>A</sub>∘<i>f</i></b></small></p>
+		  <p><small>Associativity: <b><i>h</i>∘(<i>g∘f</i>)</b> = <b>(<i>h∘g</i>)∘<i>f</i></b></small></p>
+	      </div>
+	  </section>
+
+          <section>
+	      <h3>Examples of Categories</h3>
+	      <ul>
+		  <li><b>Set</b> (with set functions)</li>
+		  <li><b>Monoids</b> are one-object categories</li>
+		  <li><b>Grp</b> (groups with group morphisms)</li>
+		  <li><b>Rng</b> (rings with ring morphisms)</li>
+		  <li><b>Hask</b> (Haskell types and functions)</li>
+	      </ul>
+	  </section>
+
+	  <section>
+	      <h2>Hask</h2>
+	      <p><b>Ob(<i>Hask</i>)</b> = the Haskell types. (Bool, [Char], ...)</p>
+	      <p><b>Ar(<i>Hask</i>)</b> = the Haskell functions. (head, not, ...)</p>
+	      <p>The identity function is <code>id :: a -> a</code></p>
+	      <br>
+	      <p>The axioms are satisfied</p>
+	      <p><small>Left and right identity: <b><i>f</i>∘id</b> = <b>id∘<i>f</i></b></small></p>
+	      <p><small>Associativity: <b><i>h</i>∘(<i>g∘f</i>)</b> = <b>(<i>h∘g</i>)∘<i>f</i></b></small></p>
+
+	  </section>
+
+	  <section>
+	      <h2>Functor</h2>
+	      <small><p>Functor <b>F</b>: C→D is a transformation from Category <b><i>C</i></b> to Category <b><i>D</i></b></p></small>
+	      <a target="_blank" href="http://en.wikibooks.org/wiki/Haskell/Category_theory#Functors"><img src="L12_files/functor.png"></a>
+	      <small>It maps objects in C to objects in D, and functions in C to functions in D</small>
+
+	      <br>
+	      <p>Functor Axioms:</p>
+	      <small>
+	      <ol>
+		  <p><li>F(id<sub>A</sub>) = id<sub>F(A)</sub></li></p>
+		  <p><li>F(f∘g) = F(f)∘F(g)</li></p>
+	      </ol>
+	      </small>
+
+	  </section>
+
+	  <section>
+	      <h3>Functors in Haskell</h3>
+	      <p>In Haskell, a Functor is a typeclass for things that can be mapped over.</p>
+	      <pre><code class="haskell">
+Prelude> fmap odd (Just 3)    -- Maybe is a Functor
+Just True
+	      </code></pre>
+	      <pre><code class="haskell">
+Prelude> fmap odd [1..5]      -- a list is a Functor
+[True,False,True,False,True]
+	      </code></pre>
+
+	      
+
+	  </section>
+	  
+	  <section>
+	      <h3><code>Maybe</code> Functor</h3>
+
+	      <small><p>1. The <i>type constructor</i> transforms anything of type <code>a</code> to <code>Maybe a</code></p></small>
+	      <small><p>Like transforming an object in <b><i>C</i></b> to an object in <b><i>D</i></b>.</p></small>
+	      
+
+	      <p><code>Maybe</code> derives the <code>Functor</code> typeclass as follows:</p>
+	      <pre><code>
+instance Functor Maybe where
+  fmap f (Just x) = Just (f x)
+  fmap _ Nothing  = Nothing
+	      </code></pre>
+	      
+	      <br>
+	      <small><p>2. fmap transforms a function <b><i>f</i></b>: a→b</p> to Maybe a → Maybe b.</small>
+
+	  </section>
+
+	  <section>
+	      <h3><code>Maybe</code> Functor (Cont.)</h3>
+	      <p>We just showed that Maybe transforms objects and functions over from the <b>Hask</b> category to the <b>Maybe</b> subcategory.</p>
+	      <br>
+	      <p>The Functor Axioms are satisfied:</p>
+	      <ol>
+		  <p><li>fmap id = id</li></p>
+		  <p><li>fmap (f . g) = fmap f . fmap g</li></p>
+	      </ol>
+	      
+	  </section>
+
+	  <section>
+	      <h2>Monads</h2>
+	      <p>A Monad is a functor from a Category to itself: <b>M: C→C</b></p>
+
+	      <small>
+		  <p>And, for every <b>X</b> ∈ Ob(<b><i>C</i></b>)</p>
+	      <ul>
+		  <li><p>unit: <b>X</b>→M(<b>X</b>)</p></li>
+		  <li><p>join: M(M(<b>X</b>))→M(<b>X</b>)</p></li>
+	      </ul>
+	      </small>
+	      <pre><code class="haskell">
+class Functor m => Monad m where
+  return :: a -> m a
+  (>>=)  :: m a -> (a -> m b) -> m b
+	      </code></pre>
+	      <pre><code>
+Prelude> import Control.Monad
+Prelude Control.Monad> :t join
+join :: Monad m => m (m a) -> m a
+	      </code></pre>
+	  </section>
+
+	  <section>
+	      <h2><a href="http://en.wikibooks.org/wiki/Haskell/Category_theory#Monads" target="_blank">The Monad Laws</a></h2>
+	      <ol>
+		  <li>
+		      <p><i>join</i> ∘ M(<i>join</i>) = <i>join</i> ∘ <i>join</i></p>
+		      <small><q>Collapsing the inner two layers first, then that with the outer layer is exactly the same as collapsing the outer layers first, then that with the innermost layer.</q></small>
+		  </li>
+		  <br>
+		  <li>
+		      <p><i>join</i> ∘ M(<i>unit</i>) = <i>join</i> ∘ <i>unit</i> = <i>id</i></p>
+		      <small><q>Applying return to a monadic value, then joining the result should have the same effect whether you perform the return from inside the top layer or from outside it.</q></small>
+		  </li>
+		  <br>
+		  <li><i>unit</i> ∘ <i>f</i> = M(<i>f</i>) ∘ <i>unit</i></li>
+		  <br>
+		  <li><i>join</i> ∘ M(M(<i>f</i>)) = M(<i>f</i>) ∘ <i>join</i></li>
+	      </ol>
+	  </section>
+
 	</section>
       </div>
     </div>
