@@ -102,10 +102,10 @@
 
 	  <script>
 	    function clearAll() {
-            document.getElementById('strongA').style.display = 'none';
-            document.getElementById('strongB').style.display = 'none';
-            document.getElementById('strongC').style.display = 'none';
-            document.getElementById('strongD').style.display = 'none';
+            document.getElementById('revA').style.display = 'none';
+            document.getElementById('revB').style.display = 'none';
+            document.getElementById('revC').style.display = 'none';
+            document.getElementById('revD').style.display = 'none';
 	    }
 	    function showOne(strong) {
 	    clearAll();
@@ -115,30 +115,52 @@
 
 	  <section>
 	      <h3>Review of Homework 8</h3>
-	    <small><a href="lec06.html#/0/20" target="_blank">Detect whether a password is strong</a></small>
+	    <small><a href="lec08.html#/0/19" target="_blank">Write an IO program that reverses text</a></small>
 	    <table style="width:100%">
 	      <tr>
-		<td><center><a onclick="showOne('strongA');">A</a></center></td>
-		<td><center><a onclick="showOne('strongB');">B</a></center></td>
-		<td><center><a onclick="showOne('strongC');">C</a></center></td>
-		<td><center><a onclick="showOne('strongD');">D</a></center></td>
+		<td><center><a onclick="showOne('revA');">A</a></center></td>
+		<td><center><a onclick="showOne('revB');">B</a></center></td>
+		<td><center><a onclick="showOne('revC');">C</a></center></td>
+		<td><center><a onclick="showOne('revD');">D</a></center></td>
 	      </tr>
 	    </table>
 
-	    <pre id='strongA'><code class='haskell'>
--- Designed by A
+	    <pre id='revA'><code class='haskell'>
+-- Designed by Eric J. Bomgardner 
+
+module Main where
+
+main = do
+  theInput <- readFile "input.txt"
+  writeFile "output.txt" (reverse theInput)
 	    </code></pre>
 
-	    <pre id='strongB' style="display:none;"><code class='haskell'>
--- Designed by B
+	    <pre id='revB' style="display:none;"><code class='haskell'>
+-- Designed by Saul Brodsky
+
+module Main where
+
+main = do
+  answer <- readFile "input.txt"
+  let rev = reverse answer in writeFile "output.txt" rev
+
 	    </code></pre>
 
-	    <pre id='strongC' style="display:none;"><code class='haskell'>
--- Designed by c
+	    <pre id='revC' style="display:none;"><code class='haskell'>
+-- Designed by Travis Dean
+
+main = interact reverse
+
+-- This must be run by directing input and output like so:
+-- $ runhaskell reverseFile.hs < input.txt > output.txt
 	    </code></pre>
 
-	    <pre id='strongD' style="display:none;"><code class='haskell'>
--- Designed by D
+	    <pre id='revD' style="display:none;"><code class='haskell'>
+-- Designed by Anish S. Tondwalkar
+
+main = readFile input >>= return . reverse >>= writeFile output 
+ where input  = "input"
+       output = "output"
 	    </code></pre>
 	    
 	  </section>
@@ -148,13 +170,16 @@
 	      <pre><code class="haskell">
 data Maybe a = Nothing | Just a  
 	      </code></pre>
+	      <div class="fragment roll-in">
 	      <p>Use <code>Maybe</code> when the output isn't guaranteed</p>
-	      <pre><code class="haskell">
+	      <pre class="fragment roll-in"><code class="haskell">
 Prelude> import Data.List
 
 Prelude> :t elemIndex
 elemIndex :: Eq a => a -> [a] -> Maybe Int
+	      </code></pre>
 
+	      <pre class="fragment roll-in"><code class="haskell">
 Prelude Data.List> elemIndex 'b' "abc"
 Just 1
 
@@ -162,6 +187,9 @@ Prelude Data.List> elemIndex 'z' "abc"
 Nothing
 
 	      </code></pre>
+	      </div>
+
+	      <aside class="notes">Notice the different styles people use to arrive at the some solution.</aside>
 	      
 	  </section>
 
@@ -175,13 +203,17 @@ Nothing
 		  <li><i><code>Just "hello"</code></i> vs <i><code>"hello"</code></i></li>
 		  <br>
 		  <li><i><code>Just 'a'</code></i> vs <i><code>'a'</code></i></li>
+		  <br>
+		  <li><i><code>Nothing</code></i> vs <i><code><b>ERROR!</b></code></i></li>
 	      </ul>
+
+	      <aside class="notes">A context gives some guarantee and safety to a value.</aside>
 	  </section>
 
 	  <section>
 	      <h2>Functor</h2>
-	      <p>A Typeclass for things that can be mapped</p>
-	      <p>All Functors need to implement <code>fmap</code></p>
+	      <p>A Functor generalizes the <code>map</code> function</p>
+	      <p>It implements <code>fmap</code></p>
 	      <pre><code class="haskell">
 fmap :: (a -> b) -> f a -> f b
 	      </code></pre>
@@ -191,22 +223,46 @@ fmap :: (a -> b) -> f a -> f b
 Prelude> fmap (+1) [1,2,3]
 [2,3,4]
 	      </code></pre>
+
+	      <aside class="notes">Sometimes you want to map over a different data type, like a Graph or Tree.</aside>
 	  </section>
 
 	  <section>
 	      <h3>What else is a Functor?</h3>
+	      <div class="fragment roll-in">
 	      <p><code>Maybe</code> is a Functor</p>
 	      <pre><code class="haskell">
 *Main> fmap (+1) (Just 1)
 Just 2
 	      </code></pre>
+	      </div>
 	      <br>
+	      <div class="fragment roll-in">
 	      <p><code>IO</code> is a Functor</p>
 	      <pre><code class="haskell">
 *Main> fmap (++"!") getLine
 hi
 "hi!"
 	      </code></pre>
+	      </div>
+
+	      <aside class="notes">If it can be mapped, it's probably a Functor.</aside>
+	  </section>
+
+	  <section>
+	      <h3>The Functor Laws</h3>
+	      <small>Additionally, these rules are necessary to define a Functor.</small>
+	      <p>First law:</p>
+	      <pre><code class="haskell">
+fmap id F = F
+	      </code></pre>
+	      <br>
+	      <p>Second law:</p>
+	      <pre><code class="haskell">
+fmap (f . g) F = fmap f (fmap g F)
+	      </code></pre>
+
+	      <aside class="notes">A true Functor not only is of the Functor Typeclass, but also follows these two laws.</aside>
 	  </section>
 
 	  <section>
@@ -217,42 +273,50 @@ Prelude> import Control.Applicative
 Prelude> (*) <$> Just 2 <*> Just 8  
 Just 16
 	      </code></pre>
+	      <br>
+	      <p><small>We won't go into much detail about the Applicative Typeclass</small></p>
+	      <p><small><a href="http://learnyouahaskell.com/functors-applicative-functors-and-monoids" target="_blank">There is a great introduction here</a></small></p>
 	      
+	      <aside class="notes">These allow powerful utilization of things in context.</aside>
 	  </section>
 
 	  <section>
 	      <h2>Monoid</h2>
-	      <p>A <b>Monoid</b> is what you call a Set (S) and a binary function (*) that satisfy the following:</p>
+	      <p>A <b>Monoid</b> is a function (•) that satisfies the following:</p>
 	      <ol>
-		  <li class="fragment roll-in"><p>∀ a,b ∈ S: <b>a*b ∈ S</b></p>
-		      <small>The Set (S) is <b>closed</b> under the binary function (*).</small></li>
-		  <li class="fragment roll-in"><p>∀ a,b,c ∈ S: <b>(a*b)*c = a*(b*c)</b></p>
+		  <li class="fragment roll-in"><p>∀ a,b ∈ S: <b>a•b ∈ S</b></p>
+		      <small>The Set (S) is <b>closed</b> under the binary function (•).</small></li>
+		  <li class="fragment roll-in"><p>∀ a,b,c ∈ S: <b>(a•b)•c = a•(b•c)</b></p>
 		      <small>The binary function is <b>associative</b></small>
 		  </li>
-		  <li class="fragment roll-in"><p>∃ e∈S: ∀ a∈S: <b>e*a = a*e = a</b></p>
+		  <li class="fragment roll-in"><p>∃ e∈S: ∀ a∈S: <b>e•a = a•e = a</b></p>
 		      <small><i>e</i> is the <b>identity</b> element</small></li>
 	      </ol>
 
 	      <br>
 	      <br>
-	      <small class="fragment roll-in">A Monoid is a <a target="_blank" href="http://simple.wikipedia.org/wiki/Group_theory">Group</a> without the requirement of an inverse</small>
-	      <small class="fragment roll-in">Or a <a target="_blank" href="http://en.wikipedia.org/wiki/Monoid#Relation_to_category_theory">Category</a> with a single object.</small>
+	      <small class="fragment roll-in">(A Monoid is a <a target="_blank" href="http://simple.wikipedia.org/wiki/Group_theory">Group</a> without the requirement of an inverse)</small>
+	      <small class="fragment roll-in">(Or a <a target="_blank" href="http://en.wikipedia.org/wiki/Monoid#Relation_to_category_theory">Category</a> with a single object.)</small>
+
+	      <aside class="notes">A Monoid and Monad share some similarities as you will see later.</aside>
 	  </section>
 
 	  <section>
 	      <h3>Examples of Monoids</h3>
-	      <ul>
-		  <li><code>+</code> , <code>0</code></li>
-		  <li><code>*</code> , <code>1</code></li>
-		  <li><code>++</code> , <code>[]</code></li>
-		  <li><code>∪</code> , <code>∅</code></li>
-	      </ul>
+
+
+	      <p><code>+</code> , <code>0</code> is a Monoid.</p>
 	      <br>
-	      <br>
-	      <p>Is this also a Monoid?</p>
+	      <p>Which of the following are Monoids?</p>
 	      <ul>
-		  <li><code>||</code> , <code>False</code></li>
+		  <li><code>*</code> , <code>0</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, <b>S={0,1,2,...}</b></li>
+		  <li><code>||</code> , <code>False</code> , <b>S={True, False}</b></li>
+		  <li><code>++</code> , <code>[]</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, <b>S={"", "a", "ab",...}</b></li>
+		  <li><code>∪</code> , <code>∅</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, <b>S={A,B,...}</b></li>
+		  <li><code>÷</code> , <code>1</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, <b>S={1,2,...}</b></li>
 	      </ul>
+
+	      <aside class="notes">Monoids occur more likely than you think.</aside>
 	  </section>
 
 	  <section>
@@ -274,9 +338,9 @@ Prelude Data.Monoid> mempty `mappend` [1,2,3]
 	      </code></pre>
 
 	      <p>As you can see above, lists are Monoids.</p>
+
+	      <aside class="notes">Haskell is heavily influenced by mathematics. Monoids, Functors, and Monads all have roots in Category Theory.</aside>
 	  </section>
-
-
 
 	  <section>
 	      <h3>Quick Reminder</h3>
@@ -286,6 +350,8 @@ Prelude Data.Monoid> mempty `mappend` [1,2,3]
 Prelude> odd 3
 True
 	      </code></pre>
+
+	      <aside class="notes">Haskell's type system is simply about puzzle-fitting. If the types match, the function will evaluate.</aside>
 
 	  </section>
 
@@ -306,6 +372,8 @@ True
 	      </code></pre>
 	      <p><code>>>=</code> is called a <i>bind</i></p>
 	      </div>
+
+	      <aside class="notes">Think of bind as removing a context from an input to pass it though a function.</aside>
 	  </section>
 
 	  <section>
@@ -320,11 +388,15 @@ Prelude> f 1
 Just 2
 	      </code></pre>
 	      <br>
+	      <div class="fragment roll-in">
 	      <p>What if we wanted to pass in <code>Just 1</code>?</p>
 	      <pre><code class="haskell">
 Prelude> f (Just 1)
 ERROR!
 	      </code></pre>
+	      </div>
+
+	      <aside class="notes">We can use bind to temporarily remove contexts.</aside>
 	  </section>
 
 	  <section>
@@ -338,18 +410,65 @@ Prelude> Just 1 >>= f
 Just 2
 	      </code></pre>
 
+	      <aside class="notes">If you squint, the bind function looks like we're stuffing a context into a function.</aside>
 	  </section>
 
 	  <section>
 	      <h2>The <code>Monad</code> Typeclass</h2>
-	      <p>The two important functions featured by Monads are <code>return</code> and <code>>>=</code></p>
+	      <p>A Monad is Typeclass with some extra rules.</p>
+	      <br>
+	      <p>The two important functions: <code>return</code> and <code>>>=</code></p>
 	      <pre><code class="haskell">
 return :: a -> m a  
   
 (>>=) :: m a -> (a -> m b) -> m b  
 	      </code></pre>
+
+	      <aside class="notes">Bind is actually super important. It is one of the necessary functions for the Monad Typeclass.</aside>
 	  </section>
 
+	  <section>
+	      <h3>The <code>>></code> function</h3>
+	      <p>This function simply glues together Monads.</p>
+	      <pre><code class="haskell">
+Prelude> print "foo" >>= \_ -> print "bar"
+"foo"
+"bar"
+	      </code></pre>
+	      <pre><code class="haskell">
+Prelude> print "foo" >> print "bar"
+"foo"
+"bar"
+	      </code></pre>
+	      <br>
+	      <small>The <code>do</code> notation is basically an interweaving of <code>>></code></small>
+	      <pre><code class="haskell">
+main = do
+  print "foo"
+  print "bar"
+	      </code></pre>
+
+	      <aside class="notes">All haskell code can be written without the do-notation.</aside>
+	  </section>
+
+	  <section data-state="soothe">
+	      <h3>Minimize <code>do</code> usage</h3>
+	      <p>Write this piece of code without using <code>do</code></p>
+	      <pre><code class="haskell">
+main = do
+  putStrLn "Enter name:"
+  name <- getLine
+  putStrLn ("Hi " + name)
+	      </code></pre>
+	      <br>
+	      <p class="fragment roll-in">Try it out by yourself</p>
+	      <br>
+	      <pre class="fragment roll-in"><code>
+main = putStrLn "Enter name:" >> getLine >>= putStrLn.("Hi " ++)
+	      </code></pre>
+
+	      <aside class="notes">Isn't that just surprisingly elegant?</aside>
+	  </section>
 
 	  <section>
 	      <h2>Monad Laws</h2>
@@ -374,7 +493,9 @@ return :: a -> m a
 	      </ul>
 	      <br>
 	      <br>
-	      <p class="fragment roll-in"><small>These laws are similar to those of Monoids.</small></p>
+	      <p class="fragment roll-in"><small>These laws are somewhat similar to those of Monoids.</small></p>
+
+	      <aside class="notes">Just like for Functors, Monads have their own laws.</aside>
 	  </section>
 
 	  <section>
@@ -437,6 +558,8 @@ do
 		  </tr>
 
               </table>
+
+	      <aside class="notes">This is just a translation of the Monad laws.</aside>
 	  </section>
 
 	  <section>
@@ -455,6 +578,8 @@ do
 		  <li><p>Associativity</p>
 		      <small><code>(f >=> g) >=> h</code>&nbsp;&nbsp; ≡ &nbsp;&nbsp;<code>f >=> (g >=> h)</code></small></li>
 	      </ul>
+
+	      <aside class="notes">Now the laws truly response their names.</aside>
 	  </section>
 
 	  <section>
@@ -462,7 +587,7 @@ do
 	      <p>These Monad laws form a mathematical <a href="http://en.wikipedia.org/wiki/Category_theory" target="_blank">category</a>.</p>
 	      <br>
 	      <div class="fragment roll-in">
-	      <q>All told, a <b>monad</b> in X is just a <b>monoid</b> in the category of <b>endofunctors</b> of X, with product × replaced by <b>composition of endofunctors</b> and <b>unit</b> set by the <b>identity endofunctor</b>.</q>
+	      <q>A <b>monad</b> in X is just a <b>monoid</b> in the category of <b>endofunctors</b> of X, with product × replaced by <b>composition of endofunctors</b> and <b>unit</b> set by the <b>identity endofunctor</b>.</q>
 	      <p><a href="http://books.google.com/books?id=MXboNPdTv7QC&pg=PA138&dq=%22a+monad+in+X+is+just+a%22+mac+lane&hl=en&sa=X&ei=f2c9UZeaFuam2gWnpoDIDw&ved=0CDAQ6AEwAA#v=onepage&q=%22a%20monad%20in%20X%20is%20just%20a%22%20mac%20lane&f=false" target="_blank">-- Mac Lane</a></p>
 	      </div>
 	      <br>
@@ -471,9 +596,27 @@ do
 	      <p><a href="http://blog.plover.com/prog/burritos.html" target="_blank">-- Mark Dominus</a></p>
 	      </div>
 
-	      
+	      <aside class="notes">Add this tutorial to the collection of Monad tutorials.</aside>
 	  </section>
 
+	  <section>
+	      <h1>Homework</h1>
+	      <h2></h2>
+	      <ol>
+		  <li>Fill out this <a href="https://docs.google.com/forms/d/18jRKwcSqo1fQxt5rwojAYFxdXR5jTO2l3zGd33RvhoQ/viewform" target="_blank">week's form</a></li>
+		  <li>Think about final project ideas.</li>
+		  <small>
+		  <ul>
+		      <li>Building a SuDoKu solver</li>
+		      <li>Building a personal finance software</li>
+		      <li>Adding a library to Hackage</li>
+		      <li>Using Haskell syntax as formal documentation</li>
+		      <li>...</li>
+		      <li>etc.</li>
+		  </ul>
+		  </small>
+	      </ol>
+	  </section>
 
 	</section>
       </div>

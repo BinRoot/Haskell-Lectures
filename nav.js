@@ -26,7 +26,7 @@ document.write('\
 			      <li><a href="lec06.html">6 - Maps, Folds, and Beyond</a></li>\
 			      <li><a href="lec07.html">7 - The Prolific Haskell Community</a></li>\
 			      <li><a href="lec08.html">8 - Input/Output</a></li>\
-                              <li class="disabled"><a href="#">9 - M.. M.. MONADS!</a></li>\
+			      <li><a href="lec09.html">9 - M.. M.. MONADS!</a></li>\
                               <li class="disabled"><a href="#">10 - Coming soon</a></li>\
                               <li class="disabled"><a href="#">11 - Coming soon</a></li>\
                               <li class="disabled"><a href="#">12 - Coming soon</a></li>\
