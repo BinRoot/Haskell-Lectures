@@ -100,7 +100,87 @@
 	  </section>
 
 	  <section>
-	      <h2>File Structure</h2>
+	      <h2>Good Coding Style</h2>
+	      <ul>
+		  <li>Follow the <a href="http://www.emacswiki.org/emacs/EightyColumnRule" target="_blank">80 column rule</a></li>
+		  <br>
+		  <li class="fragment roll-in">
+		      <p>Avoid too many parentheses</p>
+		      <ul>
+			  <li><a href="http://shuklan.com/haskell/lec06.html#/0/13" target="_blank">Use (<code>$</code>)</a></li>
+			  <li><a href="http://shuklan.com/haskell/lec08.html#/0/17" target="_blank">Use (<code>.</code>)</a></li>
+		      </ul>
+		  </li>
+		  <br>
+		  <li class="fragment roll-in">Use <code>{- -}</code> for large multi-lined comments</li>
+		  <br>
+		  <li class="fragment roll-in">Use <a href="http://learnyouahaskell.com/making-our-own-types-and-typeclasses" target="_blank">Type Synonyms</a> to make code readable</li>
+	      </ul>
+	  </section>
+
+	  <section>
+	      <h2>Point-Free Notation</h2>
+	      <p>Some functions can be written without variables</p>
+	      <table style="width:100%;">
+		  <tr>
+		      <td style="width:50%;">
+	      <pre><code>
+add a b = a + b
+	      </code></pre>
+		      </td>
+		      <td style="width:50%;">
+	      <pre><code>
+add = (+)
+	      </code></pre>
+		      </td>
+		  </tr>
+		  <tr><td>&nbsp;</td><td></td></tr>
+		  <tr>
+		      <td>
+	      <pre><code>
+f s = length (head (words s))
+	      </code></pre>
+		      </td>
+		      <td>
+	      <pre><code>
+f = length.head.words
+	      </code></pre>
+		      </td>
+		  </tr>
+	      </table>
+		  <br>
+		  <small>Compose functions (high level) rather than shuffle data (low level) <a href="http://www.haskell.org/haskellwiki/Pointfree" target="_blank">*</a></small>
+
+	  </section>
+	  
+	  <section data-state="soothe">
+	      <h3>Point-Free is <a href="http://www.thocp.net/biographies/papers/backus_turingaward_lecture.pdf" target="_blank">Exciting!</a></h3>
+	      <p>Convert this piece of code to point-free notation</p>
+	      <pre><code>
+f x = 5 + 8/x
+	      </code></pre>
+<small>
+	      <pre class="fragment roll-in"><code>
+f x = (+) 5 ( (/) 8 x)		      
+	      </code></pre>
+	      <pre class="fragment roll-in"><code>
+f x = ((+) 5) ( ((/) 8) x)
+	      </code></pre>
+	      <pre class="fragment roll-in"><code>
+f x = ((+) 5) . ( ((/) 8) ) x
+	      </code></pre>
+	      <pre class="fragment roll-in"><code>
+f = ((+) 5) . ( (/) 8 )
+	      </code></pre>
+	      <pre class="fragment roll-in"><code>
+f = (5+) . (8/)
+	      </code></pre>
+</small>
+	      <p><small><a href="http://stackoverflow.com/questions/8465575/simple-haskell-functions-in-point-free-style">(solution by Prateek)</a></small></p>
+	  </section>
+
+	  <section>
+	      <h2>Haskell File Structure</h2>
 	      <ul>
 		  <li>
 		      <p>/src</p>
@@ -283,6 +363,22 @@ main = do
 	    <br>
 	    <p class="fragment roll-in">Regardless, start using version control. Become a developer, not just a programmer.</p>
 	</section>
+
+
+	<section>
+	    <h1>Homework</h1>
+	    <h2>Learn from Others</h2>
+	    <ol>
+		<li>
+		    Fill out this week's form!
+		</li>
+		<li>
+		    <p>Find an interesting piece of Haskell code online and run it.</p>
+		    <p>Hint: <a target="_blank" href="https://github.com/languages/Haskell">Browse GitHub</a></p>
+		</li>
+	    </ol>
+
+	  </section>
 
 
 	</section>
