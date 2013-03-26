@@ -116,6 +116,8 @@
 		  <br>
 		  <li class="fragment roll-in">Use <a href="http://learnyouahaskell.com/making-our-own-types-and-typeclasses" target="_blank">Type Synonyms</a> to make code readable</li>
 	      </ul>
+
+	      <aside class="notes">Since there are often multiple ways to design an implementation in Haskell, focus on simplicity and readability.</aside>
 	  </section>
 
 	  <section>
@@ -150,7 +152,7 @@ f = length.head.words
 	      </table>
 		  <br>
 		  <small>Compose functions (high level) rather than shuffle data (low level) <a href="http://www.haskell.org/haskellwiki/Pointfree" target="_blank">*</a></small>
-
+		  <aside class="notes">Point-free is also called Point-less, but it is certainly not pointless. This notation emphasizes 'the what' rather than 'the how'.</aside>
 	  </section>
 	  
 	  <section data-state="soothe">
@@ -177,6 +179,8 @@ f = (5+) . (8/)
 	      </code></pre>
 </small>
 	      <p><small><a href="http://stackoverflow.com/questions/8465575/simple-haskell-functions-in-point-free-style">(solution by Prateek)</a></small></p>
+
+	      <aside class="notes">As you can see, point-free changes the way your think. The implementation of the function is now just a composition of other functions.</aside>
 	  </section>
 
 	  <section>
@@ -203,6 +207,8 @@ f = (5+) . (8/)
 		      <small>Software licence statement</small>
 		  </li>
 	      </ul>
+
+	      <aside class="notes">These are just convention.</aside>
 	  </section>
 	  
 	  <section>
@@ -218,6 +224,8 @@ main = do
   name <- getLine
   putStrLn ("Hi " ++ name)
 	      </code></pre>
+
+	      <aside class="notes">Although we could simply run this code through ghc, running more complicated code should be done another way (demonstrated in the following slides).</aside>
 	  </section>
 
 	  <section>
@@ -238,6 +246,8 @@ main = do
 	      <br>
 	      <br>
 	      <p><a href="https://github.com/CGenie/haskell-snake/blob/master/snake.cabal" target="_blank">Here's an example of a good cabal file</a></p>
+
+	      <aside class="notes">cabal is the main tool we will use. `cabal` comes with the Haskell-platform. If you're on a Debian based machine, just do 'sudo apt-get install cabal-install'.</aside>
 	  </section>
 
 	  <section>
@@ -261,6 +271,8 @@ executable MyProj
   build-depends:       base ==4.6.*
   hs-source-dirs:      src
 	      </code></pre>
+
+	      <aside class="notes">You'll need to define the Main.hs file containing the main function.</aside>
 	  </section>
 
 	  <section>
@@ -281,10 +293,12 @@ Installed MyProj-0.1.0.0
 	      </code></pre>
 
 	      <small>Your executable is ready in <code>~/.cabal/bin</code></small>
+
+	      <aside class="notes">We now have an executable file ready!</aside>
 	  </section>
 
 	  <section>
-	      <h2>Documentation</h2>
+	      <h2><a href="http://www.haskell.org/haddock/doc/html/markup.html#id564988" target="_blank">Documentation</a></h2>
 	      <p>Open up <code>Main.hs</code> and add some documentation</p>
 	      <pre><code>
 module Main where
@@ -298,6 +312,8 @@ main = do
 	      </code></pre>
 
 	      <p><code>-- |</code> is the syntax for documenting function type signature, type declaration, or class declaration</p>
+
+	      <aside class="notes">Sometimes the code speaks for itself, otherwise you should document the code.</aside>
 	  </section>
 
 	  <section>
@@ -308,6 +324,8 @@ main = do
 	      <p>Your documentation will be ready in dist/doc/html/MyProj/MyProj/<b>index.html</b></p>
 	      <br>
 	      <p class="fragment roll-in">Congratulations! Soon your documentation will look like <a href="http://hackage.haskell.org/package/hgeometry" target="_blank">this</a></p>
+
+	      <aside class="notes">It's similar to javadoc.</aside>
 	  </section>
 
 	  <section data-state="soothe">
@@ -338,10 +356,14 @@ main = do
 	      <br>
 	      <p>Don't forget to <a href="http://www.haskell.org/haddock/doc/html/markup.html#id564988" target="_blank">document</a> your code</p>
 
+
+	      <aside class="notes">Don't feel overwhelmed by the amount of files in your folder. The only files that really matter for you are in the /src folder.</aside>
 	  </section>
 	  
 	  <section>
 	      <h1><a href="https://github.com/BinRoot/PasswordStrength" target="_blank">Solution</a></h1>
+
+	      <aside class="notes">Here's an example.</aside>
 	  </section>
 	  
 	  <section>
@@ -350,6 +372,8 @@ main = do
 	      <br>
 	      <p>Check out this simple <a href="https://github.com/CGenie/haskell-snake" target="_blank">Snake game</a></p>
 	      <small>Download it. Run <code>cabal install</code> and play around with the code.</small>
+
+	      <aside class="notes">Notice how you can understand most of the source code. If fact you can strip out functions from the source code and use them in your own projects. Haskell's type system is your best friend.</aside>
 	  </section>
 
 
@@ -362,22 +386,22 @@ main = do
 	    <br>
 	    <br>
 	    <p class="fragment roll-in">Regardless, start using version control. Become a developer, not just a programmer.</p>
-	</section>
 
+	    <aside class="notes">Version controlling is not just useful for yourself to keep track of changes, but also irreplaceable for working with a team of programmers.</aside>
+	</section>
 
 	<section>
 	    <h1>Homework</h1>
 	    <h2>Learn from Others</h2>
 	    <ol>
 		<li>
-		    Fill out this week's form!
+		    <a href="https://docs.google.com/forms/d/1TbQaw-2r0Ow6wtn8_L8Mey4mcmWm0qO3Ylw1C_zQ2gA/viewform" target="_blank">Fill out this week's form!</a>
 		</li>
 		<li>
 		    <p>Find an interesting piece of Haskell code online and run it.</p>
 		    <p>Hint: <a target="_blank" href="https://github.com/languages/Haskell">Browse GitHub</a></p>
 		</li>
 	    </ol>
-
 	  </section>
 
 
