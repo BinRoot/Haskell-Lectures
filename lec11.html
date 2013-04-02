@@ -56,7 +56,6 @@
       <div class="slides">
 	<section>
 
-
           <section>
             <h1>Introduction To Haskell</h1>
             <p>Lecture 11</p>
@@ -102,6 +101,8 @@
 	  <section>
 	      <h2><a target="_blank" href="http://en.wikipedia.org/wiki/Web_framework">Web Framework</a></h2>
 	      <q>A web application framework is a software framework that is designed to support the development of <b>dynamic websites</b>, <b>web applications</b> and <b>web services</b>.</q>
+
+	      <aside class="notes">For example, reddit.com is not a static HTML file. There is some program running, called the web framework, to manage dynamic actions.</aside>
 	  </section>
 
 	  <section>
@@ -118,6 +119,8 @@
 		  <li><a href="http://snapframework.com/" target="_blank">Snap</a></li>
 		  <li><a href="http://www.happstack.com/" target="_blank">Happstack</a></li>
 	      </ul>
+
+	      <aside class="notes">There is no one right answer for picking a web framework.</aside>
 	  </section>
 
 	  <section>
@@ -127,8 +130,9 @@ $ cabal update
 $ cabal install snap
 	      </code></pre>
 	      <br>
-	      <p>Snap installs in <code>~/.cabal/bin</code></p>
+	      <p class="fragment roll-in">Snap installs in <code>~/.cabal/bin</code></p>
 	      <br>
+	      <div class="fragment roll-in">
 	      <small>Add that directory to your Path so you easily use <code>snap</code>.</small>
 	      <br>
 	      <small>On unix-like systems, you do this by editing <code>~/.bashrc</code></small>
@@ -137,8 +141,10 @@ $ cabal install snap
 # naturally, change "binroot" to your username
 
 PATH=$PATH:/home/binroot/.cabal/bin
-
 	      </code></pre>
+	      </div>
+	      
+	      <aside class="notes">If you don't set the PATH properly, you will need to refer to the full path every time.</aside>
 	  </section>
 
 	  <section>
@@ -154,6 +160,8 @@ $ snap init barebones
 		  <p>We now have two folders and a .cabal file</p>
 		  <img src="L11_files/snapls.png">
 	      </div>
+
+	      <aside class="notes">`snap init barebones` sets up a very simple HTTP framework.</aside>
 	  </section>
 
 	  <section>
@@ -165,6 +173,8 @@ cabal install
 	      </code></pre>
 	      <br>
 	      <p>Your project installs in <code>~/.cabal/bin</code></p>
+	      
+	      <aside class="notes">You now have an executable ready to run.</aside>
 	  </section>
 
 	  <section>
@@ -177,6 +187,8 @@ $ myWebsite
 	      <br>
 	      <p>Open up your web browser and go to <code>localhost:8000</code> to see your website!</p>
 	      <small class="fragment roll-in">(You can change the port by running <code>myWebsite -p 1234</code>)</small>
+	      
+	      <aside class="notes">Thats it! As long as you keep this running, the site will remain active.</aside>
 	  </section>
 	  
 	  <section>
@@ -199,6 +211,8 @@ site =
 		  <li><font color="gray">http://</font>localhost:8000<b>/echo/hi</b></li>
 		  <li><font color="gray">http://</font>localhost:8000/<b>blah</b></li>
 	      </ul>
+
+	      <aside class="notes">Notice the code is in pure haskell.</aside>
 	  </section>
 
 	  <section>
@@ -214,6 +228,8 @@ site =
 		  <br>
 		  <li class="fragment roll-in">Otherwise, display a 404 error page</li>
 	      </ul>
+
+	      <aside class="notes">You can programatically define your own endpoints using just Haskell.</aside>
 	  </section>
 
 	  <section>
@@ -233,6 +249,8 @@ site =
 	      <br>
 	      <p><code>route</code> is an effecient mapping of endpoint to action</p>
 	      <small>It's run-time is O(ln n)</small>
+
+	      <aside class="notes">This is simply Haskell code. Nothing new.</aside>
 	  </section>
 
 	  <section>
@@ -249,6 +267,8 @@ $ cd myRealWebsite
 $ snap init
 	      </code></pre>
 	      <img src="L11_files/snapls2.png">
+
+	      <aside class="notes">Now you have a rich featured sample website set up.</aside>
 	  </section>
 
 	  <section>
@@ -261,6 +281,8 @@ $ myRealWebsite
 	      </code></pre>
 	      <br>
 	      <p>Explore your website at <code>localhost:8000</code></p>
+
+	      <aside class="notes">Again, go through the same steps of compiling it.</aside>
 	  </section>
 
 	  <section>
@@ -269,9 +291,11 @@ $ myRealWebsite
 	      <p><small><p>Find <code>base.tpl</code> in <code>myRealWebsite/snaplets/heist/templates/</code></p></small></p>
 	      <img src="L11_files/heist.png">
 	      <p><small>You can see how this file is a "template", and <code>&lt;apply-content/&gt;</code> substitutes in for something else.</small></p>
+
+	      <aside class="notes">Templating is a fundamental feature of most web frameworks. It allows generalizing layout structure to many pages.</aside>
 	  </section>
 
-	  <section>
+	  <section data-state="soothe">
 	      <h3>Snap Programming</h3>
 	      <p>All code lives in the <code>src/</code> folder.</p>
 	      <br>
@@ -279,6 +303,8 @@ $ myRealWebsite
 	      <br>
 	      
 	      <h3 class="fragment roll-in"><p>Play around with Snap.</p> <p>Make an endpoint <code>/fac/:num</code> that returns the factorial of the <code>:num</code>.</p></h3>
+
+	      <aside class="notes">Try it yourself.</aside>
 	  </section>
 	  
 	  <section>
@@ -288,6 +314,8 @@ $ myRealWebsite
 	      <p>XMonad is a window manager that tiles windows automatically</p>
 	      <br>
 	      <small>(And it's written in Haskell!)</small>
+
+	      <aside class="notes">I'm using xmonad right now w/ Gnome 3, and I highly advise it.</aside>
 	  </section>
 
 	  <section>
@@ -295,6 +323,8 @@ $ myRealWebsite
 	      <p><a href="https://twitter.com/xmonad" target="_blank"> Check out what people are saying</a></p>
 	      <br>
 	      <p><a href="http://www.haskell.org/haskellwiki/Xmonad/Screenshots" target="_blank">See some screenshots</a></p>
+	      
+	      <aside class="notes">If you don't believe me, look at these reviews!</aside>
 	  </section>
 
 	  <section>
@@ -305,13 +335,15 @@ $ myRealWebsite
 
 	      <h3><a href="https://gist.github.com/BinRoot/5148466" target="_blank">Here is mine</a></h3>
 	      
+	      <aside class="notes"></aside>
 	  </section>
 
           <section>
 	    <h1>Homework</h1>
 	    <h2>Haskell in the Wild</h2>
 	    <ul>
-	      <li>Use Snap, XMonad, or find a program written in Haskell in the real world.</li>
+	      <li>Use Snap, XMonad, or find a program written in Haskell and start using it.</li>
+	      <li><a href="https://docs.google.com/forms/d/1yXYnwnSWh3qUdRFWLIRSaHTr80eaED0rDuEYGh19cxQ/viewform" target="_blank">Fill out this week's form.</a></li>
 	    </ul>
 	  </section>
 
