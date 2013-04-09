@@ -29,7 +29,7 @@ document.write('\
 			      <li><a href="lec09.html">9 - M.. M.. MONADS!</a></li>\
 			      <li><a href="lec10.html">10 - Haskell Development Methods</a></li>\
 			      <li><a href="lec11.html">11 - Haskell in the Real World</a></li>\
-                              <li class="disabled"><a href="#">12 - Coming soon</a></li>\
+			      <li><a href="lec12.html">12 - Category Theory</a></li>\
 			    </ul>\
 			  </div>\
 			</li>\
